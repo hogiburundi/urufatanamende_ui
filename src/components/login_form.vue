@@ -52,7 +52,11 @@ export default {
 <style scoped>
 .content{
   background: rgb(41,49,80);
-  background: radial-gradient(circle, rgba(41,49,80,1) 0%, rgba(5,157,187,1) 40%, rgba(5,157,187,1) 59%, rgba(41,49,80,1) 100%);
+  background: radial-gradient(circle,
+    rgba(41,49,80,1) 0%,
+    rgba(5,157,187,1) 40%,
+    rgba(5,157,187,1) 59%,
+    rgba(41,49,80,1) 100%);
   height: 100%;
   padding-top: 100px;
 }

@@ -6,15 +6,13 @@ import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
-  faCheck, faTimes, faUsers, faSignOutAlt, faSearch, faUnlock, 
-  faPen, faShoppingCart, faBox, faBoxOpen, faChartBar,
-  faHandHoldingUsd, faTrashAlt, faPlus, faListAlt, faEye, faEyeSlash
+  faPen, faShoppingCart, faBox, faBoxOpen, faChartBar, faUser,
+  faBars, faSortDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add({
-  faCheck, faTimes, faUsers, faSignOutAlt, faSearch, faUnlock, 
-  faPen, faShoppingCart, faBox, faBoxOpen,  faChartBar,
-  faHandHoldingUsd, faTrashAlt, faPlus, faListAlt, faEye, faEyeSlash
+  faPen, faShoppingCart, faBox, faBoxOpen,  faChartBar, faUser,
+  faBars, faSortDown,
 })
 
 Vue.component('fa', FontAwesomeIcon)

@@ -14,6 +14,9 @@
 .body{
     height: 100vh;
 }
+.logged-in{
+    height: 100%;
+}
 input[type=text], input[type=password]{
     padding: 5px 15px;
 }

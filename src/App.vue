@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <div v-if="!!active_user">
+    <div class="logged-in" v-if="!!active_user">
       <Menus/>
       <TopBar/>
     	<router-view/>
