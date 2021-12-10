@@ -1,0 +1,13 @@
+@charset "UTF-8";
+:root {
+    --sans-serif: "Segoe UI", "Helvetica Neue", "Noto Sans", sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --primary: #932;
+}
+*{
+    box-sizing: border-box;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    outline:0;
+    font-family: var(--sans-serif);
+}
