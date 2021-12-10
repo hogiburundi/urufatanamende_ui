@@ -1,9 +1,9 @@
 <template>
   <div class="content">
-    <center>
-      <img width="250" src="/static/logo.jpg" class="centerv">
-    </center>
     <form @submit.prevent="login">
+      <div class="img">
+        <img width="80" src="/static/logo.png">
+      </div>
       <h1>Bienvenue</h1>
       <div class="field">
         <label for="username">Nom d'utilisateur:</label>
@@ -29,72 +29,66 @@ export default {
   },
   methods:{
     login(){
-      this.logs = ""
-      axios.post(this.url+"/login/", 
-        {"username": this.username, "password":this.password}
-      ).then((response) => {
-        this.$store.state.user = response.data
-        this.$store.state.notification = {
-          type:"success", message:"Bienvenue"
-        }
-      }).catch((error) => {
-        this.logs = error.response.data
-      })
+
+      this.$store.state.user = {
+        username:this.username,
+      }
+      // this.logs = ""
+      // axios.post(this.url+"/login/", 
+      //   {"username": this.username, "password":this.password}
+      // ).then((response) => {
+      //   this.$store.state.user = response.data
+      //   this.$store.state.notification = {
+      //     type:"success", message:"Bienvenue"
+      //   }
+      // }).catch((error) => {
+      //   this.logs = error.response.data
+      // })
     }
   }
 };
 </script>
 
 <style scoped>
-
 .content{
+  background: rgb(41,49,80);
+  background: radial-gradient(circle, rgba(41,49,80,1) 0%, rgba(5,157,187,1) 40%, rgba(5,157,187,1) 59%, rgba(41,49,80,1) 100%);
+  height: 100%;
+  padding-top: 100px;
+}
+.img{
   background-color: white;
-  width: 500px;
-  margin: 100px auto;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  margin: auto;
+  margin-top: -60px;
+  border: 2px solid black;
+}
+.img img{
+  margin: 10px;
+}
+form{
+  border: 2px solid black;
+  width: 300px;
   padding: 10px;
-  border: 2px solid var(--primary);
+  margin: auto;
+  background-color: #fff5;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
-h1{
-  text-align: center;
-}
-img{
-  max-width: 200px;
+form input{
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
 }
 button{
   width: 100%;
-  margin: 10px 0;
-  height: 35px;
+  margin: 20px 0 10px 0;
 }
-.content{
-  display: flex;
-  box-shadow: 3px 3px 10px var(--primary);
-  border-radius: 5px;
-}
-form{
-  margin-left: 15px;
-  width: 300px;
-}
-center{
-  position: relative;
-}
-.centerv{
-  position: relative;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-@media only screen and (max-width: 510px) {
-  .content{
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-  }
-  form{
-    width: 100%;
-    margin-left: 0;
-  }
-  .centerv{
-    top: 0;
-    transform: translate(0, 0);
-  }
+h1{
+  text-align: center;
+  margin: 20px 0;
 }
 </style>
