@@ -7,7 +7,7 @@
 			<b>{{ icegeranyo.value }}</b>
 		</div>
 	</div>
-	<div class="right">
+	<div>
 		<fa icon="bars"/>
 	</div>
 </div>

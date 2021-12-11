@@ -36,7 +36,16 @@
 					<option>1 jour</option>
 					<option>imprimer</option>
 				</select>
-				<h3>Ecoulement stock</h3>
+				<div class="content">
+					<div class="pie">
+						<div class="percent">55%</div>
+					</div>
+					<div class="legend">
+						<b>Ecoulement stock</b>
+						<div>45% stock restant</div>
+						<div>55% ventes</div>
+					</div>
+				</div>
 			</div>
 			<div class="bottom">
 				<select >
@@ -45,7 +54,14 @@
 					<option>1 jour</option>
 					<option>imprimer</option>
 				</select>
-				<h3>Clients</h3>
+				<div class="content">
+					<fa class="icon" icon="smile-wink"/>
+					<div class="legend">
+						<b>Ecoulement stock</b>
+						<div>45% stock restant</div>
+						<div>55% ventes</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -107,6 +123,7 @@ select{
 }
 td{
 	padding-right: 10px;
+	white-space: nowrap;
 }
 .table{
 	margin-top: 10px;
@@ -114,5 +131,40 @@ td{
 	width: 100%;
 	height: calc(100% - 35px);
 	overflow: auto;
+}
+.content{
+	margin-top:  20px;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+}
+.pie {
+	width: 60px;
+	min-width: 60px;
+	height: 60px;
+	background-image: conic-gradient(#aaa 55%, #777 45%);
+	border-radius: 50%;
+	display: flex ;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid black;
+	margin: 10px;
+}
+.pie div{
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex ;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid black;
+}
+.legend div{
+	font-size: .7em;
+}
+.content .icon{
+	font-size: 4em;
+	margin: 10px;
 }
 </style>
