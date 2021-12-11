@@ -58,7 +58,7 @@ export default{
 <style scoped>
 .menus{
 	background-color: white;
-	width: 200px;
+	min-width: 200px;
 	height: 100%;
 	box-shadow: 0 0 5px;
 	padding-top: 10px;

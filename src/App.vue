@@ -2,8 +2,10 @@
   <div class="body">
     <div class="logged-in" v-if="!!active_user">
       <Menus/>
-      <TopBar/>
-    	<router-view/>
+      <div class="right">
+        <TopBar/>
+        <router-view/>
+      </div>
     </div>
     <LoginForm v-else/>
   </div>

@@ -16,7 +16,6 @@ export default{
 <style scoped>
 .topbar{
 	box-shadow: 2px 0 5px;
-	height: 50px;
 	flex-grow: 1;
 	display: flex;
 	justify-content: flex-end;
@@ -25,6 +24,7 @@ export default{
 .menu{
 	padding: 10px 15px;
 	position: relative;
+	font-size: 1.3em;
 }
 .menu *{
 	display: inline-block;
@@ -36,11 +36,13 @@ export default{
 	border: 1px solid black;
 	border-radius: 50%;
 	padding: 0 2px;
+	min-width: 17px;
+	text-align: center;
 	font-size: .6em;
 	font-weight: 800;
 	position: absolute;
 	background-color: white;
 	top: 5px;
-	left: 20px;
+	left: 25px;
 }
 </style>
