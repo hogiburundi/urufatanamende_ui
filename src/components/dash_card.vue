@@ -4,7 +4,7 @@
 		<fa class="icon" :icon="icegeranyo.icon"/>
 		<div class="descr">
 			<div>{{ icegeranyo.text }}</div>
-			<h3>{{ icegeranyo.value }}</h3>
+			<b>{{ icegeranyo.value }}</b>
 		</div>
 	</div>
 	<div class="right">
@@ -32,7 +32,7 @@ export default{
 	font-size: 1.7em;
 	margin: 5px;
 }
-h3{
+b{
 	white-space: nowrap;
 }
 </style>
