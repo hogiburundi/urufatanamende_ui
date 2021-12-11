@@ -7,13 +7,13 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faShoppingCart, faBox, faBoxOpen, faChartBar, faUser, faBars,
-  faSortDown, faExclamationTriangle, faTachometerAlt,
+  faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
   faLongArrowAltRight
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add({
   faShoppingCart, faBox, faBoxOpen,  faChartBar, faUser, faBars,
-  faSortDown, faExclamationTriangle, faTachometerAlt,
+  faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
   faLongArrowAltRight
 })
 

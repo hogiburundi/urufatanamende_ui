@@ -16,6 +16,7 @@
 }
 .logged-in{
     height: 100%;
+    display: flex;
 }
 input[type=text], input[type=password]{
     padding: 5px 15px;
