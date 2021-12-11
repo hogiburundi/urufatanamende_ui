@@ -1,7 +1,7 @@
 <template>
 <div class="menus">
 	<div class="kiosk">
-		<fa class="bars" icon="bars"/>
+		<fa class="img" icon="bars"/>
 		<div class="name">Alimentation UMUCO</div>
 		<fa class="arrow" icon="sort-down"/>
 	</div>
@@ -14,6 +14,40 @@
 			<div class="username">Moise NTIRAMPEBA</div>
 		</div>
 		<fa class="arrow" icon="sort-down"/>
+	</div>
+	<div class="submenus">
+		<fa class="img" icon="tachometer-alt"/>
+		<div class="name">Accueil</div>
+	</div>
+	<div class="submenus">
+		<fa class="img" icon="chart-bar"/>
+		<div>
+			<div class="name">Statistiques</div>
+			<div class="element">
+				<fa class="img" icon="long-arrow-alt-right"/>
+				<div>Vente</div>
+			</div>
+			<div class="element">
+				<fa class="img" icon="long-arrow-alt-right"/>
+				<div>Dettes</div>
+			</div>
+			<div class="element">
+				<fa class="img" icon="long-arrow-alt-right"/>
+				<div>Paiements</div>
+			</div>
+			<div class="element">
+				<fa class="img" icon="long-arrow-alt-right"/>
+				<div>Clientèle</div>
+			</div>
+		</div>
+	</div>
+	<div class="submenus">
+		<fa class="img" icon="box"/>
+		<div class="name">Stock</div>
+	</div>
+	<div class="submenus">
+		<fa class="img" icon="exclamation-triangle"/>
+		<div class="name">Pertes</div>
 	</div>
 </div>
 </template>
@@ -29,13 +63,20 @@ export default{
 	box-shadow: 0 0 5px;
 	padding-top: 10px;
 }
+.menus > div{
+	margin-bottom: 15px;
+}
 .kiosk, .user{
 	display: flex;
 	align-items: center;
 	justify-content: sp;
 	margin-top: 10px;
 }
-.img{
+.submenus{
+	display: flex;
+	align-items: flex-start;
+}
+.user .img{
 	background-color: var(--primary);
 	color: white;
 	width: 40px;
@@ -47,8 +88,8 @@ export default{
 	overflow: hidden;
 	margin: 5px;
 }
-.bars{
-	margin: 5px 5px 5px 10px;
+.img{
+	margin: 0 10px;
 }
 .user{
 	font-size: .7em;
@@ -61,5 +102,8 @@ export default{
 }
 .arrow{
 	font-size: 20px;
+}
+.element{
+	display: flex;
 }
 </style>
