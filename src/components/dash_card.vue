@@ -1,10 +1,10 @@
 <template>
 <div class="dash-card">
 	<div class="left">
-		<fa class="icon" icon="shopping-cart"/>
+		<fa class="icon" :icon="icegeranyo.icon"/>
 		<div class="descr">
-			<div>Interêts</div>
-			<h3>2 000 547</h3>
+			<div>{{ icegeranyo.text }}</div>
+			<h3>{{ icegeranyo.value }}</h3>
 		</div>
 	</div>
 	<div class="right">
@@ -14,6 +14,7 @@
 </template>
 <script>
 export default{
+	props:["icegeranyo"]
 };
 </script>
 <style scoped>

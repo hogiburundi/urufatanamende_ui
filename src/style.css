@@ -19,7 +19,8 @@
     display: flex;
 }
 .right{
-    width: 100%;
+    width: calc(100% - 200px);
+    overflow: hidden;
 }
 input[type=text], input[type=password]{
     padding: 5px 15px;
