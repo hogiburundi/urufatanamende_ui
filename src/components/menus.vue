@@ -11,7 +11,7 @@
 			<div>Pharmacie AJENITEKA</div>
 			<div>Modifier</div>
 			<div>Supprimer</div>
-			<div @click="$router.push('/magasin')">
+			<div @click="$router.push('/magasin').catch(()=>{})">
 				Ajouter Magasin
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 		</div>
 		<ContextMenu/>
 	</div>
-	<div class="submenus clickable" @click="$router.push('/')">
+	<div class="submenus clickable" @click="$router.push('/').catch(()=>{})">
 		<fa class="img" icon="tachometer-alt"/>
 		<div class="name">Accueil</div>
 	</div>

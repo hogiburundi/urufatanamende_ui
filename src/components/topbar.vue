@@ -45,10 +45,10 @@ export default{
 	},
 	methods:{
 		openNotif(id){
-			this.$router.push(`/notifs/${id}`)
+			this.$router.push(`/notifs/${id}`).catch(()=>{})
 		},
 		openAllNotifs(){
-			this.$router.push("/notifs")
+			this.$router.push("/notifs").catch(()=>{})
 		},
 		markAllAsRead(){
 		}

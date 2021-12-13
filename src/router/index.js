@@ -13,7 +13,7 @@ const routes = [
   { path: '/magasin', name: 'Magasin', component: Magasin},
   { path: '/user', name: 'User', component: User},
   { path: '/notifs', name: 'Notifications', component: Notifications},
-  { path: '/notif/:id', name: 'Notification', component: Notification},
+  { path: '/notifs/:id', name: 'Notification', component: Notification},
 ]
 
 const router = new VueRouter({

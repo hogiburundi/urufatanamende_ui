@@ -16,15 +16,15 @@
 		<button>Appliquer</button>
 	</div>
 	<div>
-		<div v-for="notif, i in notifs" class="tab">
+		<div v-for="notif, i in notifs" class="tab" @click="openNotif(i)">
 			<div>
-				<input type="checkbox" :id="`id${i}`" name="">
+				<input type="checkbox" @click.stop :id="`id${i}`" name="">
 			</div>
 			<div>
-				<label :for="`id${i}`">{{ notif.text }}</label>
+				{{ notif.text }}</label>
 			</div>
 			<div class="left">
-				<label :for="`id${i}`">{{ datetime(notif.date) }}</label>
+				{{ datetime(notif.date) }}</label>
 			</div>
 		</div>
 	</div>
@@ -35,12 +35,29 @@ export default{
 	data(){
 		return {
 			notifs:[
-				{text:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor",date:new Date()},
-				{text:"in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat", date:new Date()},
-				{text:"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", date:new Date()},
-				{text:"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit", date:new Date()}
+				{
+					text:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor",
+					date:new Date()
+				},
+				{
+					text:"in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat",
+					date:new Date()
+				},
+				{
+					text:"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+					date:new Date()
+				},
+				{
+					text:"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit",
+					date:new Date()
+				}
 			]
 		}
+	},
+	methods:{
+		openNotif(id){
+			this.$router.push(`/notifs/${id}`).catch(()=>{})
+		},
 	}
 };
 </script>
