@@ -1,11 +1,28 @@
 <template>
 <div class="topbar">
 	<div class="menu">
-		<fa icon="bell"/>
-		<div class="bubble">5</div>
+		<div>
+			<fa icon="bell"/>
+			<div class="bubble">5</div>	
+		</div>
+		<div class="contextmenu notifs">
+			<div class="title">
+				<div class="u">tout lire</div>
+				<h4>Notifications</h4>
+			</div>
+			<div class="notif">consectetur adipisicing</div>
+			<div class="notif">adipisicing elit, sed do</div>
+			<div class="notif">aliqua. Ut enim ad minim</div>
+			<div class="notif">incididunt ut labore et</div>
+			<div class="notif">Ut enim ad minim veniam,</div>
+			<div class="notif">labore et dolore magna</div>
+			<center>
+				<span class="u">tout voir</span>
+			</center>
+		</div>
 	</div>
 	<div class="menu">
-		<div class="rich">
+		<div>
 			<fa icon="user"/>
 		</div>
 		<ContextMenu/>
@@ -60,5 +77,35 @@ export default{
 }
 .menu:hover .contextmenu{
 	display: block!important;
+}
+.notifs{
+	width: 200px;
+	right:-40px;
+}
+.notifs *{
+	display: block;
+}
+.notifs *:hover{
+	background-color: #fff0;
+}
+.notif:hover{
+	background-color: #f5f5f5;
+	border-bottom: 2px solid #eee;
+}
+.notif{
+	border-bottom: 2px solid #eee;
+}
+.title{
+	position: relative;
+}
+.u{
+	text-decoration: underline!important;
+}
+.title .u{
+	position: absolute;
+	right: 5px;
+}
+.u, .notif{
+	cursor: pointer;
 }
 </style>
