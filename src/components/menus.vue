@@ -9,7 +9,9 @@
 		<div class="contextmenu" style="width: 200px;">
 			<div>BIMBO Super Market</div>
 			<div>Pharmacie AJENITEKA</div>
-			<div>Ajouter magasin</div>
+			<div @click="$router.push('/magasin')">
+				Ajouter magasin
+			</div>
 		</div>
 	</div>
 	<div class="select">	
@@ -25,7 +27,7 @@
 		</div>
 		<ContextMenu/>
 	</div>
-	<div class="submenus clickable">
+	<div class="submenus clickable" @click="$router.push('/')">
 		<fa class="img" icon="tachometer-alt"/>
 		<div class="name">Accueil</div>
 	</div>
