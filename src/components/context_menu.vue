@@ -11,18 +11,4 @@ export default{
 };
 </script>
 <style scoped>
-.contextmenu{
-	position: absolute;
-	z-index: 3;
-	width: 150px;
-	box-shadow: 2px 2px 5px;
-	border: 1px solid #ddd5;
-	background-color: white;
-}
-.contextmenu > div{
-	padding: 3px 10px;
-}
-.contextmenu > div:hover{
-	background-color: cadetblue;
-}
 </style>

@@ -1,11 +1,18 @@
 <template>
 <div class="menus">
-	<div class="kiosk">
-		<fa class="img" icon="bars"/>
-		<div class="name">Alimentation UMUCO</div>
-		<fa class="arrow" icon="sort-down"/>
+	<div class="select">
+		<div class="kiosk">
+			<fa class="img" icon="bars"/>
+			<div class="name">Alimentation UMUCO</div>
+			<fa class="arrow" icon="sort-down"/>
+		</div>
+		<div class="contextmenu" style="width: 200px;">
+			<div>BIMBO Super Market</div>
+			<div>Pharmacie AJENITEKA</div>
+			<div>Ajouter magasin</div>
+		</div>
 	</div>
-	<div class="profile">	
+	<div class="select">	
 		<div class="user">
 			<div class="img">
 				<fa icon="user"/>
@@ -121,7 +128,7 @@ export default{
 	left: 20px;
 	display: none;
 }
-.profile:hover .contextmenu{
+.select:hover .contextmenu{
 	display: block;
 }
 </style>
