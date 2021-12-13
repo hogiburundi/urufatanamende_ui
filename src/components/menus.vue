@@ -9,8 +9,10 @@
 		<div class="contextmenu" style="width: 200px;">
 			<div>BIMBO Super Market</div>
 			<div>Pharmacie AJENITEKA</div>
+			<div>Modifier</div>
+			<div>Supprimer</div>
 			<div @click="$router.push('/magasin')">
-				Ajouter magasin
+				Ajouter Magasin
 			</div>
 		</div>
 	</div>

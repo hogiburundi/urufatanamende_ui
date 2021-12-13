@@ -23,7 +23,7 @@
     width: calc(100% - 200px);
     overflow: hidden;
 }
-input[type=text], input[type=password]{
+input[type=text], input[type=password], select{
     padding: 5px 15px;
 }
 input[type=submit], button{
@@ -45,4 +45,58 @@ input[type=submit], button{
 }
 .contextmenu > div:hover{
     background-color: cadetblue;
+}
+
+table{
+  width: calc(100% - 15px);
+  text-align: left;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+.table{
+  height: calc(100vh - 70px);
+  max-width: 100%;
+  overflow: auto;
+}
+tfoot{
+    bottom: -1px;
+}
+thead{
+    top: 0px;
+}
+thead, tfoot{
+    position: sticky;
+}
+thead th, tfoot tr{
+    position: sticky;
+    background-color: var(--background-color);
+}
+th{
+    padding: 10px 5px;
+    text-align: center;
+}
+tr{
+    background-color: #fafafa;
+    border-bottom: 1px solid #aaa;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+tr:hover{
+    background-color: #eee;
+}
+td{
+    padding-left: 5px;
+    overflow: hidden;
+    height: 41px;
+}
+table .right{
+    text-align: right!important;
+}
+table .left{
+    text-align: left!important;
+}
+table button{
+    font-size: .9em;
+    margin-right: 5px;
 }

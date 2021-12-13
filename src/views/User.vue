@@ -1,7 +1,7 @@
 <template>
 <div class="magasin">
-	<h2>Ajouter Utilisateur</h2>
-	<div>Cet utilisateur pourra se connecter et utiliser le logiciel</div>
+	<h2>Gestion des Utilisateurs</h2>
+	<h2>Gestion des Utilisateurs</h2>
 	<form @submit.prevent>
 		<div class="field">
 			<label for="username">Nom d'utilisateur</label>
@@ -25,15 +25,39 @@
 		</div>
 		<div class="field">
 			<label for="role">Rôle</label>
-			<div>
-				<select id="role">
-					<option>Vendeur</option>
-					<option>Gerant</option>
-				</select>
-				<button>Enregister</button>
-			</div>
+			<select id="role">
+				<option>Vendeur</option>
+				<option>Gerant</option>
+			</select>
 		</div>
+		<button type="reset">Reset</button>
+		<button>Enregister</button>
 	</form>
+	<table>
+		<thead>
+			<tr>
+				<th>username</th>
+				<th>nom</th>
+				<th>prenom</th>
+				<th>telephone</th>
+				<th>Role</th>
+				<th>option</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="i in 3">
+				<td>konstrictor</td>
+				<td>NKURUNZIZA</td>
+				<td>Jonathan</td>
+				<td>75 96 06 96</td>
+				<td>Vendeur</td>
+				<td>
+					<button>modifier</button>
+					<button>supprimer</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 </template>
 <script>
@@ -46,26 +70,18 @@ export default{
 	margin: 20px;
 }
 form{
-	display: table;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-end;
 }
-.field{
-	display: table-row;
+.field, form button{
+	margin: 5px;
 }
 .field *{
-	display: table-cell;
-	margin: 10px 0;
+	display: block;
 }
-label{
-	padding-right: 10px;
-}
-button, input, select{
-	display: block!important;
+table{
 	width: 100%;
-}
-.photo{
-	width: 100px;
-	height: 100px;
-	margin: auto;
-	border: 2px solid black;
 }
 </style>
