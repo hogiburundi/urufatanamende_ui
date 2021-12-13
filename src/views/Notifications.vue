@@ -1,28 +1,28 @@
 <template>
-<div class="magasin">
-	<h2>Notifications</h2>
+<div class="notifs">
+	<div class="title">
+		<h2>Notifications</h2>
+		<div class="sv">
+			<fa icon="search"/>
+			<input type="text" placeholder="search">
+		</div>
+	</div>
+	<div class="actions">
+		<select>
+			<option>Supprimer</option>
+			<option>Marquer comme lu</option>
+			<option>Tout Marquer comme lu</option>
+		</select>
+		<button>Appliquer</button>
+	</div>
 	<table>
-		<thead>
-			<tr>
-				<th>username</th>
-				<th>nom</th>
-				<th>prenom</th>
-				<th>telephone</th>
-				<th>Role</th>
-				<th>option</th>
-			</tr>
-		</thead>
 		<tbody>
-			<tr v-for="i in 3">
-				<td>inganzamarumpu</td>
-				<td>NKURUNZIZA</td>
-				<td>Jonathan</td>
-				<td>75 96 06 96</td>
-				<td>Vendeur</td>
+			<tr v-for="notif, i in notifs">
 				<td>
-					<button>modifier</button>
-					<button>supprimer</button>
+					<input type="checkbox" :id="`id${i}`" name="">
 				</td>
+				<td><label :for="`id${i}`">{{ notif.text }}</label></td>
+				<td><label :for="`id${i}`">{{ datetime(notif.date) }}</label></td>
 			</tr>
 		</tbody>
 	</table>
@@ -30,26 +30,28 @@
 </template>
 <script>
 export default{
-
+	data(){
+		return {
+			notifs:[
+				{text:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor",date:new Date()},
+				{text:"in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat", date:new Date()},
+				{text:"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", date:new Date()},
+				{text:"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit", date:new Date()}
+			]
+		}
+	}
 };
 </script>
 <style scoped>
-.magasin{
+.notifs{
 	margin: 20px;
 }
-form{
+.title{
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: flex-end;
+	justify-content: space-between;
 }
-.field, form button{
-	margin: 5px;
-}
-.field *{
-	display: block;
-}
-table{
-	width: 100%;
+.actions *{
+	display: inline-block;
+	margin: 20px 10px 10px 0 ;
 }
 </style>

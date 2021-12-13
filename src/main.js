@@ -8,13 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faShoppingCart, faBox, faBoxOpen, faChartBar, faUser, faBars,
   faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
-  faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink
+  faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add({
   faShoppingCart, faBox, faBoxOpen,  faChartBar, faUser, faBars,
   faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
-  faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink
+  faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
+  faSearch
 })
 
 Vue.component('fa', FontAwesomeIcon)
