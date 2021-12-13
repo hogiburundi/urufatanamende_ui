@@ -57,9 +57,9 @@
 				<div class="content">
 					<fa class="icon" icon="smile-wink"/>
 					<div class="legend">
-						<b>Ecoulement stock</b>
-						<div>45% stock restant</div>
-						<div>55% ventes</div>
+						<b>Clients</b>
+						<div>15, 489</div>
+						<div>40% d'augmentation</div>
 					</div>
 				</div>
 			</div>
@@ -158,7 +158,9 @@ td{
 	display: flex ;
 	justify-content: center;
 	align-items: center;
-	border: 2px solid black;
+	border: 1px solid black;
+	font-size: .8em;
+	font-weight: 700;
 }
 .legend div{
 	font-size: .7em;

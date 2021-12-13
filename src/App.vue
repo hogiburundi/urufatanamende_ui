@@ -4,6 +4,7 @@
       <Menus/>
       <div class="right">
         <TopBar/>
+        <ContextMenu/>
         <router-view/>
       </div>
     </div>
@@ -14,9 +15,10 @@
 import LoginForm from "./components/login_form"
 import Menus from "./components/menus"
 import TopBar from "./components/topbar"
+import ContextMenu from "./components/context_menu"
 export default {
   components: {
-  	LoginForm, Menus, TopBar
+  	LoginForm, Menus, TopBar, ContextMenu
   },
   watch:{
     // "$store.state.user":{

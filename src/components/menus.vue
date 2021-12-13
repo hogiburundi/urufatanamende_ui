@@ -15,7 +15,7 @@
 		</div>
 		<fa class="arrow" icon="sort-down"/>
 	</div>
-	<div class="submenus">
+	<div class="submenus clickable">
 		<fa class="img" icon="tachometer-alt"/>
 		<div class="name">Accueil</div>
 	</div>
@@ -41,11 +41,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="submenus">
+	<div class="submenus clickable">
 		<fa class="img" icon="box"/>
 		<div class="name">Stock</div>
 	</div>
-	<div class="submenus">
+	<div class="submenus clickable">
 		<fa class="img" icon="exclamation-triangle"/>
 		<div class="name">Pertes</div>
 	</div>
@@ -64,7 +64,7 @@ export default{
 	padding-top: 10px;
 }
 .menus > div{
-	margin-bottom: 15px;
+	padding: 5px 0;
 }
 .kiosk, .user{
 	display: flex;
@@ -105,5 +105,9 @@ export default{
 }
 .element{
 	display: flex;
+	align-items: center;
+}
+.element:hover, .clickable:hover{
+	background-color: cadetblue;
 }
 </style>
