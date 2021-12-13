@@ -7,17 +7,14 @@
 		</div>
 		<div class="contextmenu notifs">
 			<div class="title">
-				<div class="u">tout lire</div>
+				<div class="u" @click="markAllAsRead">tout lire</div>
 				<h4>Notifications</h4>
 			</div>
-			<div class="notif">consectetur adipisicing</div>
-			<div class="notif">adipisicing elit, sed do</div>
-			<div class="notif">aliqua. Ut enim ad minim</div>
-			<div class="notif">incididunt ut labore et</div>
-			<div class="notif">Ut enim ad minim veniam,</div>
-			<div class="notif">labore et dolore magna</div>
+			<div class="notif" v-for="notif, i in notifs" @click="openNotif(i)">
+				{{ notif }}
+			</div>
 			<center>
-				<span class="u">tout voir</span>
+				<span class="u" @click="openAllNotifs">tout voir</span>
 			</center>
 		</div>
 	</div>
@@ -33,7 +30,29 @@
 import ContextMenu from "./context_menu"
 
 export default{
-	components:{ ContextMenu }
+	components:{ ContextMenu },
+	data(){
+		return {
+			notifs: [
+				"consectetur adipisicing",
+				"adipisicing elit, sed do",
+				"aliqua. Ut enim ad minim",
+				"incididunt ut labore et",
+				"Ut enim ad minim veniam,",
+				"labore et dolore magna"
+			]
+		}
+	},
+	methods:{
+		openNotif(id){
+			this.$router.push(`/notifs/${id}`)
+		},
+		openAllNotifs(){
+			this.$router.push("/notifs")
+		},
+		markAllAsRead(){
+		}
+	}
 };
 </script>
 <style scoped>

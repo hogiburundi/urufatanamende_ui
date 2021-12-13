@@ -45,7 +45,7 @@
 		</thead>
 		<tbody>
 			<tr v-for="i in 3">
-				<td>konstrictor</td>
+				<td>inganzamarumpu</td>
 				<td>NKURUNZIZA</td>
 				<td>Jonathan</td>
 				<td>75 96 06 96</td>
