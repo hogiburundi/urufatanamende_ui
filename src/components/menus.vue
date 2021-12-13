@@ -5,15 +5,18 @@
 		<div class="name">Alimentation UMUCO</div>
 		<fa class="arrow" icon="sort-down"/>
 	</div>
-	<div class="user">
-		<div class="img">
-			<fa icon="user"/>
+	<div class="profile">	
+		<div class="user">
+			<div class="img">
+				<fa icon="user"/>
+			</div>
+			<div>
+				<div>Bienvenue</div>
+				<div class="username">Moise NTIRAMPEBA</div>
+			</div>
+			<fa class="arrow" icon="sort-down"/>
 		</div>
-		<div>
-			<div>Bienvenue</div>
-			<div class="username">Moise NTIRAMPEBA</div>
-		</div>
-		<fa class="arrow" icon="sort-down"/>
+		<ContextMenu/>
 	</div>
 	<div class="submenus clickable">
 		<fa class="img" icon="tachometer-alt"/>
@@ -52,7 +55,10 @@
 </div>
 </template>
 <script>
+import ContextMenu from "./context_menu"
+
 export default{
+	components:{ ContextMenu }
 };
 </script>
 <style scoped>
@@ -93,6 +99,7 @@ export default{
 }
 .user{
 	font-size: .7em;
+	position: relative;
 }
 .username, .name{
 	font-weight: 700;
@@ -109,5 +116,8 @@ export default{
 }
 .element:hover, .clickable:hover{
 	background-color: cadetblue;
+}
+.profile:hover .contextmenu{
+	display: block;
 }
 </style>

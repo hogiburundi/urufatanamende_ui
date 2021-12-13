@@ -14,12 +14,12 @@ export default{
 .contextmenu{
 	position: absolute;
 	z-index: 3;
-	top: 0;
-	left: 0;
+	left: 10px;
 	width: 150px;
 	box-shadow: 2px 2px 5px;
 	border: 1px solid #ddd5;
 	background-color: white;
+	display: none;
 }
 .contextmenu > div{
 	padding: 3px 10px;
