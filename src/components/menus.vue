@@ -117,6 +117,10 @@ export default{
 .element:hover, .clickable:hover{
 	background-color: cadetblue;
 }
+.contextmenu{
+	left: 20px;
+	display: none;
+}
 .profile:hover .contextmenu{
 	display: block;
 }

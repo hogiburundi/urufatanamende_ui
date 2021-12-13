@@ -5,12 +5,18 @@
 		<div class="bubble">5</div>
 	</div>
 	<div class="menu">
-		<fa icon="user"/>
+		<div class="rich">
+			<fa icon="user"/>
+		</div>
+		<ContextMenu/>
 	</div>
 </div>
 </template>
 <script>
+import ContextMenu from "./context_menu"
+
 export default{
+	components:{ ContextMenu }
 };
 </script>
 <style scoped>
@@ -44,5 +50,15 @@ export default{
 	background-color: white;
 	top: 5px;
 	left: 25px;
+}
+.contextmenu{
+	position: absolute;
+	right: 0;
+	margin-top: 5px;
+	font-size: .7em;
+	display: none;
+}
+.menu:hover .contextmenu{
+	display: block!important;
 }
 </style>
