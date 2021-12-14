@@ -5,11 +5,12 @@ import Magasin from '../views/Magasin.vue'
 import User from '../views/User.vue'
 import Notifications from '../views/Notifications.vue'
 import Notification from '../views/Notification.vue'
-import Ventes from '../views/Ventes.vue'
-import Dettes from '../views/Dettes.vue'
-import Paiements from '../views/Paiements.vue'
-import Produits from '../views/Produits.vue'
 import Pertes from '../views/Pertes.vue'
+import StatVentes from '../views/StatVentes.vue'
+import StatDettes from '../views/StatDettes.vue'
+import StatPaiements from '../views/StatPaiements.vue'
+import StatProduits from '../views/StatProduits.vue'
+import StatPertes from '../views/StatPertes.vue'
 
 Vue.use(VueRouter)
 
@@ -19,11 +20,12 @@ const routes = [
   { path: '/user', name: 'User', component: User},
   { path: '/notifs', name: 'Notifications', component: Notifications},
   { path: '/notifs/:id', name: 'Notification', component: Notification},
-  { path: '/ventes', name: 'Ventes', component: Ventes},
-  { path: '/dettes', name: 'Dettes', component: Dettes},
-  { path: '/paiements', name: 'Paiements', component: Paiements},
-  { path: '/produits', name: 'Produits', component: Produits},
   { path: '/stat_pertes', name: 'Pertes', component: Pertes},
+  { path: '/stat_ventes', name: 'StatVentes', component: StatVentes},
+  { path: '/stat_dettes', name: 'StatDettes', component: StatDettes},
+  { path: '/stat_paiements', name: 'StatPaiements', component: StatPaiements},
+  { path: '/stat_produits', name: 'StatProduits', component: StatProduits},
+  { path: '/stat_pertes', name: 'StatPertes', component: StatPertes},
 ]
 
 const router = new VueRouter({
