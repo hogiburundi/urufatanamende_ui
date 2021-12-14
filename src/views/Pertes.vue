@@ -8,34 +8,29 @@
 					<th>produit</th>
 					<th>du</th>
 					<th>au</th>
-					<th>qtt. perdue</th>
-					<th>prix d'achat</th>
+					<th class="right">qtt. perdue</th>
+					<th class="right">prix d'achat</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="i in 30">
+					<td>{{ i }}</td>
 					<td>inganzamarumpu</td>
-					<td>NKURUNZIZA Jonathan</td>
+					<td>{{ datetime(new Date()) }}</td>
 					<td>{{ datetime(new Date()) }}</td>
 					<td class="right">{{ money(36000) }} FBu</td>
 					<td class="right">{{ money(36000)}} FBu</td>
-					<td class="right">{{ money(0) }} FBu</td>
-					<td>{{ money(2210) }}</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan="3"></th>
-					<th class="right">
-						{{ money(36000)}} FBu
-					</th>
+					<th colspan="4"></th>
 					<th class="right">
 						{{ money(36000)}} FBu
 					</th>
 					<th class="right">
 						{{ money(0)}} FBu
 					</th>
-					<th colspan="2"></th>
 				</tr>
 			</tfoot>
 		</table>

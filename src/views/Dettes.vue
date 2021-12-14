@@ -22,8 +22,8 @@
 					<td class="right">{{ money(0) }} FBu</td>
 					<td>{{ money(2210) }}</td>
 					<td>
-						<button>modifier</button>
-						<button>supprimer</button>
+						<button>payer</button>
+						<button>valider</button>
 					</td>
 				</tr>
 			</tbody>

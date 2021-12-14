@@ -34,4 +34,7 @@ table{
 	margin: 0;
 	width: 100%;
 }
+th, td{
+	text-align: center;
+}
 </style>

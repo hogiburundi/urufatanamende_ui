@@ -23,7 +23,7 @@ const routes = [
   { path: '/dettes', name: 'Dettes', component: Dettes},
   { path: '/paiements', name: 'Paiements', component: Paiements},
   { path: '/produits', name: 'Produits', component: Produits},
-  { path: '/pertes', name: 'Pertes', component: Pertes},
+  { path: '/stat_pertes', name: 'Pertes', component: Pertes},
 ]
 
 const router = new VueRouter({

@@ -7,7 +7,7 @@
 					<th>id</th>
 					<th>commande</th>
 					<th>date</th>
-					<th>somme</th>
+					<th class="right">somme</th>
 					<th>options</th>
 				</tr>
 			</thead>
@@ -17,7 +17,6 @@
 					<td>inganzamarumpu</td>
 					<td>{{ datetime(new Date()) }}</td>
 					<td class="right">{{ money(36000) }} FBu</td>
-					<td>{{ money(2210) }}</td>
 					<td>
 						<button>modifier</button>
 						<button>supprimer</button>
@@ -26,11 +25,11 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan="2"></th>
+					<th colspan="3"></th>
 					<th class="right">
 						{{ money(36000)}} FBu
 					</th>
-					<th colspan="2"></th>
+					<th></th>
 				</tr>
 			</tfoot>
 		</table>
