@@ -8,7 +8,7 @@
 		<input type="date" name="">
 		<button>Appliquer</button>
 	</div>
-	<v-slot/>
+	<slot/>
 </div>
 </template>
 <script>

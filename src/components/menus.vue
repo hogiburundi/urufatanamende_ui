@@ -51,7 +51,7 @@
 					<div>Dettes</div>
 				</div>
 			</router-link>
-			<router-link to="/paiments" v-slot="{ href, navigate, isActive }">
+			<router-link to="/paiements" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Paiements</div>

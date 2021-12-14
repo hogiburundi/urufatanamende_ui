@@ -6,6 +6,9 @@ import User from '../views/User.vue'
 import Notifications from '../views/Notifications.vue'
 import Notification from '../views/Notification.vue'
 import Ventes from '../views/Ventes.vue'
+import Dettes from '../views/Dettes.vue'
+import Paiements from '../views/Paiements.vue'
+import Clientele from '../views/Clientele.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +19,9 @@ const routes = [
   { path: '/notifs', name: 'Notifications', component: Notifications},
   { path: '/notifs/:id', name: 'Notification', component: Notification},
   { path: '/ventes', name: 'Ventes', component: Ventes},
+  { path: '/dettes', name: 'Dettes', component: Dettes},
+  { path: '/paiements', name: 'Paiements', component: Paiements},
+  { path: '/clients', name: 'Clientele', component: Clientele},
 ]
 
 const router = new VueRouter({
