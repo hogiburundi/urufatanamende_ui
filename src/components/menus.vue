@@ -29,40 +29,54 @@
 		</div>
 		<ContextMenu/>
 	</div>
-	<div class="submenus clickable" @click="$router.push('/').catch(()=>{})">
-		<fa class="img" icon="tachometer-alt"/>
-		<div class="name">Accueil</div>
-	</div>
+	<router-link to="/" v-slot="{ href, navigate, isExactActive }">
+		<div class="submenus menu" @click="navigate" :class="{'active':isExactActive}">
+			<fa class="img" icon="tachometer-alt"/>
+			<div class="name">Accueil</div>
+		</div>
+	</router-link>
 	<div class="submenus">
 		<fa class="img" icon="chart-bar"/>
 		<div>
 			<div class="name">Statistiques</div>
-			<div class="element">
-				<fa class="img" icon="long-arrow-alt-right"/>
-				<div>Vente</div>
-			</div>
-			<div class="element">
-				<fa class="img" icon="long-arrow-alt-right"/>
-				<div>Dettes</div>
-			</div>
-			<div class="element">
-				<fa class="img" icon="long-arrow-alt-right"/>
-				<div>Paiements</div>
-			</div>
-			<div class="element">
-				<fa class="img" icon="long-arrow-alt-right"/>
-				<div>Clientèle</div>
-			</div>
+			<router-link to="/produit" v-slot="{ href, navigate, isActive }">
+				<div class="element" @click="navigate" :class="{'active':isActive}">
+					<fa class="img" icon="long-arrow-alt-right"/>
+					<div>Vente</div>
+				</div>
+			</router-link>
+			<router-link to="/dettes" v-slot="{ href, navigate, isActive }">
+				<div class="element" @click="navigate" :class="{'active':isActive}">		
+					<fa class="img" icon="long-arrow-alt-right"/>
+					<div>Dettes</div>
+				</div>
+			</router-link>
+			<router-link to="/paiments" v-slot="{ href, navigate, isActive }">
+				<div class="element" @click="navigate" :class="{'active':isActive}">
+					<fa class="img" icon="long-arrow-alt-right"/>
+					<div>Paiements</div>
+				</div>
+			</router-link>
+			<router-link to="/clients" v-slot="{ href, navigate, isActive }">
+				<div class="element" @click="navigate" :class="{'active':isActive}">
+					<fa class="img" icon="long-arrow-alt-right"/>
+					<div>Clientèle</div>
+				</div>
+			</router-link>
 		</div>
 	</div>
-	<div class="submenus clickable">
-		<fa class="img" icon="box"/>
-		<div class="name">Stock</div>
-	</div>
-	<div class="submenus clickable">
-		<fa class="img" icon="exclamation-triangle"/>
-		<div class="name">Pertes</div>
-	</div>
+	<router-link to="/stock" v-slot="{ href, navigate, isExactActive }">
+		<div class="submenus menu" @click="navigate" :class="{'active':isExactActive}">
+			<fa class="img" icon="box"/>
+			<div class="name">Stock</div>
+		</div>
+	</router-link>
+	<router-link to="/pertes" v-slot="{ href, navigate, isExactActive }">
+		<div class="submenus menu" @click="navigate" :class="{'active':isExactActive}">
+			<fa class="img" icon="exclamation-triangle"/>
+			<div class="name">Pertes</div>
+		</div>
+	</router-link>
 </div>
 </template>
 <script>
@@ -124,9 +138,11 @@ export default{
 .element{
 	display: flex;
 	align-items: center;
+	padding-right: 10px;
 }
-.element:hover, .clickable:hover{
+.element:hover, .menu:hover, .active{
 	background-color: cadetblue;
+	color: white;
 }
 .contextmenu{
 	left: 20px;

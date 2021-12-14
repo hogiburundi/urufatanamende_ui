@@ -122,7 +122,8 @@ select{
 	right: 0;
 }
 td{
-	padding-right: 10px;
+	padding: 0;
+	height: inherit;
 	white-space: nowrap;
 }
 .table{
