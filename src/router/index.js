@@ -5,6 +5,7 @@ import Magasin from '../views/Magasin.vue'
 import User from '../views/User.vue'
 import Notifications from '../views/Notifications.vue'
 import Notification from '../views/Notification.vue'
+import Stock from '../views/Stock.vue'
 import Pertes from '../views/Pertes.vue'
 import StatVentes from '../views/StatVentes.vue'
 import StatDettes from '../views/StatDettes.vue'
@@ -20,6 +21,7 @@ const routes = [
   { path: '/user', name: 'User', component: User},
   { path: '/notifs', name: 'Notifications', component: Notifications},
   { path: '/notifs/:id', name: 'Notification', component: Notification},
+  { path: '/stock', name: 'Stock', component: Stock},
   { path: '/pertes', name: 'Pertes', component: Pertes},
   { path: '/stat_ventes', name: 'StatVentes', component: StatVentes},
   { path: '/stat_dettes', name: 'StatDettes', component: StatDettes},
