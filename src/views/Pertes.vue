@@ -6,10 +6,11 @@
 				<tr>
 					<th>id</th>
 					<th>produit</th>
-					<th>du</th>
-					<th>au</th>
-					<th class="right">qtt. perdue</th>
+					<th>date</th>
+					<th class="right">qtt.</th>
 					<th class="right">prix d'achat</th>
+					<th>motif</th>
+					<th>action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -17,9 +18,13 @@
 					<td>{{ i }}</td>
 					<td>inganzamarumpu</td>
 					<td>{{ datetime(new Date()) }}</td>
-					<td>{{ datetime(new Date()) }}</td>
-					<td class="right">{{ money(36000) }} FBu</td>
+					<td class="right">{{ 10 }}</td>
 					<td class="right">{{ money(36000)}} FBu</td>
+					<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit,</td>
+					<td>
+						<button>accepter</button>
+						<button>refuser</button>
+					</td>
 				</tr>
 			</tbody>
 			<tfoot>
@@ -28,8 +33,10 @@
 					<th class="right">
 						{{ money(36000)}} FBu
 					</th>
+					<th></th>
 					<th class="right">
-						{{ money(0)}} FBu
+						<button>tout accepter</button>
+						<button>tout refuser</button>
 					</th>
 				</tr>
 			</tfoot>

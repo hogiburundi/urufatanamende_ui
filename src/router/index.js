@@ -20,7 +20,7 @@ const routes = [
   { path: '/user', name: 'User', component: User},
   { path: '/notifs', name: 'Notifications', component: Notifications},
   { path: '/notifs/:id', name: 'Notification', component: Notification},
-  { path: '/stat_pertes', name: 'Pertes', component: Pertes},
+  { path: '/pertes', name: 'Pertes', component: Pertes},
   { path: '/stat_ventes', name: 'StatVentes', component: StatVentes},
   { path: '/stat_dettes', name: 'StatDettes', component: StatDettes},
   { path: '/stat_paiements', name: 'StatPaiements', component: StatPaiements},
