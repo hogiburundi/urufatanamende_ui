@@ -7,10 +7,10 @@
 					<th>id</th>
 					<th>caissier</th>
 					<th>date</th>
-					<th>somme</th>
-					<th>payée</th>
-					<th>reste</th>
-					<th>benefice</th>
+					<th class="right">somme</th>
+					<th class="right">payée</th>
+					<th class="right">reste</th>
+					<th class="right">benefice</th>
 					<th>options</th>
 				</tr>
 			</thead>
@@ -22,7 +22,7 @@
 					<td class="right">{{ money(36000) }} FBu</td>
 					<td class="right">{{ money(36000)}} FBu</td>
 					<td class="right">{{ money(0) }} FBu</td>
-					<td>{{ money(2210) }}</td>
+					<td>{{ money(2210) }} FBu</td>
 					<td>
 						<button>modifier</button>
 						<button>supprimer</button>
@@ -37,6 +37,9 @@
 					</th>
 					<th class="right">
 						{{ money(36000)}} FBu
+					</th>
+					<th class="right">
+						{{ money(0)}} FBu
 					</th>
 					<th class="right">
 						{{ money(0)}} FBu

@@ -3,7 +3,7 @@
 	<div class="select">
 		<div class="kiosk">
 			<fa class="img" icon="bars"/>
-			<div class="name">Alimentation UMUCO</div>
+			<div class="name bold">Alimentation UMUCO</div>
 			<fa class="arrow" icon="sort-down"/>
 		</div>
 		<div class="contextmenu" style="width: 200px;">
@@ -23,7 +23,7 @@
 			</div>
 			<div>
 				<div>Bienvenue</div>
-				<div class="username">Moise NTIRAMPEBA</div>
+				<div class="bold">Moise NTIRAMPEBA</div>
 			</div>
 			<fa class="arrow" icon="sort-down"/>
 		</div>
@@ -36,9 +36,9 @@
 		</div>
 	</router-link>
 	<div class="submenus">
-		<fa class="img" icon="chart-bar"/>
+		<fa class="img" style="margin-top: 5px;" icon="chart-bar"/>
 		<div>
-			<div class="name">Statistiques</div>
+			<div>Statistiques</div>
 			<router-link to="/ventes" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
@@ -135,10 +135,10 @@ export default{
 	font-size: .7em;
 	position: relative;
 }
-.username, .name{
+.bold{
 	font-weight: 700;
 }
-.name{
+.name, .element{
 	font-size: .8em;
 }
 .arrow{
@@ -149,9 +149,12 @@ export default{
 	align-items: center;
 	padding-right: 10px;
 }
-.element:hover, .menu:hover, .active{
+.element:hover, .menu:hover{
 	background-color: cadetblue;
 	color: white;
+}
+.active{
+	font-weight: 700;
 }
 .contextmenu{
 	left: 20px;
