@@ -1,11 +1,13 @@
 <template>
-<div class="ventes">
-</div>
+	<StatsLayout></StatsLayout>
 </template>
 <script>
+import StatsLayout from "./stats_layout"
 export default{
 	data(){
+		return{}
 	},
+	components:{StatsLayout},
 	methods:{
 	}
 };

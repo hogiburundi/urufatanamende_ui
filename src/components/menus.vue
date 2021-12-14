@@ -39,10 +39,10 @@
 		<fa class="img" icon="chart-bar"/>
 		<div>
 			<div class="name">Statistiques</div>
-			<router-link to="/produit" v-slot="{ href, navigate, isActive }">
+			<router-link to="/ventes" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
-					<div>Vente</div>
+					<div>Ventes</div>
 				</div>
 			</router-link>
 			<router-link to="/dettes" v-slot="{ href, navigate, isActive }">
