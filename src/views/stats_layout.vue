@@ -30,4 +30,8 @@ export default{
 .topbar > *{
 	margin-right: 10px;
 }
+table{
+	margin: 0;
+	width: 100%;
+}
 </style>

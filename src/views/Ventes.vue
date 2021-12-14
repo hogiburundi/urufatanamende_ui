@@ -1,30 +1,51 @@
 <template>
 	<StatsLayout>
+		<div class="table">
 		<table>
 			<thead>
 				<tr>
-					<th>username</th>
-					<th>nom</th>
-					<th>prenom</th>
-					<th>telephone</th>
-					<th>Role</th>
-					<th>option</th>
+					<th>id</th>
+					<th>caissier</th>
+					<th>date</th>
+					<th>somme</th>
+					<th>payée</th>
+					<th>reste</th>
+					<th>benefice</th>
+					<th>options</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="i in 3">
+				<tr v-for="i in 30">
 					<td>inganzamarumpu</td>
-					<td>NKURUNZIZA</td>
-					<td>Jonathan</td>
-					<td>75 96 06 96</td>
-					<td>Vendeur</td>
+					<td>NKURUNZIZA Jonathan</td>
+					<td>{{ datetime(new Date()) }}</td>
+					<td class="right">{{ money(36000) }} FBu</td>
+					<td class="right">{{ money(36000)}} FBu</td>
+					<td class="right">{{ money(0) }} FBu</td>
+					<td>{{ money(2210) }}</td>
 					<td>
 						<button>modifier</button>
 						<button>supprimer</button>
 					</td>
 				</tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="3"></th>
+					<th class="right">
+						{{ money(36000)}} FBu
+					</th>
+					<th class="right">
+						{{ money(36000)}} FBu
+					</th>
+					<th class="right">
+						{{ money(0)}} FBu
+					</th>
+					<th colspan="2"></th>
+				</tr>
+			</tfoot>
 		</table>
+		</div>
 	</StatsLayout>
 </template>
 <script>

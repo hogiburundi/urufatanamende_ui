@@ -54,9 +54,10 @@ table{
   margin: 10px 0;
 }
 .table{
-  height: calc(100vh - 70px);
+  height: calc(100vh - 110px);
   max-width: 100%;
   overflow: auto;
+  margin-top: 10px;
 }
 tfoot{
     bottom: -1px;
@@ -72,7 +73,7 @@ thead th, tfoot tr{
     background-color: var(--background-color);
 }
 th{
-    padding: 10px 5px;
+    padding: 5px;
     text-align: center;
 }
 tr th{
@@ -88,7 +89,7 @@ tr:hover{
 td{
     padding-left: 5px;
     overflow: hidden;
-    height: 41px;
+    height: 30px;
 }
 table .right{
     text-align: right!important;
@@ -99,6 +100,7 @@ table .left{
 table button{
     font-size: .9em;
     margin-right: 5px;
+    padding: 0 10px;
 }
 .sv{
     position: relative;

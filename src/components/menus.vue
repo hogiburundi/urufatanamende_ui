@@ -107,6 +107,9 @@ export default{
 	display: flex;
 	align-items: flex-start;
 }
+.submenus, .select{
+	cursor: default;
+}
 .user .img{
 	background-color: var(--primary);
 	color: white;
