@@ -8,7 +8,8 @@ import Notification from '../views/Notification.vue'
 import Ventes from '../views/Ventes.vue'
 import Dettes from '../views/Dettes.vue'
 import Paiements from '../views/Paiements.vue'
-import Clientele from '../views/Clientele.vue'
+import Produits from '../views/Produits.vue'
+import Pertes from '../views/Pertes.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,8 @@ const routes = [
   { path: '/ventes', name: 'Ventes', component: Ventes},
   { path: '/dettes', name: 'Dettes', component: Dettes},
   { path: '/paiements', name: 'Paiements', component: Paiements},
-  { path: '/clients', name: 'Clientele', component: Clientele},
+  { path: '/produits', name: 'Produits', component: Produits},
+  { path: '/pertes', name: 'Pertes', component: Pertes},
 ]
 
 const router = new VueRouter({

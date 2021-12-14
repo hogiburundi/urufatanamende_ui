@@ -16,7 +16,7 @@
 			</thead>
 			<tbody>
 				<tr v-for="i in 30">
-					<td>inganzamarumpu</td>
+					<td>{{ i }}</td>
 					<td>NKURUNZIZA Jonathan</td>
 					<td>{{ datetime(new Date()) }}</td>
 					<td class="right">{{ money(36000) }} FBu</td>
