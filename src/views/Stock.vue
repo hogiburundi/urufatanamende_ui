@@ -16,7 +16,7 @@
 					<th class="right">prix de vente</th>
 					<th class="right">P.V. Total</th>
 					<th>
-						<button>Ajouter</button>
+						<button @click="addProduct">Ajouter</button>
 					</th>
 				</tr>
 			</thead>
@@ -30,8 +30,12 @@
 					<td class="right">{{ money(140000) }}</td>
 					<td class="right">{{ money(2800000)}}</td>
 					<td>
-						<button>Modifier</button>
-						<button>Ajouter</button>
+						<button @click="editProduct({})">
+							Modifier
+						</button>
+						<button>
+							Ajouter
+						</button>
 					</td>
 				</tr>
 			</tbody>
@@ -46,16 +50,32 @@
 			</tfoot>
 		</table>
 		</div>
+		<DialogProduit :active="produit_shown" :item="active_product" @close="close"/>
 	</StatsLayout>
 </template>
 <script>
 import StatsLayout from "./stats_layout"
+import DialogProduit from "../components/dialog_produit"
+
 export default{
 	data(){
-		return{}
+		return{
+			produit_shown:false, active_product:null
+		}
 	},
-	components:{StatsLayout},
+	components:{ StatsLayout, DialogProduit },
 	methods:{
+		close(){
+			this.produit_shown = false
+			this.active_product = null
+		},
+		addProduct(){
+			this.produit_shown = true
+		},
+		editProduct(product){
+			this.produit_shown = true
+			this.active_product = product
+		},
 	}
 };
 </script>
