@@ -24,7 +24,9 @@
 					<td class="right">{{ money(0) }} FBu</td>
 					<td class="right">{{ money(2210) }} FBu</td>
 					<td>
-						<button>details</button>
+						<button @click="showDetails(i)">
+							details
+						</button>
 						<button>Supprimer</button>
 					</td>
 				</tr>
@@ -49,16 +51,29 @@
 			</tfoot>
 		</table>
 		</div>
+		<DialogVentes :active="ventes_shown" :commande="active_command" @close="close"/>
 	</StatsLayout>
 </template>
 <script>
 import StatsLayout from "./stats_layout"
+import DialogVentes from "../components/dialog_ventes"
+
 export default{
 	data(){
-		return{}
+		return{
+			ventes_shown:false, active_command:null
+		}
 	},
-	components:{StatsLayout},
+	components:{ StatsLayout, DialogVentes },
 	methods:{
+		close(){
+			this.ventes_shown = false
+			this.active_command = null
+		},
+		showDetails(commande){
+			this.ventes_shown = true
+			this.active_command = {"id":commande}
+		},
 	}
 };
 </script>
