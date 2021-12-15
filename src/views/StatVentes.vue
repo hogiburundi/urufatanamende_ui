@@ -22,10 +22,10 @@
 					<td class="right">{{ money(36000) }} FBu</td>
 					<td class="right">{{ money(36000)}} FBu</td>
 					<td class="right">{{ money(0) }} FBu</td>
-					<td>{{ money(2210) }} FBu</td>
+					<td class="right">{{ money(2210) }} FBu</td>
 					<td>
-						<button>modifier</button>
-						<button>supprimer</button>
+						<button>details</button>
+						<button>Supprimer</button>
 					</td>
 				</tr>
 			</tbody>

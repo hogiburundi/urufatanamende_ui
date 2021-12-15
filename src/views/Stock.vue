@@ -28,7 +28,7 @@
 					<td>Bouteilles</td>
 					<td>Bouteilles</td>
 					<td class="right">{{ money(140000) }}</td>
-					<td class="right">{{ money(2800000)}} FBu</td>
+					<td class="right">{{ money(2800000)}}</td>
 					<td>
 						<button>Modifier</button>
 						<button>Ajouter</button>
@@ -39,7 +39,7 @@
 				<tr>
 					<th colspan="6"></th>
 					<th class="right">
-						{{ money(2800000000)}} FBu
+						{{ money(2800000000)}}
 					</th>
 					<th></th>
 				</tr>

@@ -3,7 +3,7 @@
 	<div class="select">
 		<div class="kiosk">
 			<fa class="img" icon="bars"/>
-			<div class="name bold">Alimentation UMUCO</div>
+			<div class="bold" style="font-size: .8em;">Alimentation UMUCO</div>
 			<fa class="arrow" icon="sort-down"/>
 		</div>
 		<div class="contextmenu" style="width: 200px;">
@@ -30,12 +30,12 @@
 		<ContextMenu/>
 	</div>
 	<router-link to="/" v-slot="{ href, navigate, isExactActive }">
-		<div class="submenus menu" @click="navigate" :class="{'active':isExactActive}">
+		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
 			<fa class="img" icon="tachometer-alt"/>
 			<div class="name">Accueil</div>
 		</div>
 	</router-link>
-	<div class="submenus">
+	<div class="deepmenu">
 		<fa class="img" style="margin-top: 5px;" icon="chart-bar"/>
 		<div>
 			<div>Statistiques</div>
@@ -72,13 +72,13 @@
 		</div>
 	</div>
 	<router-link to="/stock" v-slot="{ href, navigate, isExactActive }">
-		<div class="submenus menu" @click="navigate" :class="{'active':isExactActive}">
+		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
 			<fa class="img" icon="box"/>
 			<div class="name">Stock</div>
 		</div>
 	</router-link>
 	<router-link to="/pertes" v-slot="{ href, navigate, isExactActive }">
-		<div class="submenus menu" @click="navigate" :class="{'active':isExactActive}">
+		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
 			<fa class="img" icon="exclamation-triangle"/>
 			<div class="name">Pertes</div>
 		</div>
@@ -109,12 +109,13 @@ export default{
 	justify-content: sp;
 	margin-top: 10px;
 }
-.submenus{
+.menu, .deepmenu{
 	display: flex;
-	align-items: flex-start;
-}
-.submenus, .select{
+	align-items: center;
 	cursor: default;
+}
+.deepmenu{
+	align-items: flex-start;
 }
 .user .img{
 	background-color: var(--primary);
@@ -138,16 +139,14 @@ export default{
 .bold{
 	font-weight: 700;
 }
-.name, .element{
-	font-size: .8em;
-}
 .arrow{
 	font-size: 20px;
 }
 .element{
 	display: flex;
 	align-items: center;
-	padding-right: 10px;
+	font-size: .8em;
+	padding: 3px 10px 3px 3px;
 }
 .element:hover, .menu:hover{
 	background-color: cadetblue;
