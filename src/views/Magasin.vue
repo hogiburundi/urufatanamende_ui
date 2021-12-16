@@ -27,7 +27,9 @@
 			<label for="website">Site Internet</label>
 			<div>
 				<input id="website" type="text" name="" v-model="website">
-				<button>Enregister</button>
+				<button>
+					{{ edition?"Modifier":"Creer" }}
+				</button>
 			</div>
 		</div>
 	</form>
@@ -41,6 +43,17 @@ export default{
 			website:""
 		}
 	},
+	watch:{
+		'$route'(to, from){
+			console.log(to)
+			this.edition = to.path.includes("/edit")
+			if(this.edition){
+				this.prepareEdition()
+			} else {
+				this.logo_url = ""
+			}
+		}
+	},
 	methods:{
 		prepareEdition(){
 			let kiosk = this.getActiveKiosk()
@@ -51,11 +64,8 @@ export default{
 			this.website = kiosk.website
 		}
 	},
-	mounted(){
-		this.edition = this.$router.history.current.path.includes("/edit")
-		if(this.edition){
-			this.prepareEdition()
-		}
+	updated(){
+		
 	}
 };
 </script>

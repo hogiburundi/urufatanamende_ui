@@ -10,10 +10,10 @@
 		</div>
 		<div class="contextmenu" style="width: 200px;">
 			<div v-for="kiosk in active_user.kiosks"
-			@click="$store.state.active_kiosk=kiosk">
+			@click="loadKiosk(kiosk)">
 				{{ kiosk.nom }}
 			</div>
-			<div @click="$router.push('/magasin').catch(()=>{})">
+			<div @click="$router.push('/magasin/edit').catch(()=>{})">
 				Modifier
 			</div>
 			<div>
@@ -99,6 +99,10 @@ import ContextMenu from "./context_menu"
 export default{
 	components:{ ContextMenu },
 	methods:{
+		loadKiosk(kiosk){
+			this.$store.state.active_kiosk = kiosk
+			this.$router.push('/').catch(()=>{})
+		}
 	}
 };
 </script>
