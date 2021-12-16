@@ -4,27 +4,29 @@
 	<form @submit.prevent>
 		<div class="line">
 			<label for="nom">Nom Commercial</label>
-			<input id="nom" type="text" name="">
+			<input id="nom" type="text" name="" v-model="nom">
 		</div>
 		<div class="line">
 			<label for="photo">Photo</label>
 			<div>
-				<div class="photo"></div>
+				<div class="photo">
+					<img :src="logo_url" width="100">
+				</div>
 				<input id="photo" type="file" name="">
 			</div>
 		</div>
 		<div class="line">
 			<label for="E">E-mail</label>
-			<input id="E-mail" type="text" name="">
+			<input id="E-mail" type="text" name="" v-model="email">
 		</div>
 		<div class="line">
 			<label for="phone">Télephone</label>
-			<input id="phone" type="text" name="">
+			<input id="phone" type="text" name="" v-model="tel">
 		</div>
 		<div class="line">
 			<label for="website">Site Internet</label>
 			<div>
-				<input id="website" type="text" name="">
+				<input id="website" type="text" name="" v-model="website">
 				<button>Enregister</button>
 			</div>
 		</div>
@@ -33,7 +35,28 @@
 </template>
 <script>
 export default{
-
+	data(){
+		return {
+			edition:false, logo:null, nom:"", tel:"", logo_url:"", email:"",
+			website:""
+		}
+	},
+	methods:{
+		prepareEdition(){
+			let kiosk = this.getActiveKiosk()
+			this.logo_url = this.base_url+kiosk.logo
+			this.tel = kiosk.tel
+			this.nom = kiosk.nom
+			this.email = kiosk.email
+			this.website = kiosk.website
+		}
+	},
+	mounted(){
+		this.edition = this.$router.history.current.path.includes("/edit")
+		if(this.edition){
+			this.prepareEdition()
+		}
+	}
 };
 </script>
 <style scoped>
@@ -64,5 +87,8 @@ button, input{
 	height: 100px;
 	margin: auto;
 	border: 2px solid black;
+}
+.photo *{
+	margin: 0;
 }
 </style>

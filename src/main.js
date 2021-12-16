@@ -128,8 +128,11 @@ Vue.mixin({
     active_user_is_responsable(){
       return this.active_user.is_admin || this.active_user.groups.includes('responsable');
     },
+    base_url(){
+      return this.$store.state.base_url;
+    },
     url(){
-      return this.$store.state.url;
+      return this.base_url + this.$store.state.url;
     },
     headers(){
       return {

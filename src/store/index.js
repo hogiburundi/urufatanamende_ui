@@ -6,10 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user : null,
-    // url: "/api",
+    base_url: "http://127.0.0.1:8000",
+    api: "/api",
     notification:{type:"", message:"Bienvenue"},
-    url: "http://127.0.0.1:8000/api",
-    // url: "/api",
     active_kiosk:null,
   },
   mutations: {
