@@ -10,6 +10,7 @@ export default new Vuex.Store({
     notification:{type:"", message:"Bienvenue"},
     url: "http://127.0.0.1:8000/api",
     // url: "/api",
+    active_kiosk:{},
   },
   mutations: {
   },

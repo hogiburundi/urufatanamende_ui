@@ -34,6 +34,9 @@ export default {
         {"username": this.username, "password":this.password}
       ).then((response) => {
         this.$store.state.user = response.data
+        if(response.data.kiosks.length > 0){
+          this.$store.state.active_kiosk = response.data.kiosks[0]
+        }
         this.$store.state.notification = {
           type:"success", message:"Bienvenue"
         }

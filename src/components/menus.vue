@@ -3,12 +3,16 @@
 	<div class="select">
 		<div class="kiosk">
 			<fa class="img" icon="bars"/>
-			<div class="bold" style="font-size: .8em;">Alimentation UMUCO</div>
+			<div class="bold" style="font-size: .8em;">
+				{{ $store.state.active_kiosk.nom }}
+			</div>
 			<fa class="arrow" icon="sort-down"/>
 		</div>
 		<div class="contextmenu" style="width: 200px;">
-			<div>BIMBO Super Market</div>
-			<div>Pharmacie AJENITEKA</div>
+			<div v-for="kiosk in active_user.kiosks"
+			@click="$store.state.active_kiosk=kiosk">
+				{{ kiosk.nom }}
+			</div>
 			<div>Modifier</div>
 			<div>Supprimer</div>
 			<div @click="$router.push('/magasin').catch(()=>{})">
@@ -23,7 +27,7 @@
 			</div>
 			<div>
 				<div>Bienvenue</div>
-				<div class="bold">Moise NTIRAMPEBA</div>
+				<div class="bold">{{ active_user_fullname }}</div>
 			</div>
 			<fa class="arrow" icon="sort-down"/>
 		</div>

@@ -115,6 +115,9 @@ Vue.mixin({
     active_user(){
       return this.$store.state.user;
     },
+    active_user_fullname(){
+      return `${this.active_user.first_name} ${this.active_user.last_name}`;
+    },
     active_user_is_responsable(){
       return this.active_user.is_admin || this.active_user.groups.includes('responsable');
     },
