@@ -25,18 +25,15 @@ window.axios = axios;
 
 Vue.mixin({
   methods: {
-    searchIn(field){
-      this.act_col = field;
-      this.search_type = "keyword";
-    },
-    filterIn(field){
-      this.act_col = field;
-      this.search_type = "date";
-    },
     isNumeric(x) {
       let str = x.toString();
       if (str.match(/^[0-9]+$/)) return true;
       return false;
+    },
+    logOut(x) {
+      if(confirm("Voulez-vous vraiment deconnecter?")){
+        this.$store.state.user=null
+      }
     },
     money(x) {
       let cash = parseFloat(x).toFixed(0)
@@ -109,6 +106,16 @@ Vue.mixin({
           }
         }
       }
+    },
+    getActiveKiosk(){
+      if(!this.$store.state.active_kiosk){
+        if(this.active_user.kiosks.length>0){
+          this.$store.state.active_kiosk = this.active_user.kiosks[0]
+        } else {
+          this.logOut()
+        }
+      }
+      return this.$store.state.active_kiosk
     }
   },
   computed:{

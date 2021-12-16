@@ -18,6 +18,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', name: 'Home', component: Home},
   { path: '/magasin', name: 'Magasin', component: Magasin},
+  { path: '/magasin/edit', name: 'Magasin', component: Magasin},
   { path: '/user', name: 'User', component: User},
   { path: '/notifs', name: 'Notifications', component: Notifications},
   { path: '/notifs/:id', name: 'Notification', component: Notification},

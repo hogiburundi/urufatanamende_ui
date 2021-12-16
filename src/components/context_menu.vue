@@ -10,11 +10,6 @@
 <script>
 export default{
 	methods:{
-		logOut(){
-			if(confirm("Voulez-vous vraiment deconnecter?")){
-				this.$store.state.user=null
-			}
-		}
 	}
 };
 </script>

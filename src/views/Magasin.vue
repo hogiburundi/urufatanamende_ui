@@ -2,26 +2,26 @@
 <div class="magasin">
 	<h2>Ajouter Magasin</h2>
 	<form @submit.prevent>
-		<div class="field">
+		<div class="line">
 			<label for="nom">Nom Commercial</label>
 			<input id="nom" type="text" name="">
 		</div>
-		<div class="field">
+		<div class="line">
 			<label for="photo">Photo</label>
 			<div>
 				<div class="photo"></div>
 				<input id="photo" type="file" name="">
 			</div>
 		</div>
-		<div class="field">
+		<div class="line">
 			<label for="E">E-mail</label>
 			<input id="E-mail" type="text" name="">
 		</div>
-		<div class="field">
+		<div class="line">
 			<label for="phone">Télephone</label>
 			<input id="phone" type="text" name="">
 		</div>
-		<div class="field">
+		<div class="line">
 			<label for="website">Site Internet</label>
 			<div>
 				<input id="website" type="text" name="">
@@ -38,15 +38,17 @@ export default{
 </script>
 <style scoped>
 .magasin{
-	margin: 20px;
+	margin: 20px 0 0 20px;
+	height: calc(100% - 70px);
+	overflow-y: auto;
 }
 form{
 	display: table;
 }
-.field{
+.line{
 	display: table-row;
 }
-.field *{
+.line *{
 	display: table-cell;
 	margin: 10px 0;
 }

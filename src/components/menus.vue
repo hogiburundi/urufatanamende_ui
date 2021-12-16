@@ -4,7 +4,7 @@
 		<div class="kiosk">
 			<fa class="img" icon="bars"/>
 			<div class="bold" style="font-size: .8em;">
-				{{ $store.state.active_kiosk.nom }}
+				{{ getActiveKiosk().nom}}
 			</div>
 			<fa class="arrow" icon="sort-down"/>
 		</div>
@@ -13,8 +13,12 @@
 			@click="$store.state.active_kiosk=kiosk">
 				{{ kiosk.nom }}
 			</div>
-			<div>Modifier</div>
-			<div>Supprimer</div>
+			<div @click="$router.push('/magasin').catch(()=>{})">
+				Modifier
+			</div>
+			<div>
+				Supprimer
+			</div>
 			<div @click="$router.push('/magasin').catch(()=>{})">
 				Ajouter Magasin
 			</div>
@@ -93,7 +97,9 @@
 import ContextMenu from "./context_menu"
 
 export default{
-	components:{ ContextMenu }
+	components:{ ContextMenu },
+	methods:{
+	}
 };
 </script>
 <style scoped>
