@@ -29,21 +29,17 @@ export default {
   },
   methods:{
     login(){
-
-      this.$store.state.user = {
-        username:this.username,
-      }
-      // this.logs = ""
-      // axios.post(this.url+"/login/", 
-      //   {"username": this.username, "password":this.password}
-      // ).then((response) => {
-      //   this.$store.state.user = response.data
-      //   this.$store.state.notification = {
-      //     type:"success", message:"Bienvenue"
-      //   }
-      // }).catch((error) => {
-      //   this.logs = error.response.data
-      // })
+      this.logs = ""
+      axios.post(this.url+"/login/", 
+        {"username": this.username, "password":this.password}
+      ).then((response) => {
+        this.$store.state.user = response.data
+        this.$store.state.notification = {
+          type:"success", message:"Bienvenue"
+        }
+      }).catch((error) => {
+        this.logs = error.response.data
+      })
     }
   }
 };

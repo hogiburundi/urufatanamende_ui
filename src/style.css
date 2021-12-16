@@ -56,6 +56,9 @@ input[type=submit]:active, button:active{
 .field{
     margin: 5px 0;
 }
+.logs{
+    color: #D00;
+}
 table{
   width: calc(100% - 15px);
   text-align: left;

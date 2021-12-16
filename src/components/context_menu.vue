@@ -4,11 +4,18 @@
 	<div @click="$router.push('/user').catch(()=>{})">
 		Utilisateurs
 	</div>
-	<div>Déconnexion</div>
+	<div @click="logOut">Déconnexion</div>
 </div>
 </template>
 <script>
 export default{
+	methods:{
+		logOut(){
+			if(confirm("Voulez-vous vraiment deconnecter?")){
+				this.$store.state.user=null
+			}
+		}
+	}
 };
 </script>
 <style scoped>
