@@ -10,9 +10,10 @@
 			<label for="photo">Photo</label>
 			<div>
 				<div class="photo">
-					<img :src="logo_url" width="100">
+					<img :src="logo_url" width="100" id="preview">
 				</div>
-				<input id="photo" type="file" name="">
+				<input id="photo" type="file" accept=".jpeg,.jpg,.png" @change="e => loadImage(e)">
+				<div>{{ logs }}</div>
 			</div>
 		</div>
 		<div class="line">
@@ -40,7 +41,7 @@ export default{
 	data(){
 		return {
 			edition:false, logo:null, nom:"", tel:"", logo_url:"", email:"",
-			website:""
+			website:"", logs:""
 		}
 	},
 	watch:{
@@ -54,6 +55,20 @@ export default{
 		}
 	},
 	methods:{
+		loadImage(event){
+			let file = event.target.files[0]
+			if (file.size>300_000) {
+				this.logs = "l'image ne peut pas depasser 300ko"
+			} else {
+				this.logs = ""
+				this.logo = file
+				let fr = new FileReader();
+				fr.onload = function(){
+					preview.src = fr.result;
+				}
+				fr.readAsDataURL(file);
+			}
+		},
 		prepareEdition(){
 			let kiosk = this.getActiveKiosk()
 			this.logo_url = kiosk.logo
@@ -75,6 +90,7 @@ export default{
 			if(!!this.nom) data.append("nom", this.nom)
 			if(!!this.tel) data.append("tel", this.tel)
 			if(!!this.email) data.append("email", this.email)
+			if(!!this.logo) data.append("logo", this.logo)
 			if(!!this.website) data.append("website", this.website)
 			axios.patch(this.url+`/kiosk/${kiosk.id}/`, data, this.headers)
 			.then((response) => {
