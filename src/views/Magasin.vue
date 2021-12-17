@@ -84,7 +84,7 @@ export default{
 				this.createKiosk()
 			}
 		},
-		updateKiosk(){
+		getData(){
 			let data = new FormData()
 			let kiosk = this.getActiveKiosk()
 			if(!!this.nom) data.append("nom", this.nom)
@@ -92,7 +92,10 @@ export default{
 			if(!!this.email) data.append("email", this.email)
 			if(!!this.logo) data.append("logo", this.logo)
 			if(!!this.website) data.append("website", this.website)
-			axios.patch(this.url+`/kiosk/${kiosk.id}/`, data, this.headers)
+			return data
+		},
+		updateKiosk(){
+			axios.patch(this.url+`/kiosk/${kiosk.id}/`, this.getData(), this.headers)
 			.then((response) => {
 				for (let key of Object.keys(response.data)) {
 					kiosk[key] = response.data[key]
@@ -102,7 +105,12 @@ export default{
 			})
 		},
 		createKiosk(){
-
+			axios.post(this.url+`/kiosk/`, this.getData(), this.headers)
+			.then((response) => {
+				this.active_user.kiosks.push(response.data)
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.updateKiosk)
+			})
 		},
 	},
 	mounted(){
