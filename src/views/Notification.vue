@@ -13,12 +13,13 @@
 		</select>
 		<button>Appliquer</button>
 	</div>
-	<div>
+	<div v-if="notif">
 		<div class="cat">
 			<h3>{{ notif.category }}</h3>
-			<div>{{ datetime(notif.date) }}</div>
+			<div>{{ datetime(notif.updated_at) }}</div>
 		</div>
-		<p>{{ notif.text }}</p>
+		<p>{{ notif.content }}</p>
+
 	</div>
 </div>
 </template>
@@ -26,12 +27,16 @@
 export default{
 	data(){
 		return {
-			notif:{
-				category:'Excepteur sint occaecat',
-				text:"lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-				date:new Date()
-			}
+			id:-1
 		}
+	},
+	computed:{
+		notif(){
+			return this.$store.state.notifs.find(x => x.id == this.id)
+		}
+	},
+	mounted(){
+		this.id = this.$route.params["id"]
 	}
 };
 </script>

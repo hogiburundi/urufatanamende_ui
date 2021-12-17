@@ -10,7 +10,7 @@
 				<div class="u" @click="markAllAsRead">tout lire</div>
 				<h4>Notifications</h4>
 			</div>
-			<div class="notif" v-for="notif in notifs" @click="openNotif(notif.id)">
+			<div class="notif" v-for="notif in notifs.slice(0,5)" @click="openNotif(notif.id)">
 				{{ notif.content }}
 			</div>
 			<center>

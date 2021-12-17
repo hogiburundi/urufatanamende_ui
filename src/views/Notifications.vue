@@ -16,15 +16,15 @@
 		<button>Appliquer</button>
 	</div>
 	<div>
-		<div v-for="notif, i in notifs" class="tab" @click="openNotif(i)">
-			<div>
-				<input type="checkbox" @click.stop :id="`id${i}`" name="">
+		<div v-for="notif in notifs" class="tab" @click="openNotif(notif.id)">
+			<div class="notif">
+				<input type="checkbox" @click.stop :id="`id${notif.id}`" name="">
 			</div>
 			<div>
-				{{ notif.text }}</label>
+				{{ notif.content }}
 			</div>
 			<div class="left">
-				{{ datetime(notif.date) }}</label>
+				{{ datetime(notif.updated_at) }}
 			</div>
 		</div>
 	</div>
@@ -34,8 +34,12 @@
 export default{
 	data(){
 		return {
-			notifs:[
-			]
+			notifs:[]
+		}
+	},
+	watch:{
+		"$store.state.notifs"(new_val){
+			this.notifs = new_val
 		}
 	},
 	methods:{
