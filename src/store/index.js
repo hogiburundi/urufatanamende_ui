@@ -9,6 +9,7 @@ export default new Vuex.Store({
     base_url: "http://127.0.0.1:8000",
     api: "/api",
     notification:{type:"", message:"Bienvenue"},
+    notifs:[],
     active_kiosk:null,
   },
   mutations: {

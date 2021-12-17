@@ -35,29 +35,13 @@ export default{
 	data(){
 		return {
 			notifs:[
-				{
-					text:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor",
-					date:new Date()
-				},
-				{
-					text:"in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat",
-					date:new Date()
-				},
-				{
-					text:"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-					date:new Date()
-				},
-				{
-					text:"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit",
-					date:new Date()
-				}
 			]
 		}
 	},
 	methods:{
 		openNotif(id){
 			this.$router.push(`/notifs/${id}`).catch(()=>{})
-		},
+		}
 	}
 };
 </script>

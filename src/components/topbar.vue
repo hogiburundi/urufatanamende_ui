@@ -3,15 +3,15 @@
 	<div class="menu">
 		<div>
 			<fa icon="bell"/>
-			<div class="bubble">5</div>	
+			<div class="bubble">{{ notifs.length }}</div>	
 		</div>
 		<div class="contextmenu notifs">
 			<div class="title">
 				<div class="u" @click="markAllAsRead">tout lire</div>
 				<h4>Notifications</h4>
 			</div>
-			<div class="notif" v-for="notif, i in notifs" @click="openNotif(i)">
-				{{ notif }}
+			<div class="notif" v-for="notif in notifs" @click="openNotif(notif.id)">
+				{{ notif.content.slice(0, 48) }}
 			</div>
 			<center>
 				<span class="u" @click="openAllNotifs">tout voir</span>
@@ -33,14 +33,12 @@ export default{
 	components:{ ContextMenu },
 	data(){
 		return {
-			notifs: [
-				"consectetur adipisicing",
-				"adipisicing elit, sed do",
-				"aliqua. Ut enim ad minim",
-				"incididunt ut labore et",
-				"Ut enim ad minim veniam,",
-				"labore et dolore magna"
-			]
+			notifs: []
+		}
+	},
+	watch:{
+		"$store.state.notifs"(new_val){
+			this.notifs = new_val
 		}
 	},
 	methods:{
@@ -51,7 +49,19 @@ export default{
 			this.$router.push("/notifs").catch(()=>{})
 		},
 		markAllAsRead(){
+		},
+		fetchData(){
+			let kiosk_id = this.getActiveKiosk().id
+			axios.get(this.url+`/notification/?kiosk=${kiosk_id}`, this.headers)
+			.then((response) => {
+				this.$store.state.notifs = response.data.results;
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.fetchData)
+			})
 		}
+	},
+	mounted(){
+		this.fetchData()
 	}
 };
 </script>

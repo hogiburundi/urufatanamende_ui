@@ -90,11 +90,7 @@ export default{
 			.then((response) => {
 				this.ventes = response.data.results;
 			}).catch((error) => {
-				if(error.response.status==401){
-					this.refreshToken(this.fetchData)
-				}
-				this.logs = error.response.data;
-				console.error(error)
+				this.displaErrorOrRefreshToken(error, this.fetchData)
 			})
 		},
 	},

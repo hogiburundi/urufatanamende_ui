@@ -83,7 +83,7 @@ Vue.mixin({
     },
     displaErrorOrRefreshToken(error, callback){
       if(!!error.response){
-        if(error.response.status == 401){ 
+        if(error.response.data.code == "token_not_valid"){ 
           let refresh = this.$store.state.user.refresh
           if(!refresh){
             this.$store.state.user = null;
