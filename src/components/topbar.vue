@@ -11,7 +11,7 @@
 				<h4>Notifications</h4>
 			</div>
 			<div class="notif" v-for="notif in notifs" @click="openNotif(notif.id)">
-				{{ notif.content.slice(0, 48) }}
+				{{ notif.content }}
 			</div>
 			<center>
 				<span class="u" @click="openAllNotifs">tout voir</span>
@@ -123,6 +123,10 @@ export default{
 }
 .notif{
 	border-bottom: 2px solid #eee;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .title{
 	position: relative;

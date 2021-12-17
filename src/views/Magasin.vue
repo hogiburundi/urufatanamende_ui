@@ -27,7 +27,7 @@
 			<label for="website">Site Internet</label>
 			<div>
 				<input id="website" type="text" name="" v-model="website">
-				<button>
+				<button @click="performAction">
 					{{ edition?"Modifier":"Creer" }}
 				</button>
 			</div>
@@ -56,12 +56,38 @@ export default{
 	methods:{
 		prepareEdition(){
 			let kiosk = this.getActiveKiosk()
-			this.logo_url = this.base_url+kiosk.logo
+			this.logo_url = kiosk.logo
 			this.tel = kiosk.tel
 			this.nom = kiosk.nom
 			this.email = kiosk.email
 			this.website = kiosk.website
-		}
+		},
+		performAction(){
+			if(this.edition){
+				this.updateKiosk()
+			} else {
+				this.createKiosk()
+			}
+		},
+		updateKiosk(){
+			let data = new FormData()
+			let kiosk = this.getActiveKiosk()
+			if(!!this.nom) data.append("nom", this.nom)
+			if(!!this.tel) data.append("tel", this.tel)
+			if(!!this.email) data.append("email", this.email)
+			if(!!this.website) data.append("website", this.website)
+			axios.patch(this.url+`/kiosk/${kiosk.id}/`, data, this.headers)
+			.then((response) => {
+				for (let key of Object.keys(response.data)) {
+					kiosk[key] = response.data[key]
+				}
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.updateKiosk)
+			})
+		},
+		createKiosk(){
+
+		},
 	},
 	mounted(){
 		this.edition = this.$router.history.current.path.includes("/edit")
