@@ -19,11 +19,12 @@
 			</div>
 			<div class="table">
 				<table>
-					<tr v-for="i in 20">
-						<td>{{ i }}</td>
-						<td>Amata</td>
-						<td>20 Nov 2019 at 06:00 PM </td>
-						<td>2 000</td>
+					<tr v-for="vente, i in ventes">
+						<td><b>{{ i+1 }}</b></td>
+						<td>{{ vente.quantite }}</td>
+						<td>{{ vente.produit }}</td>
+						<td>{{ datetime(vente.date) }}</td>
+						<td>{{ money(vente.prix_total) }} FBu</td>
 					</tr>
 				</table>
 			</div>
@@ -73,6 +74,7 @@ export default{
 	components:{DashCard,},
 	data(){
 		return {
+			ventes:[],
 			ivyegeranyo:[
 				{icon:"chart-bar", text:"Intérêts", value:"2,000,547"},
 				{icon:"money-bill-alt", text:"Invest", value:"95,000,000"},
@@ -80,7 +82,25 @@ export default{
 				{icon:"database", text:"Produits", value:"954"}
 			]
 		}
-	}
+	},
+	methods:{
+		fetchData(){
+			let kiosk_id = this.getActiveKiosk().id
+			axios.get(this.url+`/vente/?commande__kiosk=${kiosk_id}`, this.headers)
+			.then((response) => {
+				this.ventes = response.data.results;
+			}).catch((error) => {
+				if(error.response.status==401){
+					this.refreshToken(this.fetchData)
+				}
+				this.logs = error.response.data;
+				console.error(error)
+			})
+		},
+	},
+	mounted(){
+		this.fetchData()
+	},
 };
 </script>
 <style scoped>

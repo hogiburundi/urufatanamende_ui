@@ -109,7 +109,7 @@ Vue.mixin({
     },
     getActiveKiosk(){
       if(!this.$store.state.active_kiosk){
-        if(!!this.$store.state.kiosks && this.active_user.kiosks.length>0){
+        if(!!this.active_user.kiosks && this.active_user.kiosks.length>0){
           this.$store.state.active_kiosk = this.active_user.kiosks[0]
         }
       }
@@ -130,7 +130,7 @@ Vue.mixin({
       return this.$store.state.base_url;
     },
     url(){
-      return this.base_url + this.$store.state.url;
+      return this.base_url + this.$store.state.api;
     },
     headers(){
       return {

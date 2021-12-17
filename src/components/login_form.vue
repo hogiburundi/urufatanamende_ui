@@ -41,6 +41,7 @@ export default {
           type:"success", message:"Bienvenue"
         }
       }).catch((error) => {
+        console.log(error)
         this.logs = error.response.data
       })
     }
