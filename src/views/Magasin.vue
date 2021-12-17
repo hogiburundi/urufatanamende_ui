@@ -1,6 +1,6 @@
 <template>
 <div class="magasin">
-	<h2>Ajouter Magasin</h2>
+	<h2>{{ edition?"Modifier":"Ajouter" }} Magasin</h2>
 	<form @submit.prevent>
 		<div class="line">
 			<label for="nom">Nom Commercial</label>
@@ -45,7 +45,6 @@ export default{
 	},
 	watch:{
 		'$route'(to, from){
-			console.log(to)
 			this.edition = to.path.includes("/edit")
 			if(this.edition){
 				this.prepareEdition()
@@ -64,8 +63,11 @@ export default{
 			this.website = kiosk.website
 		}
 	},
-	updated(){
-		
+	mounted(){
+		this.edition = this.$router.history.current.path.includes("/edit")
+		if(this.edition){
+			this.prepareEdition()
+		}
 	}
 };
 </script>

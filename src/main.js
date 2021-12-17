@@ -109,10 +109,8 @@ Vue.mixin({
     },
     getActiveKiosk(){
       if(!this.$store.state.active_kiosk){
-        if(this.active_user.kiosks.length>0){
+        if(!!this.$store.state.kiosks && this.active_user.kiosks.length>0){
           this.$store.state.active_kiosk = this.active_user.kiosks[0]
-        } else {
-          this.logOut()
         }
       }
       return this.$store.state.active_kiosk

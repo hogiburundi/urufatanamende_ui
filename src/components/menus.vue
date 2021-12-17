@@ -3,7 +3,7 @@
 	<div class="select">
 		<div class="kiosk">
 			<fa class="img" icon="bars"/>
-			<div class="bold" style="font-size: .8em;">
+			<div v-if="!!getActiveKiosk()" class="bold" style="font-size: .8em;">
 				{{ getActiveKiosk().nom}}
 			</div>
 			<fa class="arrow" icon="sort-down"/>
@@ -13,10 +13,10 @@
 			@click="loadKiosk(kiosk)">
 				{{ kiosk.nom }}
 			</div>
-			<div @click="$router.push('/magasin/edit').catch(()=>{})">
+			<div v-if="!!getActiveKiosk()" @click="$router.push('/magasin/edit').catch(()=>{})">
 				Modifier
 			</div>
-			<div>
+			<div v-if="!!getActiveKiosk()">
 				Supprimer
 			</div>
 			<div @click="$router.push('/magasin').catch(()=>{})">
