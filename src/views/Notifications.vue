@@ -34,7 +34,7 @@
 export default{
 	data(){
 		return {
-			notifs:[]
+			notifs:this.$store.state.notifs
 		}
 	},
 	watch:{

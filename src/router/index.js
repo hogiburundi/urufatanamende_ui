@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Magasin from '../views/Magasin.vue'
-import User from '../views/User.vue'
+import Users from '../views/Users.vue'
 import Notifications from '../views/Notifications.vue'
 import Notification from '../views/Notification.vue'
 import Stock from '../views/Stock.vue'
@@ -19,7 +19,7 @@ const routes = [
   { path: '/', name: 'Home', component: Home},
   { path: '/magasin', name: 'Magasin', component: Magasin},
   { path: '/magasin/edit', name: 'Magasin', component: Magasin},
-  { path: '/user', name: 'User', component: User},
+  { path: '/users', name: 'Users', component: Users},
   { path: '/notifs', name: 'Notifications', component: Notifications},
   { path: '/notifs/:id', name: 'Notification', component: Notification},
   { path: '/stock', name: 'Stock', component: Stock},

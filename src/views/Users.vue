@@ -38,18 +38,16 @@
 				<th>username</th>
 				<th>nom</th>
 				<th>prenom</th>
-				<th>telephone</th>
 				<th>Role</th>
 				<th>option</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="i in 3">
-				<td>inganzamarumpu</td>
-				<td>NKURUNZIZA</td>
-				<td>Jonathan</td>
-				<td>75 96 06 96</td>
-				<td>Vendeur</td>
+			<tr v-for="attribution in attributions">
+				<td>{{ attribution.user.username }}</td>
+				<td>{{ attribution.user.first_name }}</td>
+				<td>{{ attribution.user.last_name }}</td>
+				<td>{{ attribution.name }}</td>
 				<td>
 					<button>modifier</button>
 					<button>supprimer</button>
@@ -61,7 +59,30 @@
 </template>
 <script>
 export default{
-
+	data(){
+		return {
+			attributions:this.$store.state.attributions
+		}
+	},
+	watch:{
+		"$store.state.attributions"(new_val){
+			this.attributions = new_val
+		}
+	},
+	methods:{
+		fetchData(){
+			let kiosk_id = this.getActiveKiosk().id
+			axios.get(this.url+`/attribution/?kiosk=${kiosk_id}`, this.headers)
+			.then((response) => {
+				this.$store.state.attributions = response.data.results;
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.fetchData)
+			})
+		},
+	},
+	mounted(){
+		this.fetchData()
+	},
 };
 </script>
 <style scoped>
@@ -82,5 +103,8 @@ form{
 }
 table{
 	width: 100%;
+}
+th{
+	text-align: left;
 }
 </style>

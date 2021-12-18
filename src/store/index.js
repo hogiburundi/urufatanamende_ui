@@ -10,6 +10,7 @@ export default new Vuex.Store({
     api: "/api",
     notification:{type:"", message:"Bienvenue"},
     notifs:[],
+    attributions:[],
     active_kiosk:null,
   },
   mutations: {
