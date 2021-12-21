@@ -7,10 +7,12 @@ export default new Vuex.Store({
   state: {
     user : null,
     base_url: "http://127.0.0.1:8000",
+    // base_url: "",
     api: "/api",
     notification:{type:"", message:"Bienvenue"},
     notifs:[],
     attributions:[],
+    roles:["owner", "gerant", "vendeur"],
     active_kiosk:null,
   },
   mutations: {

@@ -182,3 +182,18 @@ table button{
 .popup .buttons *{
     margin-left: 10px;
 }
+@media only screen and (max-width: 510px) {
+    #menus{
+        position: absolute;
+        z-index: 2;
+    }
+    .right{
+        width: 100%;
+    }
+    .fa_bars{
+        display: none;
+    }
+    .fa_times{
+        display: inherit!important;
+    }
+}

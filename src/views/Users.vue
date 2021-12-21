@@ -4,33 +4,33 @@
 	<form @submit.prevent>
 		<div class="field">
 			<label for="username">Nom d'utilisateur</label>
-			<input id="username" type="text" name="">
+			<input id="username" type="text" v-model="username">
 		</div>
 		<div class="field">
 			<label for="first_name">Nom</label>
-			<input id="first_name" type="text" name="">
+			<input id="first_name" type="text" v-model="nom">
 		</div>
 		<div class="field">
 			<label for="last_name">Prenom</label>
-			<input id="last_name" type="text" name="">
-		</div>
-		<div class="field">
-			<label for="phone">Telephone</label>
-			<input id="phone" type="text" name="">
+			<input id="last_name" type="text" v-model="prenom">
 		</div>
 		<div class="field">
 			<label for="password">Mot de passe</label>
-			<input id="password" type="password" name="">
+			<input id="password" type="password" v-model="password">
 		</div>
 		<div class="field">
 			<label for="role">Rôle</label>
-			<select id="role">
-				<option>Vendeur</option>
-				<option>Gerant</option>
+			<select id="role" v-model="role">
+				<option v-for="r in $store.state.roles"
+				:selected="role==r?'on':'off'">
+					{{ r.toUpperCase() }}
+				</option>
 			</select>
 		</div>
-		<button type="reset">Reset</button>
-		<button>Enregister</button>
+		<button type="reset" @click="active_attr=null">Reset</button>
+		<button>
+			{{ !!active_attr?"modifier":"ajouter" }}
+		</button>
 	</form>
 	<table>
 		<thead>
@@ -38,7 +38,7 @@
 				<th>username</th>
 				<th>nom</th>
 				<th>prenom</th>
-				<th>Role</th>
+				<th>role</th>
 				<th>option</th>
 			</tr>
 		</thead>
@@ -49,8 +49,12 @@
 				<td>{{ attribution.user.last_name }}</td>
 				<td>{{ attribution.name }}</td>
 				<td>
-					<button>modifier</button>
-					<button>supprimer</button>
+					<button @click="editUser(attribution)">
+						modifier
+					</button>
+					<button>
+						supprimer
+					</button>
 				</td>
 			</tr>
 		</tbody>
@@ -61,12 +65,22 @@
 export default{
 	data(){
 		return {
-			attributions:this.$store.state.attributions
+			attributions:this.$store.state.attributions,
+			active_attr:null, username:"", nom: "",prenom: "",
+			role: "", password:""
 		}
 	},
 	watch:{
 		"$store.state.attributions"(new_val){
 			this.attributions = new_val
+		},
+		active_attr(new_val){
+			if(!!new_val){
+				this.username = new_val.user.username
+				this.nom = new_val.user.last_name
+				this.prenom = new_val.user.first_name
+				this.role = new_val.name
+			}
 		}
 	},
 	methods:{
@@ -79,6 +93,9 @@ export default{
 				this.displaErrorOrRefreshToken(error, this.fetchData)
 			})
 		},
+		editUser(attribution){
+			this.active_attr = attribution
+		}
 	},
 	mounted(){
 		this.fetchData()

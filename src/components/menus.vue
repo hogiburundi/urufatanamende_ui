@@ -1,8 +1,9 @@
 <template>
-<div class="menus">
+<div id="menus">
 	<div class="select">
 		<div class="kiosk">
-			<fa class="img" icon="bars"/>
+			<fa class="img fa_bars" icon="bars" />
+			<fa class="img fa_times" icon="times" @click="closeMenus"/>
 			<div v-if="!!getActiveKiosk()" class="bold" style="font-size: .8em;">
 				{{ getActiveKiosk().nom}}
 			</div>
@@ -102,19 +103,22 @@ export default{
 		loadKiosk(kiosk){
 			this.$store.state.active_kiosk = kiosk
 			this.$router.push('/').catch(()=>{})
+		},
+		closeMenus(){
+			menus.style.display = 'none'
 		}
 	}
 };
 </script>
 <style scoped>
-.menus{
+#menus{
 	background-color: white;
 	min-width: 200px;
 	height: 100%;
 	box-shadow: 0 0 5px;
 	padding-top: 10px;
 }
-.menus > div{
+#menus > div{
 	padding: 5px 0;
 }
 .kiosk, .user{
@@ -175,5 +179,8 @@ export default{
 }
 .select:hover .contextmenu{
 	display: block;
+}
+.fa_times{
+	display: none;
 }
 </style>
