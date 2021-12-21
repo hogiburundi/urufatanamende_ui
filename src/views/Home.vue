@@ -101,7 +101,7 @@ export default{
 </script>
 <style scoped>
 .home{
-	padding: 20px;
+	padding: 20px 0 20px 20px;
 	height: 100%;
 }
 .ivyegeranyo{
@@ -185,5 +185,35 @@ td{
 .content .icon{
 	font-size: 4em;
 	margin: 10px;
+}
+@media only screen and (max-width: 830px) {
+	.home{
+		overflow-y: auto;
+		height: calc(100% - 50px);
+	}
+	.legends{
+		overflow-y: auto;
+		flex-wrap: wrap-reverse;
+		max-height: none;
+		overflow-y: visible;
+		align-items:baseline;
+	}
+	.ventes{
+		margin-right: 0;
+	}
+	.charts>div{
+		margin: auto 10px 10px 0;
+		min-width: 250px;
+		width: 100%;
+	}
+	.charts, .ivyegeranyo{
+		display: flex;
+		flex-wrap: wrap;
+		height: auto;
+		width: inherit;
+		align-items: baseline;
+		align-content: flex-start;
+		justify-content: flex-start;
+	}
 }
 </style>
