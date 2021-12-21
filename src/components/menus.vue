@@ -115,6 +115,7 @@ export default{
 	background-color: white;
 	min-width: 200px;
 	height: 100%;
+	overflow: auto;
 	box-shadow: 0 0 5px;
 	padding-top: 10px;
 }
@@ -182,5 +183,10 @@ export default{
 }
 .fa_times{
 	display: none;
+}
+@media only screen and (min-width: 510px) {
+    #menus{
+    	display: block!important;
+    }
 }
 </style>

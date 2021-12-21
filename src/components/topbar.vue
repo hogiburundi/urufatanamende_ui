@@ -1,5 +1,6 @@
 <template>
 <div class="topbar">
+	<fa class="showmenu" icon="bars" @click="showMenus"/>
 	<div class="menu">
 		<div>
 			<fa icon="bell"/>
@@ -58,6 +59,9 @@ export default{
 			}).catch((error) => {
 				this.displaErrorOrRefreshToken(error, this.fetchData)
 			})
+		},
+		showMenus(){
+			menus.style.display = 'block'
 		}
 	},
 	mounted(){
@@ -72,6 +76,14 @@ export default{
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+	position: relative;
+}
+.showmenu{
+	position: absolute;
+	z-index: 1;
+	top: 15px;
+	left: 15px;
+	display: none;
 }
 .menu{
 	padding: 10px 15px;
@@ -140,5 +152,11 @@ export default{
 }
 .u, .notif{
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 510px) {
+    .showmenu{
+        display: inherit!important;
+    }
 }
 </style>
