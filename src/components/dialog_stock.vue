@@ -69,6 +69,8 @@ export default {
       if(!this.item){
         axios.post(this.url+"/stock/", data, this.headers)
         .then((response) => {
+          // if(this.produit.id == response.data.produit){
+          // }
           this.$emit("close")
         }).catch((error) => {
           this.displaErrorOrRefreshToken(error, this.postStock)

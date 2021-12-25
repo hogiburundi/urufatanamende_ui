@@ -63,8 +63,10 @@
                 <td>{{ stock.user }}</td>
                 <td>{{ stock.validated_by }}</td>
                 <td v-if="!stock.validated_by">
-                  <button>Valider</button>
-                  <button>
+                  <button @click="valider(stock)">
+                  	Valider
+                  </button>
+                  <button @click="supprimer(stock)">
                   	supprimer
                   </button>
                 </td>
@@ -136,6 +138,28 @@ export default{
 		createStock(product){
 			this.stock_shown = true
 			this.active_product = product
+		},
+		valider(stock){
+			if(confirm(`voulez-vous vraiment valider ce stock?`)){
+	      // axios.get(this.url+`/stock/?produit=${produit.id}`, this.headers)
+	      // .then((response) => {
+	      //   this.stocks = response.data.results
+	      //   this.progress = false
+	      // }).catch((error) => {
+	      //   this.displaErrorOrRefreshToken(error, this.fetchData)
+	      // });
+			}
+		},
+		supprimer(stock){
+			if(confirm(`voulez-vous vraiment supprimer ce stock?`)){
+	      axios.delete(this.url+`/stock/${stock.id}/`, this.headers)
+	      .then((response) => {
+	      	let index = this.stocks.indexOf(stock)
+	      	this.stocks.splice(index, 1)
+	      }).catch((error) => {
+	        this.displaErrorOrRefreshToken(error, () => supprimer(stock))
+	      });
+			}
 		},
     fold(produit){
       if(this.folded==produit.id){
