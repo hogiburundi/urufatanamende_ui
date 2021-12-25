@@ -29,7 +29,7 @@
 						<td class="right">{{ money(produit.prix_vente) }}</td>
 						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
 						<td>
-							<button @click="editProduct({})">
+							<button @click.stop="editProduct(produit)">
 								Modifier
 							</button>
 							<button>
@@ -40,7 +40,7 @@
 					</tr>
           <tr v-if="folded == produit.id">
             <td></td>
-            <td colspan=6>
+            <td colspan=5>
               <tr>
                 <th>qtt. initiale</th>
                 <th>prix d'achat</th>
@@ -59,7 +59,7 @@
                 <td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
                 <td>{{ money(stock.prix_total) }}</td>
                 <td>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</td>
-                <td>{{ stock.date_expiration }}</td>
+                <td>{{ stock.date_expiration || "-" }}</td>
                 <td>{{ stock.user }}</td>
                 <td>{{ stock.validated_by }}</td>
                 <td>
