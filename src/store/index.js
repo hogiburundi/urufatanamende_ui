@@ -14,6 +14,7 @@ export default new Vuex.Store({
     attributions:[],
     produits:[],
     stocks:[],
+    alert:{type:"", message:"Bienvenue"},
     roles:["owner", "gerant", "vendeur"],
     active_kiosk:null,
   },

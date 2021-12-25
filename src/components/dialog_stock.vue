@@ -62,7 +62,7 @@ export default {
       }
       let data = {
         quantite_actuelle:this.quantite_actuelle,
-        date_expiration:this.date_expiration,
+        date_expiration:!!this.date_expiration?this.date_expiration:undefined,
         prix_total:this.prix_total,
         produit:this.produit.id,
       }

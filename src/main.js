@@ -48,11 +48,11 @@ Vue.mixin({
           if(typeof(valeur)=='object'){
             let child = ""
             for( let [key, value] of Object.entries(valeur)){
-              child += `- ${key}: ${value}<br>`
+              child += `- ${key}: ${value}. `
             }
             valeur = child;
           }
-          string+=`${clef}: ${valeur}<br>`
+          string+=`${clef}: ${valeur}. `
         }
         return string;
       };
@@ -101,7 +101,7 @@ Vue.mixin({
             }
           })
         } else {
-          this.$store.state.notification = {
+          this.$store.state.alert = {
             type:"danger", message:this.cleanString(error.response.data)
           }
         }

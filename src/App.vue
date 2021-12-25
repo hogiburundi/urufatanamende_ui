@@ -6,6 +6,7 @@
         <TopBar/>
         <router-view/>
       </div>
+      <Notifier/>
     </div>
     <LoginForm v-else/>
   </div>
@@ -14,9 +15,11 @@
 import LoginForm from "./components/login_form"
 import Menus from "./components/menus"
 import TopBar from "./components/topbar"
+import Notifier from "./components/notifier"
+
 export default {
   components: {
-  	LoginForm, Menus, TopBar
+  	LoginForm, Menus, TopBar, Notifier
   },
   watch:{
     "$store.state.user":{

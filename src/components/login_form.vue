@@ -37,7 +37,7 @@ export default {
         if(response.data.kiosks.length > 0){
           this.$store.state.active_kiosk = response.data.kiosks[0]
         }
-        this.$store.state.notification = {
+        this.$store.state.alert = {
           type:"success", message:"Bienvenue"
         }
       }).catch((error) => {

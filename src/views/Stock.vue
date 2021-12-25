@@ -25,7 +25,7 @@
 						<td>{{ produit.id }}</td>
 						<td>{{ produit.nom }}</td>
 						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
-						<td>{{ `${produit.quantite} ${produit.unite}` }}</td>
+						<td><b>{{ `${produit.quantite} ${produit.unite}` }}</b></td>
 						<td class="right">{{ money(produit.prix_vente) }}</td>
 						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
 						<td>
@@ -58,7 +58,7 @@
 							<tr v-for="stock in stocks" v-else>
 								<td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
 								<td>{{ money(stock.prix_total) }}</td>
-								<td>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</td>
+								<td><b>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</b></td>
 								<td>{{ stock.date_expiration || "-" }}</td>
 								<td>{{ stock.user }}</td>
 								<td>{{ stock.validated_by }}</td>
@@ -143,7 +143,6 @@ export default{
 			if(confirm(`voulez-vous vraiment valider ce stock?`)){
 				axios.get(this.url+`/stock/${stock.id}/valider/`, this.headers)
 				.then((response) => {
-					let index = this.stocks.indexOf(stock)
 					for(key in Object.keys(stock)){
 						stock[key] = response.data[key]
 					}
