@@ -32,7 +32,7 @@
 							<button @click.stop="editProduct(produit)">
 								Modifier
 							</button>
-							<button>
+							<button @click.stop="createStock(produit)">
 								<fa icon="plus"/>
 								Stock
 							</button>
@@ -62,10 +62,13 @@
                 <td>{{ stock.date_expiration || "-" }}</td>
                 <td>{{ stock.user }}</td>
                 <td>{{ stock.validated_by }}</td>
-                <td>
+                <td v-if="!stock.validated_by">
                   <button>Valider</button>
-                  <button>supprimer</button>
+                  <button>
+                  	supprimer
+                  </button>
                 </td>
+                <td v-else></td>
               </tr>
             </td>
           </tr>
@@ -86,18 +89,28 @@
 			</tfoot>
 		</table>
 		</div>
-		<DialogProduit :active="produit_shown" :item="active_product" @close="close"/>
+		<DialogProduit
+			:active="produit_shown"
+			:item="active_product"
+			@close="close"/>
+		<DialogStock
+			:active="stock_shown"
+			:produit="active_product"
+			:item="active_stock"
+			@close="close"/>
 	</StatsLayout>
 </template>
 <script>
 import StatsLayout from "./stats_layout"
 import DialogProduit from "../components/dialog_produit"
+import DialogStock from "../components/dialog_stock"
 
 export default{
 	data(){
 		return{
 			produits:this.$store.state.produits, folded:-1, progress:false,
-			produit_shown:false, active_product:null, next:null, stocks:[]
+			produit_shown:false, active_product:null, next:null, stocks:[],
+			stock_shown:false, active_stock:null
 		}
 	},
 	watch:{
@@ -105,17 +118,23 @@ export default{
 			this.produits = new_val
 		}
 	},
-	components:{ StatsLayout, DialogProduit },
+	components:{ StatsLayout, DialogProduit, DialogStock },
 	methods:{
 		close(){
 			this.produit_shown = false
+			this.stock_shown = false
 			this.active_product = null
+			this.active_stock = null
 		},
 		addProduct(){
 			this.produit_shown = true
 		},
 		editProduct(product){
 			this.produit_shown = true
+			this.active_product = product
+		},
+		createStock(product){
+			this.stock_shown = true
 			this.active_product = product
 		},
     fold(produit){

@@ -24,8 +24,11 @@
     width: calc(100% - 200px);
     overflow: hidden;
 }
-input[type=text], input[type=password], select{
+input[type=text], input[type=number], input[type=password], select{
     padding: 5px 15px;
+}
+input[type=date]{
+    padding: 3px 15px;
 }
 input[type=submit], button{
     padding: 5px 15px;
