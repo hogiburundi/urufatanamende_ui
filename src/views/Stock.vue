@@ -25,7 +25,7 @@
 						<td>{{ produit.id }}</td>
 						<td>{{ produit.nom }}</td>
 						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
-						<td><b>{{ `${produit.quantite} ${produit.unite}` }}</b></td>
+						<td><b>{{ `${produit.quantite || 0} ${produit.unite}` }}</b></td>
 						<td class="right">{{ money(produit.prix_vente) }}</td>
 						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
 						<td>
@@ -143,6 +143,9 @@ export default{
 			if(confirm(`voulez-vous vraiment valider ce stock?`)){
 				axios.get(this.url+`/stock/${stock.id}/valider/`, this.headers)
 				.then((response) => {
+					this.$store.state.alert = {
+            type:"success", message:"le stock a été validé"
+          }
 					for(key in Object.keys(stock)){
 						stock[key] = response.data[key]
 					}
