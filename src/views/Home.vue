@@ -132,6 +132,9 @@ export default{
 .top{
 	margin-bottom: 20px;
 }
+.charts{
+	margin: 0 20px 20px 0;
+}
 select{
 	margin: 5px;
 	position: absolute;
@@ -155,7 +158,7 @@ td{
 	overflow: hidden;
 	align-items: center;
 }
-.pie {
+.pie{
 	width: 60px;
 	min-width: 60px;
 	height: 60px;
@@ -198,11 +201,7 @@ td{
 		overflow-y: visible;
 		align-items:baseline;
 	}
-	.ventes{
-		margin-right: 0;
-	}
 	.charts>div{
-		margin: auto 10px 10px 0;
 		min-width: 250px;
 		width: 100%;
 	}

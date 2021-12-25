@@ -16,7 +16,7 @@
 					<th class="right">prix de vente</th>
 					<th class="right">P.V. Total</th>
 					<th>
-						<button @click="addProduct">Ajouter</button>
+						<button @click="addProduct">Ajouter un produit</button>
 					</th>
 				</tr>
 			</thead>
@@ -34,7 +34,8 @@
 							Modifier
 						</button>
 						<button>
-							Ajouter
+							<fa icon="plus"/>
+							Stock
 						</button>
 					</td>
 				</tr>

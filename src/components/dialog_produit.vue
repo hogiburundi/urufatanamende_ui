@@ -15,8 +15,8 @@
           <input type="text" id="unite_entrante" v-model="unite_entrante">
         </div>
         <div class="field">
-          <label for="unite_sortante">Unité sortante</label>
-          <input type="text" id="unite_sortante" v-model="unite_sortante">
+          <label for="unite">Unité sortante</label>
+          <input type="text" id="unite" v-model="unite">
         </div>
         <div class="field">
           <label for="rapport">Rapport</label>
@@ -47,7 +47,7 @@ export default {
   },
   data(){
     return {
-      nom: "", unite_entrante: "", unite_sortante: "",
+      nom: "", unite_entrante: "", unite: "",
       rapport: 1, indications: "", prix_vente: 0
     }
   },
@@ -56,7 +56,7 @@ export default {
       if(!!new_val){
         this.nom = new_val.nom
         this.unite_entrante = new_val.unite_entrante
-        this.unite_sortante = new_val.unite_sortante
+        this.unite = new_val.unite
         this.rapport = new_val.rapport
         this.indications = new_val.indications
         this.prix_vente = new_val.prix_vente
@@ -76,9 +76,8 @@ export default {
       }
       let data = {
         nom:this.nom, unite_entrante:this.unite_entrante,
-        unite_sortante:this.unite_sortante,
-        rapport:this.rapport, indications:this.indications,
-        prix_vente:this.prix_vente
+        unite:this.unite, rapport:this.rapport, indications:this.indications,
+        prix_vente:this.prix_vente, kiosk:this.getActiveKiosk().id
       }
       if(!this.item){
         axios.post(this.url+"/produit/", data, this.headers)
@@ -94,7 +93,7 @@ export default {
           let new_val = response.data
           this.item.nom = new_val.nom
           this.item.unite_entrante = new_val.unite_entrante
-          this.item.unite_sortante = new_val.unite_sortante
+          this.item.unite = new_val.unite
           this.item.rapport = new_val.rapport
           this.item.indications = new_val.indications
           this.item.prix_vente = new_val.prix_vente
