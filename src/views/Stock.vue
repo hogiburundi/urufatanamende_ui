@@ -38,43 +38,43 @@
 							</button>
 						</td>
 					</tr>
-          <tr v-if="folded == produit.id">
-            <td></td>
-            <td colspan=5>
-              <tr>
-                <th>qtt. initiale</th>
-                <th>prix d'achat</th>
-                <th>qtt. restant</th>
-                <th>date d'exp.</th>
-                <th>user</th>
-                <th>validateur</th>
-                <th>option</th>
-              </tr>
-              <tr v-if="progress">
-                <td colspan="6">
-                	fetching...
-                </td>
-              </tr>
-              <tr v-for="stock in stocks" v-else>
-                <td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
-                <td>{{ money(stock.prix_total) }}</td>
-                <td>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</td>
-                <td>{{ stock.date_expiration || "-" }}</td>
-                <td>{{ stock.user }}</td>
-                <td>{{ stock.validated_by }}</td>
-                <td v-if="!stock.validated_by">
-                  <button @click="valider(stock)">
-                  	Valider
-                  </button>
-                  <button @click="supprimer(stock)">
-                  	supprimer
-                  </button>
-                </td>
-                <td v-else></td>
-              </tr>
-            </td>
-          </tr>
-        </template>
+					<tr v-if="folded == produit.id">
+						<td></td>
+						<td colspan=5>
+							<tr>
+								<th>qtt. initiale</th>
+								<th>prix d'achat</th>
+								<th>qtt. restant</th>
+								<th>date d'exp.</th>
+								<th>user</th>
+								<th>validateur</th>
+								<th>option</th>
+							</tr>
+							<tr v-if="progress">
+								<td colspan="6">
+									fetching...
+								</td>
+							</tr>
+							<tr v-for="stock in stocks" v-else>
+								<td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
+								<td>{{ money(stock.prix_total) }}</td>
+								<td>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</td>
+								<td>{{ stock.date_expiration || "-" }}</td>
+								<td>{{ stock.user }}</td>
+								<td>{{ stock.validated_by }}</td>
+								<td v-if="!stock.validated_by">
+									<button @click="valider(stock)">
+										Valider
+									</button>
+									<button @click="supprimer(stock)">
+										supprimer
+									</button>
+								</td>
+								<td v-else></td>
+							</tr>
+						</td>
+					</tr>
+				</template>
 			</tbody>
 			<tfoot>
 				<tr>
@@ -141,67 +141,70 @@ export default{
 		},
 		valider(stock){
 			if(confirm(`voulez-vous vraiment valider ce stock?`)){
-	      // axios.get(this.url+`/stock/?produit=${produit.id}`, this.headers)
-	      // .then((response) => {
-	      //   this.stocks = response.data.results
-	      //   this.progress = false
-	      // }).catch((error) => {
-	      //   this.displaErrorOrRefreshToken(error, this.fetchData)
-	      // });
+				axios.get(this.url+`/stock/${stock.id}/valider/`, this.headers)
+				.then((response) => {
+					let index = this.stocks.indexOf(stock)
+					for(key in Object.keys(stock)){
+						stock[key] = response.data[key]
+					}
+					this.active_product.quantite += stock.quantite_actuelle
+				}).catch((error) => {
+					this.displaErrorOrRefreshToken(error, this.fetchData)
+				});
 			}
 		},
 		supprimer(stock){
 			if(confirm(`voulez-vous vraiment supprimer ce stock?`)){
-	      axios.delete(this.url+`/stock/${stock.id}/`, this.headers)
-	      .then((response) => {
-	      	let index = this.stocks.indexOf(stock)
-	      	this.stocks.splice(index, 1)
-	      }).catch((error) => {
-	        this.displaErrorOrRefreshToken(error, () => supprimer(stock))
-	      });
+				axios.delete(this.url+`/stock/${stock.id}/`, this.headers)
+				.then((response) => {
+					let index = this.stocks.indexOf(stock)
+					this.stocks.splice(index, 1)
+				}).catch((error) => {
+					this.displaErrorOrRefreshToken(error, () => supprimer(stock))
+				});
 			}
 		},
-    fold(produit){
-      if(this.folded==produit.id){
-      	this.folded=-1
-      	return
-      } else {
-      	this.folded=produit.id
-      }
-      this.progress = true
-      axios.get(this.url+`/stock/?produit=${produit.id}`, this.headers)
-      .then((response) => {
-        this.stocks = response.data.results
-        this.progress = false
-      }).catch((error) => {
-        this.displaErrorOrRefreshToken(error, this.fetchData)
-      });
-    },
-    fetchData(){
-      let link = ""
-      if(!this.next){
-        link = this.url+`/produit/`;
-      } else {
-        link = this.next
-      }
-      axios.get(link, this.headers)
-      .then((response) => {
-        this.$store.state.produits.push(...response.data.results)
-        if(response.data.next.length > 0){
-          this.next = response.data.next
-          this.fetchData()
-        } else {
-          this.next = null
-        }
-      }).catch((error) => {
-        this.displaErrorOrRefreshToken(error, this.fetchData)
-      });
-    },
+		fold(produit){
+			if(this.folded==produit.id){
+				this.folded=-1
+				return
+			} else {
+				this.folded=produit.id
+			}
+			this.progress = true
+			axios.get(this.url+`/stock/?produit=${produit.id}`, this.headers)
+			.then((response) => {
+				this.stocks = response.data.results
+				this.progress = false
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.fetchData)
+			});
+		},
+		fetchData(){
+			let link = ""
+			if(!this.next){
+				link = this.url+`/produit/`;
+			} else {
+				link = this.next
+			}
+			axios.get(link, this.headers)
+			.then((response) => {
+				this.$store.state.produits.push(...response.data.results)
+				if(response.data.next.length > 0){
+					this.next = response.data.next
+					this.fetchData()
+				} else {
+					this.next = null
+				}
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.fetchData)
+			});
+		},
 	},
 	mounted(){
-    if(this.$store.state.produits.length<1){
-      this.fetchData()
-    }
+		if(this.$store.state.produits.length<1){
+			this.fetchData()
+		}
 	}
 };
 </script>
@@ -210,7 +213,7 @@ export default{
 	margin: 10px 10px 0 0;
 }
 .table{
-  height: calc(100vh - 150px);
-  max-width: 100%;
+	height: calc(100vh - 150px);
+	max-width: 100%;
 }
 </style>
