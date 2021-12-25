@@ -7,20 +7,21 @@
       </center>
       <form method="post">
         <div class="field">
-          <label for="quantite">Quantite initiale:</label>
-          <input type="text" id="quantite" v-model="quantite">
+          <label for="quantite_actuelle">Quantite:</label>
+          <input type="number" id="quantite_actuelle" v-model="quantite_actuelle">
         </div>
         <div class="field">
           <label for="prix_total">Prix total:</label>
-          <input type="number" id="prix_total" v-model="prix_total" min="0">
+          <input type="number" id="prix_total" v-model="prix_total">
         </div>
         <div class="field">
           <label for="date_expiration">Date d'expiration:</label>
-          <input type="date" id="date_expiration" v-model="date_expiration">
+          <input type="date" id="date_expiration" v-model="date_expiration"
+            :min="new Date().toISOString().split('T')[0]">
         </div>
         <div class="buttons">
           <button type="reset">Reset</button>
-          <button type="submit" value="Vendre" @click.stop.prevent="postProduit">Soumettre</button>
+          <button type="submit" value="Vendre" @click.stop.prevent="postStock">Soumettre</button>
         </div>
       </form>
     </div>
@@ -36,20 +37,20 @@ export default {
   },
   data(){
     return {
-      quantite:0, date_expiration:"", prix_total:0
+      quantite_actuelle:0, date_expiration:"", prix_total:0
     }
   },
   watch:{
     item(new_val){
       if(!!new_val){
-        this.quantite = new_val.quantite
+        this.quantite_actuelle = new_val.quantite_actuelle
         this.date_expiration = new_val.date_expiration
         this.prix_total = new_val.prix_total
       }
     }
   },
   methods: {
-    postProduit(){
+    postStock(){
       try {
         this.prix_vente = eval(this.prix_vente)
         this.rapport = eval(this.rapport)
@@ -60,21 +61,20 @@ export default {
         return
       }
       let data = {
-        quantite:this.quantite,
+        quantite_actuelle:this.quantite_actuelle,
         date_expiration:this.date_expiration,
         prix_total:this.prix_total,
-        produit:this.produit,
+        produit:this.produit.id,
       }
       if(!this.item){
-        axios.post(this.url+"/produit/", data, this.headers)
+        axios.post(this.url+"/stock/", data, this.headers)
         .then((response) => {
-          this.$store.state.produits.push(response.data)
           this.$emit("close")
         }).catch((error) => {
-          this.displaErrorOrRefreshToken(error, this.postProduit)
+          this.displaErrorOrRefreshToken(error, this.postStock)
         });
       } else {
-        axios.put(this.url+`/produit/${this.item.id}/`, data, this.headers)
+        axios.put(this.url+`/stock/${this.item.id}/`, data, this.headers)
         .then((response) => {
           let new_val = response.data
           for(let key of Object.keys(new_val)){
@@ -82,7 +82,7 @@ export default {
           }
           this.$emit("close")
         }).catch((error) => {
-          this.displaErrorOrRefreshToken(error, this.postProduit)
+          this.displaErrorOrRefreshToken(error, this.postStock)
         });
       }
     },
