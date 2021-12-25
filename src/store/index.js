@@ -13,7 +13,7 @@ export default new Vuex.Store({
     notifs:[],
     attributions:[],
     produits:[],
-    stock:[],
+    stocks:[],
     roles:["owner", "gerant", "vendeur"],
     active_kiosk:null,
   },

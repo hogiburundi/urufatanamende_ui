@@ -21,11 +21,11 @@
 			</thead>
 			<tbody>
 				<template v-for="produit in produits">
-					<tr @click="folded==produit.id?folded=-1:folded=produit.id">
+					<tr @click="fold(produit)">
 						<td>{{ produit.id }}</td>
 						<td>{{ produit.nom }}</td>
-						<td>{{ `${produit.unite}(${produit.rapport} ${produit.unite_entrante})` }}</td>
-						<td>{{ produit.quantite }}</td>
+						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
+						<td>{{ `${produit.quantite} ${produit.unite}` }}</td>
 						<td class="right">{{ money(produit.prix_vente) }}</td>
 						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
 						<td>
@@ -50,17 +50,21 @@
                 <th>validateur</th>
                 <th>option</th>
               </tr>
-              <tr v-for="achat in produit.achats">
-                <td>{{ achat.numeros_initial }}</td>
-                <td>{{ money(achat.prix_achat_total) }}</td>
-                <td>{{ money(achat.prix_vente_total) }}</td>
-                <td>{{ achat.numeros_restant }}</td>
-                <td>{{ evaluate(achat.numeros_restant) }}</td>
+              <tr v-if="progress">
+                <td colspan="6">
+                	fetching...
+                </td>
+              </tr>
+              <tr v-for="stock in stocks" v-else>
+                <td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
+                <td>{{ money(stock.prix_total) }}</td>
+                <td>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</td>
+                <td>{{ stock.date_expiration }}</td>
+                <td>{{ stock.user }}</td>
+                <td>{{ stock.validated_by }}</td>
                 <td>
-                  <button @click="affecter(achat, produit.is_evd)">
-                    <fa icon="people-carry" class="default-fa"/>
-                    affectation
-                  </button>
+                  <button>Valider</button>
+                  <button>supprimer</button>
                 </td>
               </tr>
             </td>
@@ -92,8 +96,8 @@ import DialogProduit from "../components/dialog_produit"
 export default{
 	data(){
 		return{
-			produits:this.$store.state.produits, folded:-1,
-			produit_shown:false, active_product:null, next:null,
+			produits:this.$store.state.produits, folded:-1, progress:false,
+			produit_shown:false, active_product:null, next:null, stocks:[]
 		}
 	},
 	watch:{
@@ -114,6 +118,22 @@ export default{
 			this.produit_shown = true
 			this.active_product = product
 		},
+    fold(produit){
+      if(this.folded==produit.id){
+      	this.folded=-1
+      	return
+      } else {
+      	this.folded=produit.id
+      }
+      this.progress = true
+      axios.get(this.url+`/stock/?produit=${produit.id}`, this.headers)
+      .then((response) => {
+        this.stocks = response.data.results
+        this.progress = false
+      }).catch((error) => {
+        this.displaErrorOrRefreshToken(error, this.fetchData)
+      });
+    },
     fetchData(){
       let link = ""
       if(!this.next){
