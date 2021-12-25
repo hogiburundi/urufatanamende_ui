@@ -10,24 +10,26 @@
 				<tr>
 					<th>id</th>
 					<th>nom</th>
-					<th>quantite</th>
-					<th>unité</th>
-					<th>unité entrante</th>
+					<th>unités</th>
+					<th>en stock</th>
+					<th>sur etagère</th>
 					<th class="right">prix de vente</th>
-					<th class="right">P.V. Total</th>
+					<th class="right">Valeur Stock</th>
+					<th class="right">Valeur Etagère</th>
 					<th>
 						<button @click="addProduct">Ajouter un produit</button>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="i in 30">
-					<td>{{ i }}</td>
-					<td>Black Label</td>
-					<td>20</td>
+				<tr v-for="produit in produits">
+					<td>{{ produit.id }}</td>
+					<td>{{ produit.nom }}</td>
+					<td>{{ `${produit.unite}(${produit.rapport} ${produit.unite_entrante})` }}</td>
 					<td>Bouteilles</td>
 					<td>Bouteilles</td>
-					<td class="right">{{ money(140000) }}</td>
+					<td class="right">{{ money(produit.prix_vente) }}</td>
+					<td class="right">{{ money(2800000)}}</td>
 					<td class="right">{{ money(2800000)}}</td>
 					<td>
 						<button @click="editProduct({})">
@@ -46,6 +48,9 @@
 					<th class="right">
 						{{ money(2800000000)}}
 					</th>
+					<th class="right">
+						{{ money(2800000000)}}
+					</th>
 					<th></th>
 				</tr>
 			</tfoot>
@@ -61,7 +66,12 @@ import DialogProduit from "../components/dialog_produit"
 export default{
 	data(){
 		return{
-			produit_shown:false, active_product:null
+			produit_shown:false, active_product:null, next:null, produits:[]
+		}
+	},
+	watch:{
+		"$store.state.produits"(new_val){
+			this.produits = new_val
 		}
 	},
 	components:{ StatsLayout, DialogProduit },
@@ -77,6 +87,31 @@ export default{
 			this.produit_shown = true
 			this.active_product = product
 		},
+    fetchData(){
+      let link = ""
+      if(!this.next){
+        link = this.url+`/produit/`;
+      } else {
+        link = this.next
+      }
+      axios.get(link, this.headers)
+      .then((response) => {
+        this.$store.state.produits.push(...response.data.results)
+        if(response.data.next.length > 0){
+          this.next = response.data.next
+          this.fetchData()
+        } else {
+          this.next = null
+        }
+      }).catch((error) => {
+        this.displaErrorOrRefreshToken(error, this.fetchData)
+      });
+    },
+	},
+	mounted(){
+    if(this.$store.state.produits.length<1){
+      this.fetchData()
+    }
 	}
 };
 </script>
