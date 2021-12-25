@@ -11,45 +11,71 @@
 					<th>id</th>
 					<th>nom</th>
 					<th>unités</th>
-					<th>en stock</th>
-					<th>sur etagère</th>
+					<th>quantité</th>
 					<th class="right">prix de vente</th>
-					<th class="right">Valeur Stock</th>
-					<th class="right">Valeur Etagère</th>
+					<th class="right">Valeur</th>
 					<th>
 						<button @click="addProduct">Ajouter un produit</button>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="produit in produits">
-					<td>{{ produit.id }}</td>
-					<td>{{ produit.nom }}</td>
-					<td>{{ `${produit.unite}(${produit.rapport} ${produit.unite_entrante})` }}</td>
-					<td>Bouteilles</td>
-					<td>Bouteilles</td>
-					<td class="right">{{ money(produit.prix_vente) }}</td>
-					<td class="right">{{ money(2800000)}}</td>
-					<td class="right">{{ money(2800000)}}</td>
-					<td>
-						<button @click="editProduct({})">
-							Modifier
-						</button>
-						<button>
-							<fa icon="plus"/>
-							Stock
-						</button>
-					</td>
-				</tr>
+				<template v-for="produit in produits">
+					<tr @click="folded==produit.id?folded=-1:folded=produit.id">
+						<td>{{ produit.id }}</td>
+						<td>{{ produit.nom }}</td>
+						<td>{{ `${produit.unite}(${produit.rapport} ${produit.unite_entrante})` }}</td>
+						<td>{{ produit.quantite }}</td>
+						<td class="right">{{ money(produit.prix_vente) }}</td>
+						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
+						<td>
+							<button @click="editProduct({})">
+								Modifier
+							</button>
+							<button>
+								<fa icon="plus"/>
+								Stock
+							</button>
+						</td>
+					</tr>
+          <tr v-if="folded == produit.id">
+            <td></td>
+            <td colspan=6>
+              <tr>
+                <th>qtt. initiale</th>
+                <th>prix d'achat</th>
+                <th>qtt. restant</th>
+                <th>date d'exp.</th>
+                <th>user</th>
+                <th>validateur</th>
+                <th>option</th>
+              </tr>
+              <tr v-for="achat in produit.achats">
+                <td>{{ achat.numeros_initial }}</td>
+                <td>{{ money(achat.prix_achat_total) }}</td>
+                <td>{{ money(achat.prix_vente_total) }}</td>
+                <td>{{ achat.numeros_restant }}</td>
+                <td>{{ evaluate(achat.numeros_restant) }}</td>
+                <td>
+                  <button @click="affecter(achat, produit.is_evd)">
+                    <fa icon="people-carry" class="default-fa"/>
+                    affectation
+                  </button>
+                </td>
+              </tr>
+            </td>
+          </tr>
+        </template>
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan="6"></th>
+					<th colspan="5"></th>
 					<th class="right">
-						{{ money(2800000000)}}
-					</th>
-					<th class="right">
-						{{ money(2800000000)}}
+					{{ money(
+						produits.reduce((acc, x) => {
+							return acc + (x.prix_vente * x.quantite)
+						}, 0)
+					)}}
 					</th>
 					<th></th>
 				</tr>
@@ -66,7 +92,8 @@ import DialogProduit from "../components/dialog_produit"
 export default{
 	data(){
 		return{
-			produit_shown:false, active_product:null, next:null, produits:[]
+			produits:this.$store.state.produits, folded:-1,
+			produit_shown:false, active_product:null, next:null,
 		}
 	},
 	watch:{
