@@ -14,8 +14,8 @@
             <th class="right">prix total</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-if="!!details" v-for="vente in details.ventes">
+        <tbody v-if="!!details">
+          <tr v-for="vente in details.ventes">
             <td>{{ vente.produit }}</td>
             <td>{{ vente.quantite }}</td>
             <td>{{ vente.prix_unitaire }}</td>
@@ -25,7 +25,7 @@
         <tfoot>
           <tr>
             <th colspan="3"></th>
-            <th class="right">{{ details.prix }}</th>
+            <th class="right">{{ !!details?details.prix:0 }}</th>
           </tr>
         </tfoot>
       </table>

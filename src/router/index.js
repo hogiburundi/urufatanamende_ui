@@ -9,7 +9,7 @@ import Stock from '../views/Stock.vue'
 import Pertes from '../views/Pertes.vue'
 import Ventes from '../views/Ventes.vue'
 import StatDettes from '../views/StatDettes.vue'
-import StatPaiements from '../views/StatPaiements.vue'
+import Paiements from '../views/Paiements.vue'
 import StatProduits from '../views/StatProduits.vue'
 import StatPertes from '../views/StatPertes.vue'
 
@@ -26,7 +26,7 @@ const routes = [
   { path: '/pertes', name: 'Pertes', component: Pertes},
   { path: '/ventes', name: 'Ventes', component: Ventes},
   { path: '/stat_dettes', name: 'StatDettes', component: StatDettes},
-  { path: '/stat_paiements', name: 'StatPaiements', component: StatPaiements},
+  { path: '/paiements', name: 'Paiements', component: Paiements},
   { path: '/stat_produits', name: 'StatProduits', component: StatProduits},
   { path: '/stat_pertes', name: 'StatPertes', component: StatPertes},
 ]
