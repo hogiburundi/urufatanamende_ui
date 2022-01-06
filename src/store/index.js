@@ -6,12 +6,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user : null,
-    // base_url: "http://127.0.0.1:8000",
-    base_url: "",
+    base_url: "http://127.0.0.1:8000",
+    // base_url: "",
     api: "/api",
     notification:{type:"", message:"Bienvenue"},
     notifs:[],
     attributions:[],
+    commandes:[],
     produits:[],
     stocks:[],
     alert:{type:"", message:"Bienvenue"},

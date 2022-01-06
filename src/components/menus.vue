@@ -45,27 +45,33 @@
 		</div>
 	</router-link>
 	<div class="deepmenu">
-		<fa class="img" style="margin-top: 5px;" icon="chart-bar"/>
+		<fa class="img" style="margin-top: 5px;" icon="list"/>
 		<div>
-			<div>Statistiques</div>
-			<router-link to="/stat_ventes" v-slot="{ href, navigate, isActive }">
+			<div>Historique</div>
+			<router-link to="/ventes" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Ventes</div>
 				</div>
 			</router-link>
-			<router-link to="/stat_dettes" v-slot="{ href, navigate, isActive }">
+			<router-link to="/dettes" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">		
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Dettes</div>
 				</div>
 			</router-link>
-			<router-link to="/stat_paiements" v-slot="{ href, navigate, isActive }">
+			<router-link to="/paiements" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Paiements</div>
 				</div>
 			</router-link>
+		</div>
+	</div>
+	<div class="deepmenu">
+		<fa class="img" style="margin-top: 5px;" icon="chart-bar"/>
+		<div>
+			<div>Statistiques</div>
 			<router-link to="/stat_produits" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
@@ -75,7 +81,7 @@
 			<router-link to="/stat_pertes" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
-					<div>Pertes</div>
+					<div>Clientèle</div>
 				</div>
 			</router-link>
 		</div>

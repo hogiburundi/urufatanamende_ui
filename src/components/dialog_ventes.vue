@@ -41,7 +41,12 @@ export default {
   },
   data(){
     return {
-      details:{}
+      details :{
+        prix:30000,
+        ventes:[
+          {"nom_produit":"umuti" ,"quantite":5 ,"prix_unitaire":1200 ,"prix_total":6000},
+        ]
+      }
     }
   },
   watch:{
@@ -56,12 +61,6 @@ export default {
       this.$emit("close")
     },
     fetchData(){
-      this.details = {
-        prix:30000,
-        ventes:[
-          {"nom_produit":"umuti" ,"quantite":5 ,"prix_unitaire":1200 ,"prix_total":6000},
-        ]
-      }
       // axios.get(`${this.url}/commande/${this.commande.id}/`, this.headers)
       // .then((response) => {
       //   this.details = response.data

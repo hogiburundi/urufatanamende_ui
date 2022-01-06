@@ -7,7 +7,7 @@ import Notifications from '../views/Notifications.vue'
 import Notification from '../views/Notification.vue'
 import Stock from '../views/Stock.vue'
 import Pertes from '../views/Pertes.vue'
-import StatVentes from '../views/StatVentes.vue'
+import Ventes from '../views/Ventes.vue'
 import StatDettes from '../views/StatDettes.vue'
 import StatPaiements from '../views/StatPaiements.vue'
 import StatProduits from '../views/StatProduits.vue'
@@ -24,7 +24,7 @@ const routes = [
   { path: '/notifs/:id', name: 'Notification', component: Notification},
   { path: '/stock', name: 'Stock', component: Stock},
   { path: '/pertes', name: 'Pertes', component: Pertes},
-  { path: '/stat_ventes', name: 'StatVentes', component: StatVentes},
+  { path: '/ventes', name: 'Ventes', component: Ventes},
   { path: '/stat_dettes', name: 'StatDettes', component: StatDettes},
   { path: '/stat_paiements', name: 'StatPaiements', component: StatPaiements},
   { path: '/stat_produits', name: 'StatProduits', component: StatProduits},

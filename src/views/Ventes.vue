@@ -1,0 +1,120 @@
+<template>
+	<StatsLayout>
+		<div class="table">
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>caissier</th>
+					<th>client</th>
+					<th class="right">somme</th>
+					<th class="right">payée</th>
+					<th class="right">reste</th>
+					<th class="right">benefice</th>
+					<th>options</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in commandes">
+					<td>{{ item.id }}</td>
+					<td>{{ item.user }}</td>
+					<td>{{ datetime(item.date) }}</td>
+					<td class="right">{{ money(item.prix) }} FBu</td>
+					<td class="right">{{ money(item.payee)}} FBu</td>
+					<td class="right">{{ money(item.prix-item.payee) }} FBu</td>
+					<td class="right">{{ money(2210) }} FBu</td>
+					<td>
+						<button @click="showDetails(i)">
+							details
+						</button>
+						<button>Supprimer</button>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="3"></th>
+					<th class="right">{{ money(
+						commandes.reduce((acc, x) => {
+							return acc + x.prix
+						}, 0)
+					)}} FBu
+					</th>
+					<th class="right">{{ money(
+						commandes.reduce((acc, x) => {
+							return acc + x.payee
+						}, 0)
+					)}} FBu
+					</th>
+					<th class="right">{{ money(
+						commandes.reduce((acc, x) => {
+							return acc + (x.prix - x.payee)
+						}, 0)
+					)}} FBu
+					</th>
+					<th class="right">{{ money(
+					)}} FBu
+					</th>
+					<th colspan="2"></th>
+				</tr>
+			</tfoot>
+		</table>
+		</div>
+		<DialogVentes :active="ventes_shown" :commande="active_command" @close="close"/>
+	</StatsLayout>
+</template>
+<script>
+import StatsLayout from "./stats_layout"
+import DialogVentes from "../components/dialog_ventes"
+
+export default{
+	components:{ StatsLayout, DialogVentes },
+	data(){
+		return{
+			ventes_shown:false, active_command:null, commandes:[], next:null
+		}
+	},
+	watch:{
+		"$store.state.commandes"(new_val){
+			this.commandes = new_val
+		}
+	},
+	methods:{
+		close(){
+			this.ventes_shown = false
+			this.active_command = null
+		},
+		showDetails(commande){
+			this.ventes_shown = true
+			this.active_command = {"id":commande}
+		},
+		fetchData(){
+			let link = ""
+			if(!this.next){
+				link = this.url+`/commande/`;
+			} else {
+				link = this.next
+			}
+			axios.get(link, this.headers)
+			.then((response) => {
+				this.$store.state.commandes.push(...response.data.results)
+				if(response.data.next.length > 0){
+					this.next = response.data.next
+					this.fetchData()
+				} else {
+					this.next = null
+				}
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.fetchData)
+			});
+		},
+	},
+	mounted(){
+		if(this.$store.state.commandes.length<1){
+			this.fetchData()
+		}
+	}
+};
+</script>
+<style scoped>
+</style>
