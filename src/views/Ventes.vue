@@ -4,11 +4,11 @@
 		<table>
 			<thead>
 				<tr>
-					<th>id</th>
+					<th>No.</th>
+					<th>date</th>
 					<th>caissier</th>
 					<th>client</th>
 					<th class="right">somme</th>
-					<th class="right">payée</th>
 					<th class="right">reste</th>
 					<th class="right">benefice</th>
 					<th>options</th>
@@ -17,14 +17,14 @@
 			<tbody>
 				<tr v-for="item in commandes">
 					<td>{{ item.id }}</td>
-					<td>{{ item.user }}</td>
 					<td>{{ datetime(item.date) }}</td>
+					<td>{{ item.user }}</td>
+					<td>{{ item.client }}</td>
 					<td class="right">{{ money(item.prix) }} FBu</td>
-					<td class="right">{{ money(item.payee)}} FBu</td>
 					<td class="right">{{ money(item.prix-item.payee) }} FBu</td>
-					<td class="right">{{ money(2210) }} FBu</td>
+					<td class="right">{{ money() }} FBu</td>
 					<td>
-						<button @click="showDetails(i)">
+						<button @click="showDetails(item)">
 							details
 						</button>
 						<button>Supprimer</button>
@@ -33,16 +33,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan="3"></th>
+					<th colspan="4"></th>
 					<th class="right">{{ money(
 						commandes.reduce((acc, x) => {
 							return acc + x.prix
-						}, 0)
-					)}} FBu
-					</th>
-					<th class="right">{{ money(
-						commandes.reduce((acc, x) => {
-							return acc + x.payee
 						}, 0)
 					)}} FBu
 					</th>
@@ -86,7 +80,7 @@ export default{
 		},
 		showDetails(commande){
 			this.ventes_shown = true
-			this.active_command = {"id":commande}
+			this.active_command = commande
 		},
 		fetchData(){
 			let link = ""

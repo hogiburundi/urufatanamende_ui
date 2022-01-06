@@ -15,11 +15,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in 5">
-            <td>{{ details.ventes[0].nom_produit }}</td>
-            <td>{{ details.ventes[0].quantite }}</td>
-            <td>{{ details.ventes[0].prix_unitaire }}</td>
-            <td class="right">{{ details.ventes[0].prix_total }}</td>
+          <tr v-if="!!details" v-for="vente in details.ventes">
+            <td>{{ vente.produit }}</td>
+            <td>{{ vente.quantite }}</td>
+            <td>{{ vente.prix_unitaire }}</td>
+            <td class="right">{{ vente.prix_total }}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -41,12 +41,7 @@ export default {
   },
   data(){
     return {
-      details :{
-        prix:30000,
-        ventes:[
-          {"nom_produit":"umuti" ,"quantite":5 ,"prix_unitaire":1200 ,"prix_total":6000},
-        ]
-      }
+      details:null
     }
   },
   watch:{
@@ -61,12 +56,12 @@ export default {
       this.$emit("close")
     },
     fetchData(){
-      // axios.get(`${this.url}/commande/${this.commande.id}/`, this.headers)
-      // .then((response) => {
-      //   this.details = response.data
-      // }).catch((error) => {
-      //   this.displaErrorOrRefreshToken(error, this.fetchData)
-      // });
+      axios.get(`${this.url}/commande/${this.commande.id}/`, this.headers)
+      .then((response) => {
+        this.details = response.data
+      }).catch((error) => {
+        this.displaErrorOrRefreshToken(error, this.fetchData)
+      });
     }
   }
 };
