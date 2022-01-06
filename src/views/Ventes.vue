@@ -27,7 +27,9 @@
 						<button @click="showDetails(item)">
 							details
 						</button>
-						<button>Supprimer</button>
+						<button  @click="supprimer(item)">
+							Supprimer
+						</button>
 					</td>
 				</tr>
 			</tbody>
@@ -65,7 +67,8 @@ export default{
 	components:{ StatsLayout, DialogVentes },
 	data(){
 		return{
-			ventes_shown:false, active_command:null, commandes:[], next:null
+			ventes_shown:false, active_command:null, next:null, 
+			commandes:this.$store.state.commandes
 		}
 	},
 	watch:{
@@ -81,6 +84,17 @@ export default{
 		showDetails(commande){
 			this.ventes_shown = true
 			this.active_command = commande
+		},
+		supprimer(item){
+			if(confirm("Voulez-vous vraiment annuler cette commande?")){
+				axios.delete(`${this.url}/commande/${item.id}/`, this.headers)
+				.then((response) => {
+					let index = this.$store.state.commandes.indexOf(item)
+					this.$store.state.commandes.splice(index, 1)
+				}).catch((error) => {
+					this.displaErrorOrRefreshToken(error, this.supprimer)
+				});
+			}
 		},
 		fetchData(){
 			let link = ""
