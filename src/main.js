@@ -9,14 +9,14 @@ import {
   faShoppingCart, faBox, faBoxOpen, faChartBar, faUser, faBars,
   faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
   faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
-  faSearch, faTimes, faPlus, faList, faBalanceScale
+  faSearch, faTimes, faPlus, faList, faBalanceScale, faTrashAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add({
   faShoppingCart, faBox, faBoxOpen,  faChartBar, faUser, faBars,
   faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
   faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
-  faSearch, faTimes, faPlus, faList, faBalanceScale
+  faSearch, faTimes, faPlus, faList, faBalanceScale, faTrashAlt
 })
 
 Vue.component('fa', FontAwesomeIcon)

@@ -17,17 +17,17 @@
         panier ({{ cart.content.length }})
       </div>
     </div>
-    <!-- <Invoice/>
-    <DialogVente :active="confirm_vente" @close="confirm_vente=false"/> -->
+    <!-- <Invoice/> -->
+    <DialogVente :active="confirm_vente" @close="confirm_vente=false"/>
   </div>
 </template>
 <script>
 import VenteItem from "../components/vente_item"
 import CartView from "../components/cart"
-// import DialogVente from "../components/dialog_vente"
+import DialogVente from "../components/dialog_vente"
 // import Invoice from "../components/invoice"
 export default {
-  components: {VenteItem, CartView},//, DialogVente, Invoice},
+  components: {VenteItem, CartView, DialogVente},//, Invoice},
   data(){
     return{
       produits:this.$store.state.produits, confirm_vente:false,
