@@ -59,7 +59,7 @@ export default {
 </script>
 <style scoped>
 *{
-	color: black; 
+	color: #eee; 
 }
 .img{
 	padding: 5px;
@@ -67,23 +67,23 @@ export default {
 }
 .danger *{
 	color: var(--primary-light);
-	border-color: var(--primary-dark);
+	border-color: var(--primary);
 	cursor: not-allowed;
 }
 .danger .bg-blue:hover{
-	background-color: inherit;
+	background-color: var(--primary);
 	color:inherit;
 }
 .danger .buttons{
 	border-top: 1px solid var(--overlay-color);
 }
 .parent{
-	background-color: var(--primary);
+	background-color: var(--primary-light);
     padding: 3px;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	border: 1px solid var(--primary);
+	border: 1px solid var(--primary-light);
 	max-width: 200px;
 	height: 100%;
 	max-height: 120px;
@@ -111,6 +111,7 @@ export default {
 }
 button{
 	border: 0;
+	background-color: var(--primary-light);
 }
 .bg-blue{
 	width: 35%;
@@ -132,7 +133,7 @@ label{
     border-top: 0;
 }
 .bg-blue:hover{
-	background-color: var(--primary-dark);
+	background-color: var(--primary);
 	color: white;
 }
 .item_qtt{
@@ -144,7 +145,7 @@ label{
 .dispo{
 	color: #fff;
 	padding: 2px 5px;
-	background-color: var(--primary-dark);
+	background-color: var(--primary);
 	font-weight: bold;
 	font-size: .9em;
 	display: inline-block;

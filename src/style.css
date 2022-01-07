@@ -2,6 +2,7 @@
 :root {
     --sans-serif: "Segoe UI", "Helvetica Neue", "Noto Sans", sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --primary: #293150;
+    --primary-light: #79b;
 }
 *{
     box-sizing: border-box;

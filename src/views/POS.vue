@@ -17,11 +17,11 @@
 </template>
 <script>
 import VenteItem from "../components/vente_item"
+import CartView from "../components/cart"
 // import DialogVente from "../components/dialog_vente"
-// import CartView from "../components/cart"
 // import Invoice from "../components/invoice"
 export default {
-  components: {VenteItem},//, DialogVente, CartView, Invoice},
+  components: {VenteItem, CartView},//, DialogVente, Invoice},
   data(){
     return{
       produits:this.$store.state.produits, confirm_vente:false,
