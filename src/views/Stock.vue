@@ -70,7 +70,11 @@
 										supprimer
 									</button>
 								</td>
-								<td v-else></td>
+								<td v-else>
+									<button @click="perdre(stock)">
+										perte
+									</button>
+								</td>
 							</tr>
 						</td>
 					</tr>
@@ -100,19 +104,25 @@
 			:produit="active_product"
 			:item="active_stock"
 			@close="close"/>
+		<DialogPerte
+			:active="perte_shown"
+			:item="active_stock"
+			@close="close"/>
 	</StatsLayout>
 </template>
 <script>
 import StatsLayout from "./stats_layout"
 import DialogProduit from "../components/dialog_produit"
 import DialogStock from "../components/dialog_stock"
+import DialogPerte from "../components/dialog_perte"
 
 export default{
+	components:{ StatsLayout, DialogProduit, DialogStock, DialogPerte },
 	data(){
 		return{
 			produits:this.$store.state.produits, folded:-1, progress:false,
 			produit_shown:false, active_product:null, next:null, stocks:[],
-			stock_shown:false, active_stock:null
+			stock_shown:false, active_stock:null, perte_shown:false
 		}
 	},
 	watch:{
@@ -120,11 +130,11 @@ export default{
 			this.produits = new_val
 		}
 	},
-	components:{ StatsLayout, DialogProduit, DialogStock },
 	methods:{
 		close(){
 			this.produit_shown = false
 			this.stock_shown = false
+			this.perte_shown = false
 			this.active_product = null
 			this.active_stock = null
 		},
@@ -137,6 +147,10 @@ export default{
 		},
 		createStock(product){
 			this.stock_shown = true
+			this.active_product = product
+		},
+		perdre(product){
+			this.perte_shown = true
 			this.active_product = product
 		},
 		valider(stock){
