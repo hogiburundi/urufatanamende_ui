@@ -1,6 +1,5 @@
 <template>
-  <div class="home">
-    <SearchBar/>
+  <div class="pos">
     <div class="contents nonprintable">
       <div class="items" id="recycler">
         <VenteItem v-for="item in produits" :item="item" :key="item.id"/>
@@ -17,13 +16,12 @@
   </div>
 </template>
 <script>
-// import SearchBar from "../components/searchbar"
-// import VenteItem from "../components/vente_item"
+import VenteItem from "../components/vente_item"
 // import DialogVente from "../components/dialog_vente"
 // import CartView from "../components/cart"
 // import Invoice from "../components/invoice"
 export default {
-  // components: {SearchBar, VenteItem, DialogVente, CartView, Invoice},
+  components: {VenteItem},//, DialogVente, CartView, Invoice},
   data(){
     return{
       produits:this.$store.state.produits, confirm_vente:false,
@@ -93,7 +91,6 @@ export default {
     }
     this.recalculateColumns()
     window.addEventListener("resize", this.recalculateColumns);
-    this.searchIn('nom')
   },
   beforeRouteLeave(to, from, next){
     console.log("no longer tracking resize")
