@@ -44,10 +44,10 @@
 			<div class="name">Accueil</div>
 		</div>
 	</router-link>
-	<router-link to="/guichet" v-slot="{ href, navigate, isExactActive }">
+	<router-link to="/pos" v-slot="{ href, navigate, isExactActive }">
 		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
 			<fa class="img" icon="balance-scale"/>
-			<div class="name">Guichet</div>
+			<div class="name">Point de Vente</div>
 		</div>
 	</router-link>
 	<div class="deepmenu">

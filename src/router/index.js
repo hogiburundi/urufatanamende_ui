@@ -12,11 +12,13 @@ import StatDettes from '../views/StatDettes.vue'
 import Paiements from '../views/Paiements.vue'
 import StatProduits from '../views/StatProduits.vue'
 import StatPertes from '../views/StatPertes.vue'
+import POS from '../views/POS.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/', name: 'Home', component: Home},
+  { path: '/pos', name: 'POS', component: POS},
   { path: '/magasin', name: 'Magasin', component: Magasin},
   { path: '/magasin/edit', name: 'Magasin', component: Magasin},
   { path: '/users', name: 'Users', component: Users},
