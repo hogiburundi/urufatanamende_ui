@@ -44,6 +44,12 @@
 			<div class="name">Accueil</div>
 		</div>
 	</router-link>
+	<router-link to="/guichet" v-slot="{ href, navigate, isExactActive }">
+		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
+			<fa class="img" icon="balance-scale"/>
+			<div class="name">Guichet</div>
+		</div>
+	</router-link>
 	<div class="deepmenu">
 		<fa class="img" style="margin-top: 5px;" icon="list"/>
 		<div>

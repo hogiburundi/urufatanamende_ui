@@ -41,8 +41,8 @@
 					)}} FBu
 					<th></th>
 					<th class="right">
-						<button>tout accepter</button>
-						<button>tout refuser</button>
+						<!-- <button>tout accepter</button>
+						<button>tout refuser</button> -->
 					</th>
 				</tr>
 			</tfoot>
