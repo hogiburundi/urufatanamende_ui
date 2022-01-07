@@ -116,10 +116,12 @@ export default {
         items.unshift({"produit":item.product.id, "quantite":item.quantite})
       }
       data = {
-        "ventes":items, "payee":this.payee,
-        "client": !client?undefined:client
+        "ventes":items, 
+        "payee":this.payee,
+        "kiosk":this.getActiveKiosk().id,
+        "client": client.length>3?client:undefined
       };
-      axios.post(this.$store.state.url+"/commande/", data, this.headers)
+      axios.post(this.url+"/commande/", data, this.headers)
       .then((response) => {
         this.$store.state.commande.infos = response.data;
         for(let item of this.cart.content){
