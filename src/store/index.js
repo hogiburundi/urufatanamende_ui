@@ -16,6 +16,7 @@ export default new Vuex.Store({
     produits:[],
     payments:[],
     stocks:[],
+    pertes:[],
     alert:{type:"", message:"Bienvenue"},
     roles:["owner", "gerant", "vendeur"],
     active_kiosk:null,
