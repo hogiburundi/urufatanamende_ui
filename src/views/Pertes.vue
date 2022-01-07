@@ -23,18 +23,20 @@
 					<td class="right">{{ perte.quantite }}</td>
 					<td class="right">{{ money(perte.prix)}} FBu</td>
 					<td>{{ perte.details }}</td>
-					<td>
+					<td v-if="!perte.validated_by">
 						<button>accepter</button>
-						<button>refuser</button>
+						<button @click="supprimer(perte)">
+							refuser
+						</button>
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
 					<th colspan="5"></th>
-					<th class="right">
-						{{ money(36000)}} FBu
-					</th>
+					<th class="right">{{ money(
+						pertes.reduce((acc, x) => acc + x.prix, 0)
+					)}} FBu
 					<th></th>
 					<th class="right">
 						<button>tout accepter</button>
@@ -61,6 +63,17 @@ export default{
 		}
 	},
 	methods:{
+		supprimer(item){
+			if(confirm("Voulez-vous vraiment annuler cette commande?")){
+				axios.delete(`${this.url}/perte/${item.id}/`, this.headers)
+				.then((response) => {
+					let index = this.$store.state.pertes.indexOf(item)
+					this.$store.state.pertes.splice(index, 1)
+				}).catch((error) => {
+					this.displaErrorOrRefreshToken(error, () => this.supprimer(item))
+				});
+			}
+		},
 		fetchData(){
 			let link = ""
 			let kiosk_id = this.getActiveKiosk().id

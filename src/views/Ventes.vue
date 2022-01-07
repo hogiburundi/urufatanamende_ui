@@ -92,7 +92,7 @@ export default{
 					let index = this.$store.state.commandes.indexOf(item)
 					this.$store.state.commandes.splice(index, 1)
 				}).catch((error) => {
-					this.displaErrorOrRefreshToken(error, this.supprimer)
+					this.displaErrorOrRefreshToken(error, () => this.supprimer(item))
 				});
 			}
 		},
