@@ -8,28 +8,36 @@
 					<th>commande</th>
 					<th>date</th>
 					<th class="right">somme</th>
+					<th>user</th>
 					<th>options</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="i in 30">
-					<td>{{ i }}</td>
-					<td>inganzamarumpu</td>
-					<td>{{ datetime(new Date()) }}</td>
-					<td class="right">{{ money(36000) }} FBu</td>
-					<td>
-						<button>modifier</button>
-						<button>supprimer</button>
+				<tr v-for="payment in payments">
+					<td>{{ payment.id }}</td>
+					<td>No. {{ payment.commande }}</td>
+					<td>{{ datetime(payment.date) }}</td>
+					<td class="right">{{ money(payment.montant) }} FBu</td>
+					<td>{{ payment.user }}</td>
+					<td v-if="!!validated_by">
+						<button>
+							valider
+						</button>
+						<button>
+							rejeter
+						</button>
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
 					<th colspan="3"></th>
-					<th class="right">
-						{{ money(36000)}} FBu
-					</th>
-					<th></th>
+					<th class="right">{{ money(
+						payments.reduce((acc, x) => {
+							return acc + x.montant
+						}, 0)
+					)}} FBu
+					<th colspan="2"></th>
 				</tr>
 			</tfoot>
 		</table>
@@ -39,11 +47,44 @@
 <script>
 import StatsLayout from "./stats_layout"
 export default{
-	data(){
-		return{}
-	},
 	components:{StatsLayout},
+	data(){
+		return{
+			payments:this.$store.state.payments
+		}
+	},
+	watch:{
+		"$store.state.payments"(new_val){
+			this.payments = new_val
+		}
+	},
 	methods:{
+	
+		fetchData(){
+			let link = ""
+			if(!this.next){
+				link = this.url+`/payment/`;
+			} else {
+				link = this.next
+			}
+			axios.get(link, this.headers)
+			.then((response) => {
+				this.$store.state.payments.push(...response.data.results)
+				if(response.data.next.length > 0){
+					this.next = response.data.next
+					this.fetchData()
+				} else {
+					this.next = null
+				}
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.fetchData)
+			});
+		},
+	},
+	mounted(){
+		if(this.$store.state.payments.length<1){
+			this.fetchData()
+		}
 	}
 };
 </script>
