@@ -53,6 +53,7 @@ export default {
       axios.post(this.url+"/perte/", data, this.headers)
       .then((response) => {
         this.item.quantite -= this.quantite
+        this.$store.state.pertes.push(response.data)
         this.$emit("close")
       }).catch((error) => {
         this.displaErrorOrRefreshToken(error, this.postPerte)

@@ -24,7 +24,9 @@
 					<td class="right">{{ money(perte.prix)}} FBu</td>
 					<td>{{ perte.details }}</td>
 					<td v-if="!perte.validated_by">
-						<button>accepter</button>
+						<button  @click="valider(perte)">
+							accepter
+						</button>
 						<button @click="supprimer(perte)">
 							refuser
 						</button>
@@ -64,11 +66,26 @@ export default{
 	},
 	methods:{
 		supprimer(item){
-			if(confirm("Voulez-vous vraiment annuler cette commande?")){
+			if(confirm("Voulez-vous vraiment annuler cette perte?")){
 				axios.delete(`${this.url}/perte/${item.id}/`, this.headers)
 				.then((response) => {
 					let index = this.$store.state.pertes.indexOf(item)
+					console.log(index)
 					this.$store.state.pertes.splice(index, 1)
+				}).catch((error) => {
+					this.displaErrorOrRefreshToken(error, () => this.supprimer(item))
+				});
+			}
+		},
+		valider(item){
+			let last_name = this.active_user.last_name
+			console.log(this.active_user)
+			if(prompt(`pour accepter cette perte tapez ${last_name}:`) == last_name){
+				axios.get(`${this.url}/perte/${item.id}/valider/`, this.headers)
+				.then((response) => {
+					for(let key of Object.keys(item)){
+						item[key] = response.data[key]
+					}
 				}).catch((error) => {
 					this.displaErrorOrRefreshToken(error, () => this.supprimer(item))
 				});
