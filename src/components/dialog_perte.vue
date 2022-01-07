@@ -39,13 +39,8 @@ export default {
   },
   methods: {
     postPerte(){
-      try {
-        this.quantite = eval(this.quantite)
-      } catch(e) {
-        return
-      }
       if(this.details.length<32){
-        this.$store.state.notification = {
+        this.$store.state.alert = {
           type:"", message:"la justification doit être faite d'au moins 32 caractères "
         }
         return
@@ -53,10 +48,11 @@ export default {
       let data = {
         "quantite": this.quantite,
         "details": this.details,
-        "requisition": this.item.id
+        "stock": this.item.id
       }
       axios.post(this.url+"/perte/", data, this.headers)
       .then((response) => {
+        this.item.quantite -= this.quantite
         this.$emit("close")
       }).catch((error) => {
         this.displaErrorOrRefreshToken(error, this.postPerte)

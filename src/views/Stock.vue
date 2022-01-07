@@ -151,7 +151,7 @@ export default{
 		},
 		perdre(product){
 			this.perte_shown = true
-			this.active_product = product
+			this.active_stock = product
 		},
 		valider(stock){
 			if(confirm(`voulez-vous vraiment valider ce stock?`)){
