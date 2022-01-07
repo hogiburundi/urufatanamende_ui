@@ -56,12 +56,14 @@ export default {
   padding: 10px;
   background-color: var(--primary-light);
   overflow-y: auto;
+  position: relative;
 }
 h3{
   text-align: center;
   margin-bottom: 15px;
 }
 .totals{
+	margin-top: 5px;
   border-top: 1px solid black;
   display: flex;
   justify-content: space-between;
@@ -76,6 +78,9 @@ button{
 }
 .close{
 	background-color: red;
+	position: absolute;
+	top: 2px;
+	left: 2px;
 }
 .cart-content{
   display: flex;

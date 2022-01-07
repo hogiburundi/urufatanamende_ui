@@ -1,5 +1,11 @@
 <template>
   <div class="pos">
+    <center>
+      <div class="sv">
+        <fa icon="search"/>
+        <input type="text" placeholder="search">
+      </div>   
+    </center>
     <div class="contents nonprintable">
       <div class="items" id="recycler">
         <VenteItem v-for="item in produits" :item="item" :key="item.id"/>
@@ -100,7 +106,7 @@ export default {
 }
 </script>
 <style scoped>
-.home{
+.pos{
   width: 100%;
   height: 100vh;
   overflow: hidden;
@@ -108,7 +114,7 @@ export default {
 }
 .contents{
   display: flex;
-  height: calc(100% - 70px);
+  height: calc(100% - 100px);
   position: relative;
 }
 .items{
@@ -132,5 +138,9 @@ export default {
   box-shadow: -3px 3px 5px black;
   border-radius: 3px;
   cursor: default;
+}
+.sv{
+  display: inline-flex;
+  margin: 10px 0;
 }
 </style>
