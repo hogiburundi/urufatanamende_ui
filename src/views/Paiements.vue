@@ -62,8 +62,9 @@ export default{
 	
 		fetchData(){
 			let link = ""
+			let kiosk_id = this.getActiveKiosk().id
 			if(!this.next){
-				link = this.url+`/payment/`;
+				link = this.url+`/payment/?commande__kiosk=${kiosk_id}`;
 			} else {
 				link = this.next
 			}
