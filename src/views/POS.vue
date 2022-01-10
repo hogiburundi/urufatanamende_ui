@@ -1,6 +1,6 @@
 <template>
   <div class="pos">
-    <center>
+    <center class="nonprintable">
       <div class="sv">
         <fa icon="search"/>
         <input type="text" placeholder="search">
@@ -17,7 +17,7 @@
         panier ({{ cart.content.length }})
       </div>
     </div>
-    <Invoice/>
+    <Invoice :commande="fetched"/>
     <DialogVente :active="confirm_vente" @close="confirm_vente=false"/>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
   data(){
     return{
       produits:this.$store.state.produits, confirm_vente:false,
-      details_shown:true, next:null, to_search:""
+      details_shown:true, next:null, to_search:"", fetched:null
     }
   },
   computed:{
@@ -46,6 +46,14 @@ export default {
     "$store.state.keywords"(new_val){
       this.search(JSON.parse(new_val))
     },
+    "$store.state.commande":{
+      deep:true,
+      handler(new_val){
+        if(!!new_val){
+          this.fetched = new_val
+        }
+      }
+    }
   },
   methods:{
     switchDetails(value){
@@ -53,7 +61,6 @@ export default {
       setTimeout(this.recalculateColumns, 100)
     },
     confirmVente(){
-      this.$store.state.commande.ventes = this.$store.state.cart.content
       this.confirm_vente = true
     },
     fetchData(){

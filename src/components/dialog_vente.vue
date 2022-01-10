@@ -58,6 +58,13 @@ export default {
       dette_p:null, logs:""
     }
   },
+  watch:{
+    active(new_val){
+      if(new_val){
+        this.$store.state.commande = null;
+      }
+    }
+  },
   computed:{
     payee:{
       get(){
@@ -123,7 +130,7 @@ export default {
       };
       axios.post(this.url+"/commande/", data, this.headers)
       .then((response) => {
-        this.$store.state.commande.infos = response.data;
+        this.$store.state.commande = response.data;
         for(let item of this.cart.content){
           item.product.quantite -= item.quantite
         }

@@ -206,7 +206,7 @@ table button{
         overflow-x: hidden;
     }
     .nonprintable{
-        display: none;
+        display: none!important;
     }
     .printable{
         display: inherit;
