@@ -84,9 +84,9 @@ export default {
 	display: flex;
 	flex-direction: column;
 	border: 1px solid var(--primary-light);
-	max-width: 200px;
+	/*max-width: 200px;*/
 	height: 100%;
-	max-height: 120px;
+	max-height: 100px;
 }
 .name{
 	font-size: .9em;
@@ -98,6 +98,10 @@ export default {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	margin: 4px 0;
+	color: white!important;
+}
+.prix b{
+	color: white;
 }
 .qtt{
 	font-size: .7em;

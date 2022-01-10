@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user : null,
-    // base_url: "http://127.0.0.1:8000",
-    base_url: "",
+    base_url: "http://127.0.0.1:8000",
+    // base_url: "",
     api: "/api",
     notification:{type:"", message:"Bienvenue"},
     notifs:[],
@@ -17,7 +17,7 @@ export default new Vuex.Store({
     payments:[],
     stocks:[],
     pertes:[],
-    commande:{},
+    commande:{infos:{}},
     alert:{type:"", message:"Bienvenue"},
     roles:["owner", "gerant", "vendeur"],
     active_kiosk:null,

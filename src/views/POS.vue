@@ -85,7 +85,7 @@ export default {
       console.log("recalculate columns")
       try {
         let width = recycler.clientWidth;
-        let columns = Math.round(width/220)
+        let columns = Math.round(width/210)
         recycler.style.gridTemplateColumns = `repeat(${columns}, 1fr)`
       } catch(e) {
         console.log(e);

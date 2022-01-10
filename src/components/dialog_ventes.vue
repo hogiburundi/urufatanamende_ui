@@ -5,43 +5,21 @@
       <center>
         <h3 style="margin-bottom: 10px;">PRODUITS VENDUES</h3>
       </center>
-      <table>
-        <thead>
-          <tr>
-            <th>produit</th>
-            <th>quantité</th>
-            <th>prix unitaire</th>
-            <th class="right">prix total</th>
-          </tr>
-        </thead>
-        <tbody v-if="!!details">
-          <tr v-for="vente in details.ventes">
-            <td>{{ vente.produit }}</td>
-            <td>{{ vente.quantite }}</td>
-            <td>{{ vente.prix_unitaire }}</td>
-            <td class="right">{{ vente.prix_total }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="3"></th>
-            <th class="right">{{ !!details?details.prix:0 }}</th>
-          </tr>
-        </tfoot>
-      </table>
+      <Invoice :commande="fetched"/>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import Invoice from "./invoice"
 export default {
+  components:{Invoice},
   props: {
     active:{ type:Boolean, default:false},
     commande:{ type:Object, default:null},
   },
   data(){
     return {
-      details:null
+      details:null, fetched:null
     }
   },
   watch:{
@@ -53,12 +31,14 @@ export default {
   },
   methods: {
     close(){
+      this.commande.ventes = null
       this.$emit("close")
     },
     fetchData(){
       axios.get(`${this.url}/commande/${this.commande.id}/`, this.headers)
       .then((response) => {
-        this.details = response.data
+        this.fetched = response.data
+        console.log("ventes updated")
       }).catch((error) => {
         this.displaErrorOrRefreshToken(error, this.fetchData)
       });
