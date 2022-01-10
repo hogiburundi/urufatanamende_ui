@@ -1,5 +1,5 @@
 <template>
-<div id="menus">
+<div id="menus" class="nonprintable">
 	<div class="select">
 		<div class="kiosk">
 			<fa class="img fa_bars" icon="bars" />

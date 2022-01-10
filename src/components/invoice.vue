@@ -61,4 +61,11 @@ export default {
 .header *{
 	margin: 10px 0;
 }
+@media print{
+    .invoice{
+        background-color: white;
+        position: fixed;
+        width: 100%;
+    }
+}
 </style>

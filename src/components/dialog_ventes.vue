@@ -1,11 +1,18 @@
 <template>
   <div :class="{popup:true, active:active}">
     <div class="popup-body">
-      <button class="close" @click="$emit('close')">&times</button>
-      <center>
+      <button class="close nonprintable" @click="$emit('close')">
+        &times
+      </button>
+      <center class="nonprintable">
         <h3 style="margin-bottom: 10px;">PRODUITS VENDUES</h3>
       </center>
       <Invoice :commande="fetched"/>
+      <center class="nonprintable">
+        <button @click="imprimer">
+          imprimer
+        </button>
+      </center>
     </div>
   </div>
 </template>
@@ -42,6 +49,9 @@ export default {
       }).catch((error) => {
         this.displaErrorOrRefreshToken(error, this.fetchData)
       });
+    },
+    imprimer(){
+      window.print()
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
 	<StatsLayout>
-		<div class="table">
+		<div class="table nonprintable">
 		<table>
 			<thead>
 				<tr>

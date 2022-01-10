@@ -1,5 +1,5 @@
 <template>
-<div class="topbar">
+<div class="topbar nonprintable">
 	<fa class="showmenu" icon="bars" @click="showMenus"/>
 	<div class="menu">
 		<div>
