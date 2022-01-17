@@ -109,7 +109,7 @@ export default {
     postCommande(){
       if(this.payee < this.cart.getTotal()){
         if(this.client.tel.length<7){
-          this.$store.state.notification = {
+          this.$store.state.alert = {
             type:"danger", message:"le numero est obligatoire pour les dettes"
           }
           return;
@@ -122,9 +122,9 @@ export default {
       for(let item of this.cart.content){
         items.unshift({"produit":item.product.id, "quantite":item.quantite})
       }
+      let payee = this.payee<=this.cart.getTotal()?this.payee:this.cart.getTotal()
       data = {
-        "ventes":items, 
-        "payee":this.payee,
+        "ventes":items, "payee":payee,
         "kiosk":this.getActiveKiosk().id,
         "client": client.length>3?client:undefined
       };
