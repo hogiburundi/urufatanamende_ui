@@ -117,7 +117,7 @@ export default {
       }
       let data = {};
       let items = [];
-      let client = `${this.client.nom} ${this.client.tel}`
+      let client = {"nom":this.client.nom, "tel":this.client.tel}
 
       for(let item of this.cart.content){
         items.unshift({"produit":item.product.id, "quantite":item.quantite})
@@ -126,7 +126,7 @@ export default {
       data = {
         "ventes":items, "payee":payee,
         "kiosk":this.getActiveKiosk().id,
-        "client": client.length>3?client:undefined
+        "client": client
       };
       axios.post(this.url+"/commande/", data, this.headers)
       .then((response) => {

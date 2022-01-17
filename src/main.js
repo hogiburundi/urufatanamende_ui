@@ -98,6 +98,9 @@ Vue.mixin({
               this.$store.state.user = null;
             } else {
               console.error(error)
+              this.$store.state.alert = {
+                type:"danger", message:this.cleanString(error.response.data)
+              }
             }
           })
         } else {
