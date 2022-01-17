@@ -20,17 +20,32 @@
           est de: <b>{{ money(Math.abs(payee - cart.getTotal())) }}</b> Fbu
         </div>
         <hr>
-        <div class="field">
-          <label for="id_nom">Nom du client</label>
-          <input type="text" list="noms" v-model="client.nom"
-            id="id_nom" @change="setTel">
+        <div>
+          <input type="checkbox" id="is_client_new" v-model="is_client_new">
+          <label for="is_client_new"> C'est un nouveau client:</label>
         </div>
-        <div class="field">
-          <label for="id_tel">Téléphone</label>
-          <input type="number" v-model="client.tel" id="id_tel"
-             list="tels" @change="setNom">
+        <div class="field" v-if="!is_client_new">
+          <label for="keyword">Nom du client:</label>
+          <div class="searchable">
+            <input type="text" id="keyword" placeholder="keyword" v-model="keyword">
+            <button @click.prevent="search">search</button>
+          </div>
+          <div class="logs">
+            {{ logs }}
+          </div>
         </div>
-        <div class="logs">{{logs}}</div>
+        <div v-if="is_client_new">
+          <div class="field">
+            <label for="id_nom">Nom du client</label>
+            <input type="text" list="noms" v-model="client.nom"
+              id="id_nom" @change="setTel">
+          </div>
+          <div class="field">
+            <label for="id_tel">Téléphone</label>
+            <input type="number" v-model="client.tel" id="id_tel"
+               list="tels" @change="setNom">
+          </div>
+        </div>
         <div class="buttons">
           <button type="submit" value="Vendre"
             @click.prevent="postCommande">Soumettre</button>
@@ -55,7 +70,7 @@ export default {
   data(){
     return {
       client:{ nom:"", tel:""}, cart: this.$store.state.cart,
-      dette_p:null, logs:""
+      dette_p:null, logs:"", is_client_new:false, keyword:""
     }
   },
   watch:{
@@ -106,6 +121,28 @@ export default {
         }
       }
     },
+    search(){
+      if(!this.keyword){
+        this.logs = "* le champ est obligatoire"
+        return
+      }
+      this.logs = "recherche en cours ..."
+      axios.get(this.url+`/client/?search=${this.keyword}`, this.headers)
+      .then((response) => {
+        let results = response.data.results
+        if(results.length == 0){
+          this.logs = "aucun client trouvé"
+        } else if(results.length > 1){
+          this.logs = "le resultat est flou"
+        } else {
+          console.log('OK')
+          this.logs = `${results[0].nom} : ${results[0].tel}`
+          this.client = results[0]
+        }
+      }).catch((error) => {
+        this.logs = this.cleanString(error.response.data)
+      });
+    },
     postCommande(){
       if(this.payee < this.cart.getTotal()){
         if(this.client.tel.length<7){
@@ -128,6 +165,12 @@ export default {
         "kiosk":this.getActiveKiosk().id,
         "client": client
       };
+      if(data.ventes.length==0){
+        this.$store.state.alert = {
+          type:"danger", message:"le panier est vide"
+        }
+        return;
+      }
       axios.post(this.url+"/commande/", data, this.headers)
       .then((response) => {
         this.$store.state.commande = response.data;
@@ -145,4 +188,12 @@ export default {
 };
 </script>
 <style scoped>
+.searchable{
+  display: flex;
+}
+.searchable button{
+  margin: 0;
+  margin-left: 5px;
+  width: 70px;
+}
 </style>
