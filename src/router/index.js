@@ -11,7 +11,7 @@ import Ventes from '../views/Ventes.vue'
 import StatDettes from '../views/StatDettes.vue'
 import Paiements from '../views/Paiements.vue'
 import StatProduits from '../views/StatProduits.vue'
-import StatPertes from '../views/StatPertes.vue'
+import StatClient from '../views/StatClient.vue'
 import POS from '../views/POS.vue'
 
 Vue.use(VueRouter)
@@ -30,7 +30,7 @@ const routes = [
   { path: '/stat_dettes', name: 'StatDettes', component: StatDettes},
   { path: '/paiements', name: 'Paiements', component: Paiements},
   { path: '/stat_produits', name: 'StatProduits', component: StatProduits},
-  { path: '/stat_pertes', name: 'StatPertes', component: StatPertes},
+  { path: '/stat_clients', name: 'StatClient', component: StatClient},
 ]
 
 const router = new VueRouter({

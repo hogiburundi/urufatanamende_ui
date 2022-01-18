@@ -78,7 +78,7 @@
 					<div>Produits</div>
 				</div>
 			</router-link>
-			<router-link to="/stat_pertes" v-slot="{ href, navigate, isActive }">
+			<router-link to="/stat_clients" v-slot="{ href, navigate, isActive }">
 				<div class="element" @click="navigate" :class="{'active':isActive}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Clientèle</div>
