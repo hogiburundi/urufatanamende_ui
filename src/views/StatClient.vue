@@ -4,24 +4,24 @@
 		<table>
 			<thead>
 				<tr>
-					<th>produit</th>
+					<th>client</th>
 					<th>du</th>
 					<th>au</th>
-					<th class="right">Qtt</th>
-					<th class="right">P.A. Total</th>
-					<th class="right">P.V. Total</th>
-					<th class="right">benefice</th>
+					<th class="right">fois</th>
+					<th class="right">montant</th>
+					<th class="right">payée</th>
+					<th class="right">reste</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="item in stats">
-					<td>{{ item.produit }}</td>
+					<td>{{ item.client }}</td>
 					<td>{{ datetime(item.du) }}</td>
 					<td>{{ datetime(item.au) }}</td>
-					<td>{{ item.count }}</td>
-					<td class="right">{{ money(item.p_a_t) }} FBu</td>
-					<td class="right">{{ money(item.p_v_t) }} FBu</td>
-					<td class="right">{{ money(item.p_v_t - item.p_a_t) }} FBu</td>
+					<td>{{ item.fois }}</td>
+					<td class="right">{{ money(item.prix) }} FBu</td>
+					<td class="right">{{ money(item.payee) }} FBu</td>
+					<td class="right">{{ money(item.prix - item.payee) }} FBu</td>
 				</tr>
 			</tbody>
 			<tfoot>
@@ -29,19 +29,19 @@
 					<th colspan="4"></th>
 					<th class="right">{{ money(
 						stats.reduce((acc, x) => {
-							return acc + x.p_a_t
+							return acc + x.prix
 						}, 0)
 					)}} FBu
 					</th>
 					<th class="right">{{ money(
 						stats.reduce((acc, x) => {
-							return acc + x.p_v_t
+							return acc + x.payee
 						}, 0)
 					)}} FBu
 					</th>
 					<th class="right">{{ money(
 						stats.reduce((acc, x) => {
-							return acc + (x.p_v_t - x.p_a_t)
+							return acc + (x.prix - x.payee)
 						}, 0)
 					)}} FBu
 					</th>
@@ -58,27 +58,27 @@ export default{
 	components:{ StatsLayout },
 	data(){
 		return{
-			stats:this.$store.state.stats_prod
+			stats:this.$store.state.stats_client
 		}
 	},
 	watch:{
-		"$store.state.stats_prod"(new_val){
+		"$store.state.stats_client"(new_val){
 			this.stats = new_val
 		}
 	},
 	methods:{
 		fetchData(){
-			let link = this.url+`/vente/stats/`;
+			let link = this.url+`/commande/stats/`;
 			axios.get(link, this.headers)
 			.then((response) => {
-				this.$store.state.stats_prod = response.data
+				this.$store.state.stats_client = response.data
 			}).catch((error) => {
 				this.displaErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
 	},
 	mounted(){
-		if(this.$store.state.stats_prod.length<1){
+		if(this.$store.state.stats_client.length<1){
 			this.fetchData()
 		}
 	}

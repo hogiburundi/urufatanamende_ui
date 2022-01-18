@@ -18,6 +18,7 @@ export default new Vuex.Store({
     stocks:[],
     pertes:[],
     stats_prod:[],
+    stats_client:[],
     commande:{infos:{}},
     alert:{type:"", message:"Bienvenue"},
     roles:["owner", "gerant", "vendeur"],
