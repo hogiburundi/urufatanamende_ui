@@ -2,7 +2,7 @@
 	<div :data-id='item.id' :class="{'parent':true,'danger':item.quantite==0}">
 		<span class="name" style="flex-grow: 1;">{{ item.nom }}</span>
 			<div class="prix">
-			<b>{{ money(item.prix_vente) }} Fbu</b> | dispo:
+			<b>{{ money(item.prix_vente) }} Fbu</b> <span>| dispo:</span>
 			<span class="dispo">
 				{{item.quantite || 0}} {{item.unite_sortante}}
 			</span>
@@ -66,7 +66,7 @@ export default {
 	color:#aaa;
 }
 .danger *{
-	color: var(--primary-light);
+	color: #444!important;
 	border-color: var(--primary);
 	cursor: not-allowed;
 }

@@ -7,8 +7,10 @@
       </center>
       <form method="post">
         <div class="field">
-          <label for="quantite_actuelle">Quantite:</label>
-          <input type="number" id="quantite_actuelle" v-model="quantite_actuelle">
+          <label for="quantite_actuelle">
+            Quantite ({{quantite_actuelle}} {{ !!produit?produit.unite_entrante:"" }}):
+          </label>
+          <input type="number" id="quantite_actuelle" v-model="quantite">
         </div>
         <div class="field">
           <label for="prix_total">Prix total:</label>
@@ -37,7 +39,7 @@ export default {
   },
   data(){
     return {
-      quantite_actuelle:0, date_expiration:"", prix_total:0
+      quantite_actuelle:0, date_expiration:"", prix_total:0, quantite:0
     }
   },
   watch:{
@@ -47,6 +49,9 @@ export default {
         this.date_expiration = new_val.date_expiration
         this.prix_total = new_val.prix_total
       }
+    },
+    quantite(new_val){
+      this.quantite_actuelle = new_val*this.produit.rapport
     }
   },
   methods: {
