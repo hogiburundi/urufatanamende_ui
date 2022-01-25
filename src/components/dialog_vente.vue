@@ -154,7 +154,10 @@ export default {
       }
       let data = {};
       let items = [];
-      let client = {"nom":this.client.nom, "tel":this.client.tel}
+      let client;
+      if(!!this.client.nom){
+        client = {"nom":this.client.nom, "tel":this.client.tel}
+      }
 
       for(let item of this.cart.content){
         items.unshift({"produit":item.product.id, "quantite":item.quantite})
