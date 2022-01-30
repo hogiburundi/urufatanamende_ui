@@ -108,6 +108,15 @@ export default{
 	methods:{
 		loadKiosk(kiosk){
 			this.$store.state.active_kiosk = kiosk
+			this.$store.state.stocks = []
+			this.$store.state.produits = []
+			this.$store.state.notifs = []
+			this.$store.state.attributions = []
+			this.$store.state.commandes = []
+			this.$store.state.payments = []
+			this.$store.state.pertes = []
+			this.$store.state.stats_prod = []
+			this.$store.state.stats_client = []
 			this.$router.push('/').catch(()=>{})
 		},
 		closeMenus(){

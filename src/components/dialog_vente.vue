@@ -140,7 +140,7 @@ export default {
       if(this.payee < this.cart.getTotal()){
         if(this.client.tel.length<7){
           this.$store.state.alert = {
-            type:"danger", message:"le numero est obligatoire pour les dettes"
+            type:"danger", message:"le numero de telephone est obligatoire pour les dettes"
           }
           return;
         }

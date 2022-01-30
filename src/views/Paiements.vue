@@ -19,7 +19,7 @@
 					<td>{{ datetime(payment.date) }}</td>
 					<td class="right">{{ money(payment.montant) }} FBu</td>
 					<td>{{ payment.user }}</td>
-					<td v-if="!validated_by">
+					<td v-if="!payment.validated_by">
 						<button>
 							valider
 						</button>
