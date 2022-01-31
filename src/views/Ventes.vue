@@ -23,12 +23,15 @@
 					<td class="right">{{ money(item.prix) }} FBu</td>
 					<td class="right">{{ money(item.prix-item.payee) }} FBu</td>
 					<td class="right">{{ money(item.prix-item.prix_achat) }} FBu</td>
-					<td>
+					<td class="left">
 						<button @click="showDetails(item)">
 							details
 						</button>
-						<button  @click="supprimer(item)">
+						<button class="red" @click="supprimer(item)">
 							Supprimer
+						</button>
+						<button v-if="item.payee < item.prix" @click="payer(item)">
+							Payer
 						</button>
 					</td>
 				</tr>
@@ -60,18 +63,20 @@
 		</table>
 		</div>
 		<DialogVentes :active="ventes_shown" :commande="active_command" @close="close"/>
+		<DialogPayment :active="payment_shown" :commande="active_command" @close="close"/>
 	</StatsLayout>
 </template>
 <script>
 import StatsLayout from "./stats_layout"
 import DialogVentes from "../components/dialog_ventes"
+import DialogPayment from "../components/dialog_payment"
 
 export default{
-	components:{ StatsLayout, DialogVentes },
+	components:{ StatsLayout, DialogVentes, DialogPayment},
 	data(){
 		return{
 			ventes_shown:false, active_command:null, next:null, 
-			commandes:this.$store.state.commandes
+			commandes:this.$store.state.commandes, payment_shown:false
 		}
 	},
 	watch:{
@@ -83,9 +88,14 @@ export default{
 		close(){
 			this.ventes_shown = false
 			this.active_command = null
+			this.payment_shown = false
 		},
 		showDetails(commande){
 			this.ventes_shown = true
+			this.active_command = commande
+		},
+		payer(commande){
+			this.payment_shown = true
 			this.active_command = commande
 		},
 		supprimer(item){

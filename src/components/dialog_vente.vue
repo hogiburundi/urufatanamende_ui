@@ -51,13 +51,6 @@
             @click.prevent="postCommande">Soumettre</button>
         </div>
       </form>
-      <datalist id="noms">
-        <option v-for="c in clients" :value="c.nom"/>
-      </datalist>
-
-      <datalist id="tels">
-        <option v-for="c in clients" :value="c.tel"/>
-      </datalist>
     </div>
   </div>
 </template>

@@ -40,6 +40,10 @@ input[type=submit], button{
 input[type=submit]:active, button:active{
     color: white;
 }
+.red{
+    background-color: #633;
+    border-color: #633;
+}
 .contextmenu{
     position: absolute;
     z-index: 3;
