@@ -17,7 +17,7 @@
           Somme à lui retourner : <b>{{ payee - (commande.prix - commande.payee) }}</b>
         </div>
         <div class="buttons">
-          <button type="submit" value="Vendre"@click.prevent="">Soumettre</button>
+          <button type="submit" @click.prevent="postPayment">Soumettre</button>
         </div>
       </form>
     </div>
@@ -48,26 +48,24 @@ export default {
     close(){
       this.$emit("close")
     },
-    search(){
-      if(!this.keyword){
-        this.logs = "* le champ est obligatoire"
-        return
+    postPayment(){
+      let to_post = this.commande.prix - this.commande.payee
+      if(this.payee < to_post){
+        to_post = this.payee
       }
-      this.logs = "recherche en cours ..."
-      axios.get(this.url+`/client/?search=${this.keyword}`, this.headers)
+      console.log
+      let data = {
+        "commande": this.commande.id,
+        "montant": to_post,
+        "details": ""
+      }
+      axios.post(this.url+`/payment/`, data, this.headers)
       .then((response) => {
-        let results = response.data.results
-        if(results.length == 0){
-          this.logs = "aucun client trouvé"
-        } else if(results.length > 1){
-          this.logs = "le resultat est flou"
-        } else {
-          console.log('OK')
-          this.logs = `${results[0].nom} : ${results[0].tel}`
-          this.client = results[0]
-        }
+        this.$store.state.payments.unshift(response.data)
+        this.commande.payee += parseFloat(to_post)
+        this.close()
       }).catch((error) => {
-        this.logs = this.cleanString(error.response.data)
+        this.displaErrorOrRefreshToken(error, this.postPayment)
       });
     },
   }
