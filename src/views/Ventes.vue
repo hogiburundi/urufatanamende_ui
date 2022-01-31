@@ -22,7 +22,7 @@
 					<td>{{ item.client }}</td>
 					<td class="right">{{ money(item.prix) }} FBu</td>
 					<td class="right">{{ money(item.prix-item.payee) }} FBu</td>
-					<td class="right">{{ money() }} FBu</td>
+					<td class="right">{{ money(item.prix-item.prix_achat) }} FBu</td>
 					<td>
 						<button @click="showDetails(item)">
 							details
@@ -49,6 +49,9 @@
 					)}} FBu
 					</th>
 					<th class="right">{{ money(
+						commandes.reduce((acc, x) => {
+							return acc + (x.prix - x.prix_achat)
+						}, 0)
 					)}} FBu
 					</th>
 					<th colspan="2"></th>
