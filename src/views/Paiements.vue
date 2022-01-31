@@ -19,11 +19,11 @@
 					<td>{{ datetime(payment.date) }}</td>
 					<td class="right">{{ money(payment.montant) }} FBu</td>
 					<td>{{ payment.user }}</td>
-					<td v-if="!!validated_by">
+					<td v-if="!validated_by">
 						<button>
 							valider
 						</button>
-						<button>
+						<button @click="supprimer(payment)">
 							rejeter
 						</button>
 					</td>
@@ -59,7 +59,17 @@ export default{
 		}
 	},
 	methods:{
-	
+		supprimer(item){
+			if(confirm("Voulez-vous vraiment supprimer ce payment")){
+				axios.delete(`${this.url}/payment/${item.id}/`, this.headers)
+				.then((response) => {
+					let index = this.$store.state.payments.indexOf(item)
+					this.$store.state.payments.splice(index, 1)
+				}).catch((error) => {
+					this.displaErrorOrRefreshToken(error, () => this.supprimer(item))
+				});
+			}
+		},
 		fetchData(){
 			let link = ""
 			let kiosk_id = this.getActiveKiosk().id
