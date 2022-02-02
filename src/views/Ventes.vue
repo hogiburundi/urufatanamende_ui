@@ -105,7 +105,7 @@ export default{
 					let index = this.$store.state.commandes.indexOf(item)
 					this.$store.state.commandes.splice(index, 1)
 				}).catch((error) => {
-					this.displaErrorOrRefreshToken(error, () => this.supprimer(item))
+					this.displayErrorOrRefreshToken(error, () => this.supprimer(item))
 				});
 			}
 		},
@@ -127,7 +127,7 @@ export default{
 					this.next = null
 				}
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
 	},

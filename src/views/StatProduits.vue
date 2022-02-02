@@ -73,7 +73,7 @@ export default{
 			.then((response) => {
 				this.$store.state.stats_prod = response.data
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
 	},

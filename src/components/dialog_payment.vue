@@ -65,7 +65,7 @@ export default {
         this.commande.payee += parseFloat(to_post)
         this.close()
       }).catch((error) => {
-        this.displaErrorOrRefreshToken(error, this.postPayment)
+        this.displayErrorOrRefreshToken(error, this.postPayment)
       });
     },
   }

@@ -81,7 +81,7 @@ export default {
           this.next = null
         }
       }).catch((error) => {
-        this.displaErrorOrRefreshToken(error, this.fetchData)
+        this.displayErrorOrRefreshToken(error, this.fetchData)
       });
     },
     search(keywords){

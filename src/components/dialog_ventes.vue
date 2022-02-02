@@ -47,7 +47,7 @@ export default {
         this.fetched = response.data
         console.log("ventes updated")
       }).catch((error) => {
-        this.displaErrorOrRefreshToken(error, this.fetchData)
+        this.displayErrorOrRefreshToken(error, this.fetchData)
       });
     },
     imprimer(){

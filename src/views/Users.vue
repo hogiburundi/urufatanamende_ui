@@ -93,7 +93,7 @@ export default{
 			.then((response) => {
 				this.$store.state.attributions = response.data.results;
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 		},
 		editUser(attribution){

@@ -81,7 +81,7 @@ Vue.mixin({
         { dateStyle: 'short', timeStyle: 'short' }
       ).format(date)
     },
-    displaErrorOrRefreshToken(error, callback){
+    displayErrorOrRefreshToken(error, callback){
       if(!!error.response){
         if(error.response.data.code == "token_not_valid"){ 
           let refresh = this.$store.state.user.refresh

@@ -177,7 +177,7 @@ export default {
         setTimeout(print, 100)
         this.close()
       }).catch((error) => {
-        this.displaErrorOrRefreshToken(error, this.postCommande)
+        this.displayErrorOrRefreshToken(error, this.postCommande)
       });
     },
   }

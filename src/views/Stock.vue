@@ -165,7 +165,7 @@ export default{
 					}
 					this.active_product.quantite += stock.quantite_actuelle
 				}).catch((error) => {
-					this.displaErrorOrRefreshToken(error, this.fetchData)
+					this.displayErrorOrRefreshToken(error, this.fetchData)
 				});
 			}
 		},
@@ -176,7 +176,7 @@ export default{
 					let index = this.stocks.indexOf(stock)
 					this.stocks.splice(index, 1)
 				}).catch((error) => {
-					this.displaErrorOrRefreshToken(error, () => supprimer(stock))
+					this.displayErrorOrRefreshToken(error, () => supprimer(stock))
 				});
 			}
 		},
@@ -193,7 +193,7 @@ export default{
 				this.stocks = response.data.results
 				this.progress = false
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
 		fetchData(){
@@ -214,7 +214,7 @@ export default{
 					this.next = null
 				}
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
 	},

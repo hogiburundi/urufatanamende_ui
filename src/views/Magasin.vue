@@ -101,7 +101,7 @@ export default{
 					kiosk[key] = response.data[key]
 				}
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.updateKiosk)
+				this.displayErrorOrRefreshToken(error, this.updateKiosk)
 			})
 		},
 		createKiosk(){
@@ -109,7 +109,7 @@ export default{
 			.then((response) => {
 				this.active_user.kiosks.push(response.data)
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.updateKiosk)
+				this.displayErrorOrRefreshToken(error, this.updateKiosk)
 			})
 		},
 	},

@@ -57,7 +57,7 @@ export default{
 			.then((response) => {
 				this.$store.state.notifs = response.data.results;
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 		},
 		showMenus(){

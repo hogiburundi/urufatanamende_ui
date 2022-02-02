@@ -78,7 +78,7 @@ export default {
           // }
           this.$emit("close")
         }).catch((error) => {
-          this.displaErrorOrRefreshToken(error, this.postStock)
+          this.displayErrorOrRefreshToken(error, this.postStock)
         });
       } else {
         axios.put(this.url+`/stock/${this.item.id}/`, data, this.headers)
@@ -89,7 +89,7 @@ export default {
           }
           this.$emit("close")
         }).catch((error) => {
-          this.displaErrorOrRefreshToken(error, this.postStock)
+          this.displayErrorOrRefreshToken(error, this.postStock)
         });
       }
     },

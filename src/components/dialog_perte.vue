@@ -56,7 +56,7 @@ export default {
         this.$store.state.pertes.push(response.data)
         this.$emit("close")
       }).catch((error) => {
-        this.displaErrorOrRefreshToken(error, this.postPerte)
+        this.displayErrorOrRefreshToken(error, this.postPerte)
       });
     },
   },

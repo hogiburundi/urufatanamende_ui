@@ -99,7 +99,7 @@ export default{
 			.then((response) => {
 				this.ventes = response.data.results.slice(0, 20);
 			}).catch((error) => {
-				this.displaErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 		},
 	},

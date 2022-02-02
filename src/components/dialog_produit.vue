@@ -85,7 +85,7 @@ export default {
           this.$store.state.produits.push(response.data)
           this.$emit("close")
         }).catch((error) => {
-          this.displaErrorOrRefreshToken(error, this.postProduit)
+          this.displayErrorOrRefreshToken(error, this.postProduit)
         });
       } else {
         axios.put(this.url+`/produit/${this.item.id}/`, data, this.headers)
@@ -99,7 +99,7 @@ export default {
           this.item.prix_vente = new_val.prix_vente
           this.$emit("close")
         }).catch((error) => {
-          this.displaErrorOrRefreshToken(error, this.postProduit)
+          this.displayErrorOrRefreshToken(error, this.postProduit)
         });
       }
     },
