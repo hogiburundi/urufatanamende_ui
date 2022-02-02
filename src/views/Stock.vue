@@ -1,128 +1,57 @@
 <template>
 	<StatsLayout>
-		<div class="import">
-			<button>Generer un model</button>
-			<button>Charger</button>
-		</div>
-		<div class="table">
+	<div class="table">
 		<table>
-			<thead>
-				<tr>
-					<th>id</th>
-					<th>nom</th>
-					<th>unités</th>
-					<th>quantité</th>
-					<th class="right">prix de vente</th>
-					<th class="right">Valeur</th>
-					<th>
-						<button @click="addProduct">Ajouter un produit</button>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<template v-for="produit in produits">
-					<tr @click="fold(produit)">
-						<td>{{ produit.id }}</td>
-						<td>{{ produit.nom }}</td>
-						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
-						<td><b>{{ `${produit.quantite || 0} ${produit.unite}` }}</b></td>
-						<td class="right">{{ money(produit.prix_vente) }}</td>
-						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
-						<td>
-							<button @click.stop="editProduct(produit)">
-								Modifier
-							</button>
-							<button @click.stop="createStock(produit)">
-								<fa icon="plus"/>
-								Stock
-							</button>
-						</td>
-					</tr>
-					<tr v-if="folded == produit.id">
-						<td></td>
-						<td colspan=5>
-							<tr>
-								<th>qtt. initiale</th>
-								<th>prix d'achat</th>
-								<th>qtt. restant</th>
-								<th>date d'exp.</th>
-								<th>user</th>
-								<th>validateur</th>
-								<th>option</th>
-							</tr>
-							<tr v-if="progress">
-								<td colspan="6">
-									fetching...
-								</td>
-							</tr>
-							<tr v-for="stock in stocks" v-else>
-								<td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
-								<td>{{ money(stock.prix_total) }}</td>
-								<td><b>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</b></td>
-								<td>{{ stock.date_expiration || "-" }}</td>
-								<td>{{ stock.user }}</td>
-								<td>{{ stock.validated_by }}</td>
-								<td v-if="!stock.validated_by">
-									<button @click="valider(stock)">
-										Valider
-									</button>
-									<button @click="supprimer(stock)">
-										supprimer
-									</button>
-								</td>
-								<td v-else>
-									<button @click="perdre(stock)">
-										perte
-									</button>
-								</td>
-							</tr>
-						</td>
-					</tr>
-				</template>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th colspan="5"></th>
-					<th class="right">
-					{{ money(
-						produits.reduce((acc, x) => {
-							return acc + (x.prix_vente * x.quantite)
-						}, 0)
-					)}}
-					</th>
-					<th></th>
-				</tr>
-			</tfoot>
+			<tr>
+				<th>qtt. initiale</th>
+				<th>prix d'achat</th>
+				<th>qtt. restant</th>
+				<th>date d'exp.</th>
+				<th>user</th>
+				<th>validateur</th>
+				<th>option</th>
+			</tr>
+			<tr v-if="progress">
+				<td colspan="6">
+					fetching...
+				</td>
+			</tr>
+			<tr v-for="stock in stocks" v-else>
+				<td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
+				<td>{{ money(stock.prix_total) }}</td>
+				<td><b>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</b></td>
+				<td>{{ stock.date_expiration || "-" }}</td>
+				<td>{{ stock.user }}</td>
+				<td>{{ stock.validated_by }}</td>
+				<td v-if="!stock.validated_by">
+					<button @click="valider(stock)">
+						Valider
+					</button>
+					<button @click="supprimer(stock)">
+						supprimer
+					</button>
+				</td>
+				<td v-else>
+					<button @click="perdre(stock)">
+						perte
+					</button>
+				</td>
+			</tr>
 		</table>
-		</div>
-		<DialogProduit
-			:active="produit_shown"
-			:item="active_product"
-			@close="close"/>
-		<DialogStock
-			:active="stock_shown"
-			:produit="active_product"
-			:item="active_stock"
-			@close="close"/>
-		<DialogPerte
-			:active="perte_shown"
-			:item="active_stock"
-			@close="close"/>
+	</div>
+	<DialogPerte :active="perte_shown" :item="active_stock" @close="close"/>
 	</StatsLayout>
 </template>
 <script>
 import StatsLayout from "./stats_layout"
-import DialogProduit from "../components/dialog_produit"
-import DialogStock from "../components/dialog_stock"
 import DialogPerte from "../components/dialog_perte"
 
 export default{
-	components:{ StatsLayout, DialogProduit, DialogStock, DialogPerte },
+	components:{ StatsLayout, DialogPerte },
 	data(){
 		return{
 			produits:this.$store.state.produits, folded:-1, progress:false,
-			produit_shown:false, active_product:null, next:null, stocks:[],
-			stock_shown:false, active_stock:null, perte_shown:false
+			active_product:null, next:null, stocks:[], active_stock:null, perte_shown:false
 		}
 	},
 	watch:{

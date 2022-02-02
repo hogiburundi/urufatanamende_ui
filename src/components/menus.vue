@@ -86,6 +86,12 @@
 			</router-link>
 		</div>
 	</div>
+	<router-link to="/produits" v-slot="{ href, navigate, isExactActive }">
+		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
+			<fa class="img" icon="file-invoice"/>
+			<div class="name">Produit</div>
+		</div>
+	</router-link>
 	<router-link to="/stock" v-slot="{ href, navigate, isExactActive }">
 		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
 			<fa class="img" icon="box"/>

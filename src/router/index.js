@@ -13,6 +13,7 @@ import Paiements from '../views/Paiements.vue'
 import StatProduits from '../views/StatProduits.vue'
 import StatClient from '../views/StatClient.vue'
 import POS from '../views/POS.vue'
+import Produit from '../views/Produit.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,7 @@ const routes = [
   { path: '/stock', name: 'Stock', component: Stock},
   { path: '/pertes', name: 'Pertes', component: Pertes},
   { path: '/ventes', name: 'Ventes', component: Ventes},
+  { path: '/produits', name: 'Produit', component: Produit},
   { path: '/stat_dettes', name: 'StatDettes', component: StatDettes},
   { path: '/paiements', name: 'Paiements', component: Paiements},
   { path: '/stat_produits', name: 'StatProduits', component: StatProduits},
