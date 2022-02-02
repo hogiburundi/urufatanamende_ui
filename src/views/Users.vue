@@ -21,8 +21,7 @@
 		<div class="field">
 			<label for="role">Rôle</label>
 			<select id="role" v-model="role">
-				<option v-for="r in $store.state.roles"
-				:selected="role==r?'on':'off'">
+				<option v-for="r in $store.state.roles" :value="r" :selected="role==r?'on':'off'">
 					{{ r.toUpperCase() }}
 				</option>
 			</select>
@@ -41,6 +40,7 @@
 				<th>username</th>
 				<th>nom</th>
 				<th>prenom</th>
+				<th>kiosk</th>
 				<th>role</th>
 				<th>option</th>
 			</tr>
@@ -50,6 +50,7 @@
 				<td>{{ attribution.user.username }}</td>
 				<td>{{ attribution.user.first_name }}</td>
 				<td>{{ attribution.user.last_name }}</td>
+				<td>{{ attribution.kiosk }}</td>
 				<td>{{ attribution.name }}</td>
 				<td>
 					<button @click="editUser(attribution)">
@@ -69,8 +70,8 @@ export default{
 	data(){
 		return {
 			attributions:this.$store.state.attributions,
-			active_attr:null, username:"", nom: "",prenom: "",
-			role: "", password:""
+			active_attr:null, username:"", nom:"" ,prenom:"",
+			role:"", password:""
 		}
 	},
 	watch:{
@@ -91,7 +92,7 @@ export default{
 			let kiosk_id = this.getActiveKiosk().id
 			axios.get(this.url+`/attribution/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
-				this.$store.state.attributions = response.data.results;
+				this.$store.state.attributions = response.data;
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
@@ -103,7 +104,22 @@ export default{
 
 		},
 		createUser(){
-
+			let data = {
+				"user" : {
+					"username": this.username,
+					"last_name": this.nom,
+					"first_name": this.prenom,
+					"password": this.password
+				},
+				"name" : this.role,
+				"kiosk" : this.getActiveKiosk().id
+			}
+			axios.post(this.url+`/attribution/`, data, this.headers)
+			.then((response) => {
+				this.$store.state.attributions.push(response.data);
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.fetchData)
+			})
 		}
 	},
 	mounted(){

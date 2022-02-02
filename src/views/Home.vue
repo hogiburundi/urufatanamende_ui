@@ -113,7 +113,7 @@ export default{
 			axios.get(this.url+`/vente/totals/`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.interets.value = this.money(response.data.interets);
-				this.ivyegeranyo.ventes.value = this.money(response.data.interets);
+				this.ivyegeranyo.ventes.value = this.money(response.data.ventes);
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
