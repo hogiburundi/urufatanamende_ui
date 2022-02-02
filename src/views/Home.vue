@@ -19,12 +19,21 @@
 			</div>
 			<div class="table">
 				<table>
+					<tr>
+						<th><b>No.</b></th>
+						<th>Qtt.</th>
+						<th>produit</th>
+						<th>date</th>
+						<th>prix_total</th>
+						<th>benefice</th>
+					</tr>
 					<tr v-for="vente, i in ventes">
 						<td><b>{{ i+1 }}</b></td>
 						<td>{{ vente.quantite }}</td>
 						<td>{{ vente.produit }}</td>
 						<td>{{ datetime(vente.date) }}</td>
 						<td>{{ money(vente.prix_total) }} FBu</td>
+						<td>{{ money(vente.benefice) }} FBu</td>
 					</tr>
 				</table>
 			</div>
@@ -86,9 +95,9 @@ export default{
 	methods:{
 		fetchData(){
 			let kiosk_id = this.getActiveKiosk().id
-			axios.get(this.url+`/vente/?commande__kiosk=${kiosk_id}`, this.headers)
+			axios.get(this.url+`/vente/?commande__kiosk=${kiosk_id}&ordering=-benefice`, this.headers)
 			.then((response) => {
-				this.ventes = response.data.results;
+				this.ventes = response.data.results.slice(0, 20);
 			}).catch((error) => {
 				this.displaErrorOrRefreshToken(error, this.fetchData)
 			})

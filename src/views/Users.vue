@@ -28,8 +28,11 @@
 			</select>
 		</div>
 		<button type="reset" @click="active_attr=null">Reset</button>
-		<button>
-			{{ !!active_attr?"modifier":"ajouter" }}
+		<button @click="updateUser" v-if="!!active_attr">
+			modifier
+		</button>
+		<button @click="createUser">
+			ajouter
 		</button>
 	</form>
 	<table>
@@ -95,6 +98,12 @@ export default{
 		},
 		editUser(attribution){
 			this.active_attr = attribution
+		},
+		updateUser(){
+
+		},
+		createUser(){
+
 		}
 	},
 	mounted(){
