@@ -20,12 +20,12 @@
 			<div class="table">
 				<table>
 					<tr>
-						<th><b>No.</b></th>
-						<th>Qtt.</th>
-						<th>produit</th>
-						<th>date</th>
-						<th>prix_total</th>
-						<th>benefice</th>
+						<th class="left"><b>No.</b></th>
+						<th class="left">Qtt.</th>
+						<th class="left">produit</th>
+						<th class="left">date</th>
+						<th class="left">prix_total</th>
+						<th class="left">benefice</th>
 					</tr>
 					<tr v-for="vente, i in ventes">
 						<td><b>{{ i+1 }}</b></td>
@@ -47,8 +47,10 @@
 					<option>imprimer</option>
 				</select>
 				<div class="content">
-					<div class="pie">
-						<div class="percent">55%</div>
+					<div id="pie">
+						<div class="percent">
+							{{ money((stock.restant/stock.initial)*100) }}%
+						</div>
 					</div>
 					<div class="legend">
 						<b>Ecoulement stock</b>
@@ -130,6 +132,16 @@ export default{
 			.then((response) => {
 				this.stock.initial = response.data.initial;
 				this.stock.restant = response.data.restant;
+				let stock_restant = this.money((this.stock.restant/this.stock.initial)*100)
+				let stock_vendu = this.money(100 - stock_restant)
+				let value;
+				if(stock_restant<50){
+					value = `conic-gradient(#fff ${stock_vendu}%, #777 ${stock_restant}%)`
+				} else {
+					value = `conic-gradient(#777 ${stock_restant}%, #fff ${stock_vendu}%)`
+				}
+				pie.style.backgroundImage = value;
+				console.log(value)
 				this.ivyegeranyo.invest.value = this.money(response.data.invests);
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
@@ -208,11 +220,11 @@ td{
 	overflow: hidden;
 	align-items: center;
 }
-.pie{
+#pie{
 	width: 60px;
 	min-width: 60px;
 	height: 60px;
-	background-image: conic-gradient(#aaa 55%, #777 45%);
+	background-image: conic-gradient(#aaa 65%, #777 35%);
 	border-radius: 50%;
 	display: flex ;
 	justify-content: center;
@@ -220,7 +232,7 @@ td{
 	border: 2px solid black;
 	margin: 10px;
 }
-.pie div{
+#pie div{
 	background-color: white;
 	width: 40px;
 	height: 40px;
