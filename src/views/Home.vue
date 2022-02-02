@@ -2,8 +2,8 @@
 <div class="home">
 	<div class="ivyegeranyo">
 		<DashCard 
-			v-for="key, icegeranyo in Object.entries(ivyegeranyo)"
-			:icegeranyo="icegeranyo"
+			v-for="icegeranyo, key in Object.entries(ivyegeranyo)"
+			:icegeranyo="icegeranyo[1]"
 		/>
 	</div>
 	<div class="legends">
@@ -93,7 +93,7 @@ export default{
 			ivyegeranyo:{
 				interets : {icon:"chart-bar", text:"Intérêts", value:"0"},
 				invest : {icon:"money-bill-alt", text:"Invest", value:"0"},
-				ventes : {icon:"shopping-cart", text:"ventes", value:"0"},
+				ventes : {icon:"shopping-cart", text:"Ventes", value:"0"},
 				produits : {icon:"database", text:"Produits", value:"0"}
 			},
 			stock:{initial:2, restant:1},
@@ -112,15 +112,16 @@ export default{
 
 			axios.get(this.url+`/vente/totals/`, this.headers)
 			.then((response) => {
-				this.ivyegeranyo.interets.value = response.data.interets;
-				this.ivyegeranyo.ventes.value = response.data.interets;
+				this.ivyegeranyo.interets.value = this.money(response.data.interets);
+				this.ivyegeranyo.ventes.value = this.money(response.data.interets);
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 			
 			axios.get(this.url+`/produit/totals/`, this.headers)
 			.then((response) => {
-				this.ivyegeranyo.produits.value = response.data.totals;
+				this.ivyegeranyo.produits.value = this.money(response.data.totals);
+				console.log(ivyegeranyo)
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
@@ -129,6 +130,7 @@ export default{
 			.then((response) => {
 				this.stock.initial = response.data.initial;
 				this.stock.restant = response.data.restant;
+				this.ivyegeranyo.invest.value = this.money(response.data.invests);
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
