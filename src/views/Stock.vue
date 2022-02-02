@@ -3,23 +3,20 @@
 	<div class="table">
 		<table>
 			<tr>
+				<th>produit</th>
 				<th>qtt. initiale</th>
-				<th>prix d'achat</th>
 				<th>qtt. restant</th>
+				<th>prix d'achat</th>
 				<th>date d'exp.</th>
 				<th>user</th>
 				<th>validateur</th>
 				<th>option</th>
 			</tr>
-			<tr v-if="progress">
-				<td colspan="6">
-					fetching...
-				</td>
-			</tr>
-			<tr v-for="stock in stocks" v-else>
-				<td>{{ `${stock.quantite_initiale} ${produit.unite}` }}</td>
+			<tr v-for="stock in stocks">
+				<td>{{ stock.produit.nom }}</td>
+				<td>{{ `${stock.quantite_initiale} ${stock.produit.unite}` }}</td>
+				<td><b>{{ `${stock.quantite_actuelle} ${stock.produit.unite}` }}</b></td>
 				<td>{{ money(stock.prix_total) }}</td>
-				<td><b>{{ `${stock.quantite_actuelle} ${produit.unite}` }}</b></td>
 				<td>{{ stock.date_expiration || "-" }}</td>
 				<td>{{ stock.user }}</td>
 				<td>{{ stock.validated_by }}</td>
@@ -50,33 +47,20 @@ export default{
 	components:{ StatsLayout, DialogPerte },
 	data(){
 		return{
-			produits:this.$store.state.produits, folded:-1, progress:false,
-			active_product:null, next:null, stocks:[], active_stock:null, perte_shown:false
+			stocks:this.$store.state.stocks, progress:false,
+			next:null, active_stock:null, perte_shown:false
 		}
 	},
 	watch:{
-		"$store.state.produits"(new_val){
-			this.produits = new_val
+		"$store.state.stocks"(new_val){
+			this.stocks = new_val
 		}
 	},
 	methods:{
 		close(){
-			this.produit_shown = false
 			this.stock_shown = false
 			this.perte_shown = false
-			this.active_product = null
 			this.active_stock = null
-		},
-		addProduct(){
-			this.produit_shown = true
-		},
-		editProduct(product){
-			this.produit_shown = true
-			this.active_product = product
-		},
-		createStock(product){
-			this.stock_shown = true
-			this.active_product = product
 		},
 		perdre(product){
 			this.perte_shown = true
@@ -87,8 +71,8 @@ export default{
 				axios.get(this.url+`/stock/${stock.id}/valider/`, this.headers)
 				.then((response) => {
 					this.$store.state.alert = {
-            type:"success", message:"le stock a été validé"
-          }
+						type:"success", message:"le stock a été validé"
+					}
 					for(key in Object.keys(stock)){
 						stock[key] = response.data[key]
 					}
@@ -109,33 +93,17 @@ export default{
 				});
 			}
 		},
-		fold(produit){
-			if(this.folded==produit.id){
-				this.folded=-1
-				return
-			} else {
-				this.folded=produit.id
-			}
-			this.progress = true
-			axios.get(this.url+`/stock/?produit=${produit.id}`, this.headers)
-			.then((response) => {
-				this.stocks = response.data.results
-				this.progress = false
-			}).catch((error) => {
-				this.displayErrorOrRefreshToken(error, this.fetchData)
-			});
-		},
 		fetchData(){
 			let link = ""
 			let kiosk_id = this.getActiveKiosk().id
 			if(!this.next){
-				link = this.url+`/produit/?kiosk=${kiosk_id}`;
+				link = this.url+`/stock/?produit__kiosk=${kiosk_id}`;
 			} else {
 				link = this.next
 			}
 			axios.get(link, this.headers)
 			.then((response) => {
-				this.$store.state.produits.push(...response.data.results)
+				this.$store.state.stocks.push(...response.data.results)
 				if(response.data.next.length > 0){
 					this.next = response.data.next
 					this.fetchData()
@@ -148,7 +116,7 @@ export default{
 		},
 	},
 	mounted(){
-		if(this.$store.state.produits.length<1){
+		if(this.$store.state.stocks.length<1){
 			this.fetchData()
 		}
 	}
