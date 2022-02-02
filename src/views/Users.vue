@@ -30,7 +30,7 @@
 		<button @click="updateUser" v-if="!!active_attr">
 			modifier
 		</button>
-		<button @click="createUser">
+		<button @click="createUser" v-else>
 			ajouter
 		</button>
 	</form>
@@ -101,7 +101,30 @@ export default{
 			this.active_attr = attribution
 		},
 		updateUser(){
-
+			let data = {
+				"user" : {
+					"username": this.username,
+					"last_name": this.nom,
+					"first_name": this.prenom,
+					"password": this.password
+				},
+				"name" : this.role,
+				"kiosk" : this.getActiveKiosk().id
+			}
+			axios.put(this.url+`/attribution/${this.active_attr.id}/`, data, this.headers)
+			.then((response) => {
+				let attrib
+				for (var i = this.attributions.length - 1; i >= 0; i--) {
+					attrib = this.attributions[i]
+					if(attrib.id == response.data.id){
+						this.$store.state.attributions.splice(i, 1)
+						this.$store.state.attributions.push(response.data)
+						break;
+					}
+				}
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.fetchData)
+			})
 		},
 		createUser(){
 			let data = {
