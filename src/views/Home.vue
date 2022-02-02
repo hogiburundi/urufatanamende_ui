@@ -2,9 +2,9 @@
 <div class="home">
 	<div class="ivyegeranyo">
 		<DashCard 
-			v-for="icegeranyo in ivyegeranyo"
+			v-for="key, icegeranyo in Object.entries(ivyegeranyo)"
 			:icegeranyo="icegeranyo"
-		/>	
+		/>
 	</div>
 	<div class="legends">
 		<div class="ventes">
@@ -52,8 +52,14 @@
 					</div>
 					<div class="legend">
 						<b>Ecoulement stock</b>
-						<div>45% stock restant</div>
-						<div>55% ventes</div>
+						<div>
+							{{ money((stock.restant/stock.initial)*100) }}
+							% stock restant
+						</div>
+						<div>
+							{{ money(((stock.initial-stock.restant)/stock.initial)*100) }}
+							% ventes
+						</div>
 					</div>
 				</div>
 			</div>
@@ -68,8 +74,8 @@
 					<fa class="icon" icon="smile-wink"/>
 					<div class="legend">
 						<b>Clients</b>
-						<div>15, 489</div>
-						<div>40% d'augmentation</div>
+						<div>{{ client.new }}</div>
+						<div>{{ ((client.new-client.old)/(client.old|1))*100 }}% d'augmentation</div>
 					</div>
 				</div>
 			</div>
@@ -84,12 +90,14 @@ export default{
 	data(){
 		return {
 			ventes:[],
-			ivyegeranyo:[
-				{icon:"chart-bar", text:"Intérêts", value:"2,000,547"},
-				{icon:"money-bill-alt", text:"Invest", value:"95,000,000"},
-				{icon:"shopping-cart", text:"ventes", value:"9,580,150"},
-				{icon:"database", text:"Produits", value:"954"}
-			]
+			ivyegeranyo:{
+				interets : {icon:"chart-bar", text:"Intérêts", value:"0"},
+				invest : {icon:"money-bill-alt", text:"Invest", value:"0"},
+				ventes : {icon:"shopping-cart", text:"ventes", value:"0"},
+				produits : {icon:"database", text:"Produits", value:"0"}
+			},
+			stock:{initial:2, restant:1},
+			client:{old:2, new:1}
 		}
 	},
 	methods:{
@@ -98,6 +106,37 @@ export default{
 			axios.get(this.url+`/vente/?commande__kiosk=${kiosk_id}&ordering=-benefice`, this.headers)
 			.then((response) => {
 				this.ventes = response.data.results.slice(0, 20);
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.fetchData)
+			})
+
+			axios.get(this.url+`/vente/totals/`, this.headers)
+			.then((response) => {
+				this.ivyegeranyo.interets.value = response.data.interets;
+				this.ivyegeranyo.ventes.value = response.data.interets;
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.fetchData)
+			})
+			
+			axios.get(this.url+`/produit/totals/`, this.headers)
+			.then((response) => {
+				this.ivyegeranyo.produits.value = response.data.totals;
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.fetchData)
+			})
+			
+			axios.get(this.url+`/stock/overview/`, this.headers)
+			.then((response) => {
+				this.stock.initial = response.data.initial;
+				this.stock.restant = response.data.restant;
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.fetchData)
+			})
+			
+			axios.get(this.url+`/client/overview/`, this.headers)
+			.then((response) => {
+				this.client.old = response.data.old;
+				this.client.new = response.data.new;
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
