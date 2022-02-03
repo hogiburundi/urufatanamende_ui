@@ -20,7 +20,7 @@
 					<td class="right">{{ money(payment.montant) }} FBu</td>
 					<td>{{ payment.user }}</td>
 					<td v-if="!payment.validated_by">
-						<button>
+						<button @click="valider(payment)">
 							valider
 						</button>
 						<button @click="supprimer(payment)">
@@ -59,6 +59,14 @@ export default{
 		}
 	},
 	methods:{
+		valider(item){
+			axios.get(`${this.url}/payment/${item.id}/valider/`, this.headers)
+			.then((response) => {
+				item.validated_by = response.data.validated_by
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, () => this.supprimer(item))
+			});
+		},
 		supprimer(item){
 			if(confirm("Voulez-vous vraiment supprimer ce payment")){
 				axios.delete(`${this.url}/payment/${item.id}/`, this.headers)

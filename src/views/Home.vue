@@ -136,12 +136,11 @@ export default{
 				let stock_vendu = this.money(100 - stock_restant)
 				let value;
 				if(stock_restant<50){
-					value = `conic-gradient(#fff ${stock_vendu}%, #777 ${stock_restant}%)`
+					value = `conic-gradient(#fff ${stock_vendu}%, #0af ${stock_restant}%)`
 				} else {
-					value = `conic-gradient(#777 ${stock_restant}%, #fff ${stock_vendu}%)`
+					value = `conic-gradient(#0af ${stock_restant}%, #fff ${stock_vendu}%)`
 				}
 				pie.style.backgroundImage = value;
-				console.log(value)
 				this.ivyegeranyo.invest.value = this.money(response.data.invests);
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
@@ -229,7 +228,7 @@ td{
 	display: flex ;
 	justify-content: center;
 	align-items: center;
-	border: 2px solid black;
+	border: 1px solid black;
 	margin: 10px;
 }
 #pie div{
@@ -243,6 +242,9 @@ td{
 	border: 1px solid black;
 	font-size: .8em;
 	font-weight: 700;
+}
+.percent{
+	color: #0af;
 }
 .legend div{
 	font-size: .7em;

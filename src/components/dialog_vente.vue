@@ -170,6 +170,7 @@ export default {
       axios.post(this.url+"/commande/", data, this.headers)
       .then((response) => {
         this.$store.state.commande = response.data;
+        this.$store.state.commandes.unshift(response.data);
         for(let item of this.cart.content){
           item.product.quantite -= item.quantite
         }

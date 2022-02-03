@@ -108,6 +108,14 @@ export default{
 			axios.post(this.url+`/kiosk/`, this.getData(), this.headers)
 			.then((response) => {
 				this.active_user.kiosks.push(response.data)
+				this.$store.state.alert = {
+					type:"success", message:`${this.nom} a été avec succes`
+				}
+				this.logo_url = null
+				this.tel = null
+				this.nom = null
+				this.email = null
+				this.website = null
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.updateKiosk)
 			})
