@@ -2,7 +2,12 @@
 	<StatsLayout>
 		<div class="import">
 			<button>Generer un model</button>
-			<button>Charger</button>
+			<button @click="importerXls">Charger</button>
+			<input type="file" ref="fichier_produits" style="display: none;"
+				@change="loadFile" accept=".csv">
+			<button @click="uploadXls">
+				Uploader {{ to_upload.length }} elements
+			</button>
 		</div>
 		<div class="table">
 		<table>
@@ -122,7 +127,7 @@ export default{
 		return{
 			produits:this.$store.state.produits, folded:-1, progress:false,
 			produit_shown:false, active_product:null, next:null, stocks:[],
-			stock_shown:false, active_stock:null, perte_shown:false
+			stock_shown:false, active_stock:null, perte_shown:false, to_upload:[],
 		}
 	},
 	watch:{
@@ -216,6 +221,54 @@ export default{
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
+		},
+		loadFile(event){
+			if (event.target.files && event.target.files[0]) {
+				let reader = new FileReader();
+				reader.readAsBinaryString(event.target.files[0]);
+				reader.onload = e => {
+					const file = e.target.result;
+					const lines = file.split(/\r\n|\n/);
+					let array_line = []
+					let date = 0
+					let day = 0; let month = 0; let year = 0
+					lines.forEach((line) => {
+						array_line = line.split(";");
+						date = parseInt(array_line[1]);
+						if(date.length>4){
+							year = 2000 + date%100
+							date = parseInt(date/100)
+							month = parseInt(date%100)%13
+							date = parseInt(date/100)
+							day = 1+parseInt(date%100)%28
+						} else {
+							month = 12; year = 2030; day = 31
+						}
+						this.to_upload.push({
+							"nom":array_line[0],
+							"date":`${year}-${month}-${day}`,
+							"quantite":array_line[2],
+							"unite_entrante":array_line[3],
+							"prix_unitaire":parseInt(array_line[4]),
+							"unite_sortante":array_line[7],
+							"rapport":array_line[6],
+						})
+					});
+					console.table(this.to_upload)
+				};
+				reader.onerror = (event) => {
+					alert(event.target.error.name);
+				};
+			}
+		},
+		uploadXls(){
+			console.log(this.to_upload)
+			// axios.post(this.url+"/produit/", this.to_upload, this.headers)
+			// .then((response) => {
+			// 	this.$store.state.produits = response.data
+			// }).catch((error) => {
+			// 	this.displaErrorOrRefreshToken(error, this.fetchData)
+			// });
 		},
 	},
 	mounted(){

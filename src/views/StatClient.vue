@@ -68,7 +68,8 @@ export default{
 	},
 	methods:{
 		fetchData(){
-			let link = this.url+`/commande/stats/`;
+			let kiosk_id = this.getActiveKiosk().id
+			let link = this.url+`/commande/stats/?kiosk=${kiosk_id}`;
 			axios.get(link, this.headers)
 			.then((response) => {
 				this.$store.state.stats_client = response.data

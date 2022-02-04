@@ -236,7 +236,7 @@ td{
 	display: flex ;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	margin: 10px;
 }
 #pie div{
