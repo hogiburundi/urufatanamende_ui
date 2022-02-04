@@ -3,6 +3,7 @@
     <div class="logged-in" v-if="!!active_user">
       <Menus/>
       <div class="right">
+        <KioskChooser :active="must_choose_kiosk"/>
         <TopBar/>
         <router-view/>
       </div>
@@ -16,10 +17,18 @@ import LoginForm from "./components/login_form"
 import Menus from "./components/menus"
 import TopBar from "./components/topbar"
 import Notifier from "./components/notifier"
+import KioskChooser from "./components/kiosk_chooser"
 
 export default {
   components: {
-  	LoginForm, Menus, TopBar, Notifier
+  	LoginForm, Menus, TopBar, Notifier, KioskChooser
+  },
+  computed:{
+    must_choose_kiosk(){
+      return !!this.active_user.kiosks &&
+             this.active_user.kiosks.length>1 &&
+             !this.$store.state.active_kiosk
+    }
   },
   watch:{
     "$store.state.user":{

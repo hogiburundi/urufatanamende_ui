@@ -48,19 +48,20 @@
 				</select>
 				<div class="content">
 					<div id="pie">
-						<div class="percent">
-							{{ money((stock.restant/stock.initial)*100) }}%
+						<div class="percent">{{ money(
+							!!stock.initial?0:(stock.restant/stock.initial)*100)
+						}}%
 						</div>
 					</div>
 					<div class="legend">
 						<b>Ecoulement stock</b>
-						<div>
-							{{ money((stock.restant/stock.initial)*100) }}
-							% stock restant
+						<div>{{ money(
+							!!stock.initial?0:(stock.restant/stock.initial)*100)
+						}}% stock restant
 						</div>
-						<div>
-							{{ money(((stock.initial-stock.restant)/stock.initial)*100) }}
-							% ventes
+						<div>{{ money(
+							!!stock.initial?0:((stock.initial-stock.restant)/stock.initial)*100)
+						}}% ventes
 						</div>
 					</div>
 				</div>
@@ -223,7 +224,7 @@ td{
 	width: 60px;
 	min-width: 60px;
 	height: 60px;
-	background-image: conic-gradient(#aaa 65%, #777 35%);
+	background-image: conic-gradient(#fff 100%, #0af 0%);
 	border-radius: 50%;
 	display: flex ;
 	justify-content: center;

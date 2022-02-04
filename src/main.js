@@ -34,7 +34,8 @@ Vue.mixin({
     },
     logOut(x) {
       if(confirm("Voulez-vous vraiment deconnecter?")){
-        this.$store.state.user=null
+        this.$store.state.user = null
+        this.$store.state.active_kiosk = null
       }
     },
     money(x) {
@@ -114,7 +115,7 @@ Vue.mixin({
     },
     getActiveKiosk(){
       if(!this.$store.state.active_kiosk){
-        if(!!this.active_user.kiosks && this.active_user.kiosks.length>0){
+        if(!!this.active_user.kiosks && this.active_user.kiosks.length == 1){
           this.$store.state.active_kiosk = this.active_user.kiosks[0]
         }
       }
