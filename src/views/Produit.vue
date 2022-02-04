@@ -1,7 +1,7 @@
 <template>
 	<StatsLayout>
 		<div class="import">
-			<button>
+			<button @click="generateCSV">
 				<fa icon="download"/>
 				Generer un model
 			</button>
@@ -9,7 +9,7 @@
 				<fa icon="folder-open"/>
 				Charger
 			</button>
-			<button @click="uploadXls">
+			<button @click="uploadXls" v-if="to_upload.length>0">
 				<fa icon="upload"/>
 				Uploader {{ to_upload.length }} elements
 			</button>
@@ -228,6 +228,26 @@ export default{
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
+		},
+		download (data){
+			const blob = new Blob([data], {type: 'text/csv'});
+			const url = window.URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.setAttribute('hidden', '');
+			a.setAttribute('href', url);
+			a.setAttribute('download', 'model.csv');
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+        },
+		generateCSV(){
+			let data = this.produits;
+			let headers = `id;produit;quantite;prix_achat;details\n`;
+			for (var i = 0;i< data.length ; i++) {
+				headers += data[i].id+';'+data[i].nom+'\n';
+			}
+			console.log(headers);
+			this.download(headers);
 		},
 		importerXls(){
 			let inp_file = this.$refs["fichier_produits"]
