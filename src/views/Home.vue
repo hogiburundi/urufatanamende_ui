@@ -78,7 +78,10 @@
 					<div class="legend">
 						<b>Clients</b>
 						<div>{{ client.new }}</div>
-						<div>{{ ((client.new-client.old)/(client.old|1))*100 }}% d'augmentation</div>
+						<div>{{ 
+							client.new>0?0:((client.new-client.old)/(client.old|1))*100
+						}}% d'augmentation
+						</div>
 					</div>
 				</div>
 			</div>
