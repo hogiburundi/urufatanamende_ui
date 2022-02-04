@@ -49,18 +49,18 @@
 				<div class="content">
 					<div id="pie">
 						<div class="percent">{{ money(
-							!!stock.initial?0:(stock.restant/stock.initial)*100)
+							!stock.initial?0:(stock.restant/stock.initial)*100)
 						}}%
 						</div>
 					</div>
 					<div class="legend">
 						<b>Ecoulement stock</b>
 						<div>{{ money(
-							!!stock.initial?0:(stock.restant/stock.initial)*100)
+							!stock.initial?0:(stock.restant/stock.initial)*100)
 						}}% stock restant
 						</div>
 						<div>{{ money(
-							!!stock.initial?0:((stock.initial-stock.restant)/stock.initial)*100)
+							!stock.initial?0:((stock.initial-stock.restant)/stock.initial)*100)
 						}}% ventes
 						</div>
 					</div>
@@ -79,7 +79,7 @@
 						<b>Clients</b>
 						<div>{{ client.new }}</div>
 						<div>{{ 
-							client.new>0?0:((client.new-client.old)/(client.old|1))*100
+							((client.new-client.old)/(client.old|1))*100
 						}}% d'augmentation
 						</div>
 					</div>
@@ -106,6 +106,11 @@ export default{
 			client:{old:2, new:1}
 		}
 	},
+	watch:{
+		"$store.state.active_kiosk"(new_val){
+			this.fetchData()
+		}
+	},
 	methods:{
 		fetchData(){
 			let kiosk_id = this.getActiveKiosk().id
@@ -116,7 +121,7 @@ export default{
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 
-			axios.get(this.url+`/vente/totals/`, this.headers)
+			axios.get(this.url+`/vente/totals/?commande__kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.interets.value = this.money(response.data.interets);
 				this.ivyegeranyo.ventes.value = this.money(response.data.ventes);
@@ -124,7 +129,7 @@ export default{
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 			
-			axios.get(this.url+`/produit/totals/`, this.headers)
+			axios.get(this.url+`/produit/totals/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.produits.value = this.money(response.data.totals);
 				console.log(ivyegeranyo)
@@ -132,10 +137,9 @@ export default{
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 			
-			axios.get(this.url+`/stock/overview/`, this.headers)
+			axios.get(this.url+`/stock/overview/?produit__kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
-				this.stock.initial = response.data.initial;
-				this.stock.restant = response.data.restant;
+				this.stock = response.data;
 				let stock_restant = this.money((this.stock.restant/this.stock.initial)*100)
 				let stock_vendu = this.money(100 - stock_restant)
 				let value;
