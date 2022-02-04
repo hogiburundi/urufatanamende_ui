@@ -1,13 +1,20 @@
 <template>
 	<StatsLayout>
 		<div class="import">
-			<button>Generer un model</button>
-			<button @click="importerXls">Charger</button>
-			<input type="file" ref="fichier_produits" style="display: none;"
-				@change="loadFile" accept=".csv">
+			<button>
+				<fa icon="download"/>
+				Generer un model
+			</button>
+			<button @click="importerXls">
+				<fa icon="folder-open"/>
+				Charger
+			</button>
 			<button @click="uploadXls">
+				<fa icon="upload"/>
 				Uploader {{ to_upload.length }} elements
 			</button>
+			<input type="file" ref="fichier_produits" style="display: none;"
+				@change="loadFile" accept=".csv">
 		</div>
 		<div class="table">
 		<table>
@@ -222,6 +229,10 @@ export default{
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
+		importerXls(){
+			let inp_file = this.$refs["fichier_produits"]
+			inp_file.click() 
+		},
 		loadFile(event){
 			if (event.target.files && event.target.files[0]) {
 				let reader = new FileReader();
@@ -285,5 +296,8 @@ export default{
 .table{
 	height: calc(100vh - 150px);
 	max-width: 100%;
+}
+.svg-inline--fa{
+	margin: 0;
 }
 </style>
