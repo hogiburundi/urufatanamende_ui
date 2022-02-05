@@ -129,8 +129,8 @@ Vue.mixin({
     active_user_fullname(){
       return `${this.active_user.first_name} ${this.active_user.last_name}`;
     },
-    active_user_is_responsable(){
-      return this.active_user.is_admin || this.active_user.groups.includes('responsable');
+    user_is_owner(){
+      return !!this.getActiveKiosk() && this.active_user.owned.includes(this.getActiveKiosk().id)
     },
     base_url(){
       return this.$store.state.base_url;

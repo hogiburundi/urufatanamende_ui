@@ -18,7 +18,7 @@
 			<label for="password">Mot de passe</label>
 			<input id="password" type="password" v-model="password">
 		</div>
-		<div class="field">
+		<div class="field" v-if="user_is_owner">
 			<label for="role">Rôle</label>
 			<select id="role" v-model="role">
 				<option v-for="r in $store.state.roles" :value="r" :selected="role==r?'on':'off'">

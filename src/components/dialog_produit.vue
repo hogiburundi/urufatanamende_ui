@@ -20,11 +20,11 @@
         </div>
         <div class="field">
           <label for="rapport">Rapport</label>
-          <input type="text" id="rapport" v-model="rapport">
+          <input type="number" id="rapport" v-model="rapport">
         </div>
         <div class="field">
           <label for="prix_vente">Prix de vente</label>
-          <input type="text" id="prix_vente" v-model="prix_vente">
+          <input type="number" id="prix_vente" v-model="prix_vente">
         </div>
         <div class="field">
           <label for="indications">Indications</label>

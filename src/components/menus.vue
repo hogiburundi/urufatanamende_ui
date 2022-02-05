@@ -118,11 +118,6 @@ import ContextMenu from "./context_menu"
 
 export default{
 	components:{ ContextMenu },
-	computed:{
-		user_is_owner(){
-			return !!this.getActiveKiosk() && this.getActiveKiosk().user==this.active_user.id
-		}
-	},
 	methods:{
 		loadKiosk(kiosk){
 			this.$store.state.active_kiosk = kiosk
