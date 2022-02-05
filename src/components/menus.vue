@@ -5,13 +5,13 @@
 			<fa class="img fa_bars" icon="bars" />
 			<fa class="img fa_times" icon="times" @click="closeMenus"/>
 			<div v-if="!!getActiveKiosk()" class="bold" style="font-size: .8em;">
-				{{ getActiveKiosk().nom}}
+				{{ getActiveKiosk().nom }}
 			</div>
 			<fa class="arrow" icon="sort-down"/>
 		</div>
 		<div class="contextmenu" style="width: 200px;">
-			<div v-for="kiosk in active_user.kiosks"
-			@click="loadKiosk(kiosk)" class="kioskitem">
+			<div class="kioskitem" v-for="kiosk in active_user.kiosks"
+			@click="loadKiosk(kiosk)">
 				{{ kiosk.nom }}
 			</div>
 			<hr v-if="user_is_owner">
@@ -19,7 +19,7 @@
 			@click="$router.push('/magasin/edit').catch(()=>{})">
 				Modifier
 			</div>
-			<div v-if="user_is_owner">
+			<div v-if="user_is_owner" @click="deleteKiosk()">
 				Supprimer
 			</div>
 			<hr>
@@ -136,6 +136,18 @@ export default{
 			this.$store.state.stats_prod = []
 			this.$store.state.stats_client = []
 			this.$router.push('/').catch(()=>{})
+		},
+		deleteKiosk(){
+			let kiosk = this.getActiveKiosk();
+			axios.delete(this.url+`/kiosk/${kiosk.id}/`, this.headers)
+			.then((response) => {
+				this.$store.state.alert = {
+					type:"success",
+					message: "le kiosk a été annulé"
+				}
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, deleteKiosk)
+			})
 		},
 		closeMenus(){
 			menus.style.display = 'none'

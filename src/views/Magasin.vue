@@ -109,7 +109,7 @@ export default{
 			.then((response) => {
 				this.active_user.kiosks.push(response.data)
 				this.$store.state.alert = {
-					type:"success", message:`${this.nom} a été avec succes`
+					type:"success", message:`le kiosk ${this.nom} a été avec succes il ne reste que l'approbation de la part de HOGI`
 				}
 				this.logo_url = null
 				this.tel = null
