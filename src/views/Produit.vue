@@ -20,7 +20,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>id</th>
+					<th>#</th>
 					<th>nom</th>
 					<th>unités</th>
 					<th>quantité</th>
@@ -32,9 +32,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<template v-for="produit in produits">
+				<template v-for="produit, i in produits">
 					<tr @click="fold(produit)">
-						<td>{{ produit.id }}</td>
+						<td>{{ i+1 }}</td>
 						<td>{{ produit.nom }}</td>
 						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
 						<td><b>{{ `${produit.quantite || 0} ${produit.unite}` }}</b></td>
@@ -230,7 +230,7 @@ export default{
 			});
 		},
 		download (data){
-			const blob = new Blob([data], {type: 'text/csv'});
+			const blob = new Blob(["\ufeff", data], {type: 'text/csv'});
 			const url = window.URL.createObjectURL(blob);
 			const a = document.createElement('a');
 			a.setAttribute('hidden', '');
@@ -242,11 +242,7 @@ export default{
         },
 		generateCSV(){
 			let data = this.produits;
-			let headers = `id;produit;quantite;prix_achat;details\n`;
-			for (var i = 0;i< data.length ; i++) {
-				headers += data[i].id+';'+data[i].nom+'\n';
-			}
-			console.log(headers);
+			let headers = `nom du produit;unité entrante(achat);unité sortante(vente);rapport entre ces unités;prix de vente;details\n`;
 			this.download(headers);
 		},
 		importerXls(){
@@ -259,30 +255,19 @@ export default{
 				reader.readAsBinaryString(event.target.files[0]);
 				reader.onload = e => {
 					const file = e.target.result;
-					const lines = file.split(/\r\n|\n/);
+					const lines = file.split(/\r\n|\n/).splice(0, 1);
 					let array_line = []
 					let date = 0
 					let day = 0; let month = 0; let year = 0
 					lines.forEach((line) => {
-						array_line = line.split(";");
-						date = parseInt(array_line[1]);
-						if(date.length>4){
-							year = 2000 + date%100
-							date = parseInt(date/100)
-							month = parseInt(date%100)%13
-							date = parseInt(date/100)
-							day = 1+parseInt(date%100)%28
-						} else {
-							month = 12; year = 2030; day = 31
-						}
+						array_line = line.split("\t");
 						this.to_upload.push({
-							"nom":array_line[0],
-							"date":`${year}-${month}-${day}`,
-							"quantite":array_line[2],
-							"unite_entrante":array_line[3],
-							"prix_unitaire":parseInt(array_line[4]),
-							"unite_sortante":array_line[7],
-							"rapport":array_line[6],
+						    "nom": array_line[0],
+							"unite_entrante": array_line[1],
+							"unite": array_line[2],
+							"rapport": array_line[3],
+							"prix_vente": array_line[4],
+							"kiosk": this.getActiveKiosk().id
 						})
 					});
 					console.table(this.to_upload)
@@ -293,13 +278,13 @@ export default{
 			}
 		},
 		uploadXls(){
-			console.log(this.to_upload)
-			// axios.post(this.url+"/produit/", this.to_upload, this.headers)
-			// .then((response) => {
-			// 	this.$store.state.produits = response.data
-			// }).catch((error) => {
-			// 	this.displaErrorOrRefreshToken(error, this.fetchData)
-			// });
+			console.table(this.to_upload)
+			axios.post(this.url+"/produit/", this.to_upload, this.headers)
+			.then((response) => {
+				this.$store.state.produits.push(...response.data)
+			}).catch((error) => {
+				this.displaErrorOrRefreshToken(error, this.fetchData)
+			});
 		},
 	},
 	mounted(){
