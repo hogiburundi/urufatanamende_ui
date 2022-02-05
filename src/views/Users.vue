@@ -1,7 +1,7 @@
 <template>
 <div class="magasin">
 	<h2>Gestion des Utilisateurs</h2>
-	<form @submit.prevent>
+	<form @submit.prevent v-if="!!active_attr || user_is_owner">
 		<div class="field">
 			<label for="username">Nom d'utilisateur</label>
 			<input id="username" type="text" v-model="username">
