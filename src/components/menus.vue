@@ -11,17 +11,24 @@
 		</div>
 		<div class="contextmenu" style="width: 200px;">
 			<div v-for="kiosk in active_user.kiosks"
-			@click="loadKiosk(kiosk)">
+			@click="loadKiosk(kiosk)" class="kioskitem">
 				{{ kiosk.nom }}
 			</div>
-			<div v-if="!!getActiveKiosk()" @click="$router.push('/magasin/edit').catch(()=>{})">
+			<hr v-if="user_is_owner">
+			<div v-if="user_is_owner"
+			@click="$router.push('/magasin/edit').catch(()=>{})">
 				Modifier
 			</div>
-			<div v-if="!!getActiveKiosk()">
+			<div v-if="user_is_owner">
 				Supprimer
 			</div>
+			<hr>
 			<div @click="$router.push('/magasin').catch(()=>{})">
 				Ajouter Magasin
+			</div>
+			<hr>
+			<div @click="$router.push('/users').catch(()=>{})" v-if="user_is_owner">
+				Utilisateurs
 			</div>
 		</div>
 	</div>
@@ -111,6 +118,11 @@ import ContextMenu from "./context_menu"
 
 export default{
 	components:{ ContextMenu },
+	computed:{
+		user_is_owner(){
+			return !!this.getActiveKiosk() && this.getActiveKiosk().user==this.active_user.id
+		}
+	},
 	methods:{
 		loadKiosk(kiosk){
 			this.$store.state.active_kiosk = kiosk
@@ -148,6 +160,10 @@ export default{
 	align-items: center;
 	justify-content: sp;
 	margin-top: 10px;
+}
+.kioskitem{
+	color: #05a;
+	font-weight: 700;
 }
 .menu, .deepmenu{
 	display: flex;
