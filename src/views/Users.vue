@@ -1,7 +1,7 @@
 <template>
 <div class="magasin">
 	<h2>Gestion des Utilisateurs</h2>
-	<button v-if="user_is_owner">
+	<button v-if="user_is_owner" @click="add_to_existing=true">
 		A partir des Existants
 	</button>
 	<form @submit.prevent v-if="!!active_attr || user_is_owner">
@@ -66,7 +66,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<DialogAttrib :active="add_to_existing"/>
+	<DialogAttrib :active="add_to_existing" @close="add_to_existing=false"/>
 </div>
 </template>
 <script>
@@ -79,7 +79,7 @@ export default{
 		return {
 			attributions:this.$store.state.attributions,
 			active_attr:null, username:"", nom:"" ,prenom:"",
-			role:"", password:"", add_to_existing:true
+			role:"", password:"", add_to_existing:false
 		}
 	},
 	watch:{
