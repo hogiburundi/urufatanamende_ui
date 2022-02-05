@@ -56,7 +56,7 @@
 					<button @click="editUser(attribution)">
 						modifier
 					</button>
-					<button>
+					<button @click="deleteUser(attribution)" v-if="user_is_owner">
 						supprimer
 					</button>
 				</td>
@@ -122,6 +122,10 @@ export default{
 						break;
 					}
 				}
+				this.$store.state.alert = {
+					type:"success",
+					message: "Opération éffectuée avec success"
+				}
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
@@ -140,8 +144,25 @@ export default{
 			axios.post(this.url+`/attribution/`, data, this.headers)
 			.then((response) => {
 				this.$store.state.attributions.push(response.data);
+				this.$store.state.alert = {
+					type:"success",
+					message: "Opération éffectuée avec success"
+				}
 			}).catch((error) => {
-				this.displayErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.createUser)
+			})
+		},
+		deleteUser(attribution){
+			let index = this.$store.state.attributions.indexOf(attribution)
+			axios.delete(this.url+`/attribution/${attribution.id}/`, this.headers)
+			.then((response) => {
+				this.$store.state.attributions.splice(index, 1);
+				this.$store.state.alert = {
+					type:"success",
+					message: "Opération éffectuée avec success"
+				}
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.deleteUser)
 			})
 		}
 	},

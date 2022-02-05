@@ -1,7 +1,11 @@
 <template>
 <div class="contextmenu">
-	<div>Profils</div>
-	<div @click="logOut">Déconnexion</div>
+	<div @click="$router.push('/users').catch(()=>{})">
+		Profils
+	</div>
+	<div @click="logOut">
+		Déconnexion
+	</div>
 </div>
 </template>
 <script>

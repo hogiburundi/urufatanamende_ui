@@ -26,7 +26,7 @@
 			<div @click="$router.push('/magasin').catch(()=>{})">
 				Ajouter Magasin
 			</div>
-			<hr>
+			<hr v-if="user_is_owner">
 			<div @click="$router.push('/users').catch(()=>{})" v-if="user_is_owner">
 				Utilisateurs
 			</div>
