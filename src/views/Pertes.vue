@@ -70,7 +70,6 @@ export default{
 				axios.delete(`${this.url}/perte/${item.id}/`, this.headers)
 				.then((response) => {
 					let index = this.$store.state.pertes.indexOf(item)
-					console.log(index)
 					this.$store.state.pertes.splice(index, 1)
 				}).catch((error) => {
 					this.displayErrorOrRefreshToken(error, () => this.supprimer(item))

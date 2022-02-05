@@ -68,6 +68,14 @@ input[type=submit]:active, button:active{
 .logs{
     color: #D00;
 }
+.searchable{
+  display: flex;
+}
+.searchable button{
+  margin: 0;
+  margin-left: 5px;
+  width: 70px;
+}
 table{
   width: calc(100% - 15px);
   text-align: left;

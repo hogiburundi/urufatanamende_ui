@@ -185,12 +185,4 @@ export default {
 };
 </script>
 <style scoped>
-.searchable{
-  display: flex;
-}
-.searchable button{
-  margin: 0;
-  margin-left: 5px;
-  width: 70px;
-}
 </style>

@@ -1,6 +1,9 @@
 <template>
 <div class="magasin">
 	<h2>Gestion des Utilisateurs</h2>
+	<button v-if="user_is_owner">
+		A partir des Existants
+	</button>
 	<form @submit.prevent v-if="!!active_attr || user_is_owner">
 		<div class="field">
 			<label for="username">Nom d'utilisateur</label>
@@ -63,15 +66,20 @@
 			</tr>
 		</tbody>
 	</table>
+	<DialogAttrib :active="add_to_existing"/>
 </div>
 </template>
 <script>
+
+import DialogAttrib from "../components/dialog_attribution"
+
 export default{
+	components:{DialogAttrib},
 	data(){
 		return {
 			attributions:this.$store.state.attributions,
 			active_attr:null, username:"", nom:"" ,prenom:"",
-			role:"", password:""
+			role:"", password:"", add_to_existing:true
 		}
 	},
 	watch:{
