@@ -67,18 +67,22 @@ export default{
 			this.active_stock = product
 		},
 		valider(stock){
+			let index = this.$store.state.stocks.indexOf(stock)
 			if(confirm(`voulez-vous vraiment valider ce stock?`)){
 				axios.get(this.url+`/stock/${stock.id}/valider/`, this.headers)
 				.then((response) => {
 					this.$store.state.alert = {
 						type:"success", message:"le stock a été validé"
 					}
-					for(key in Object.keys(stock)){
-						stock[key] = response.data[key]
+					this.$store.state.stocks[index] = response.data
+					for(let produit of this.$store.state.produits){
+						if(produit.id = stock.produit.id){
+							produit.quantite += response.data.quantite_actuelle
+							return
+						}
 					}
-					this.active_product.quantite += stock.quantite_actuelle
 				}).catch((error) => {
-					this.displayErrorOrRefreshToken(error, this.fetchData)
+					this.displayErrorOrRefreshToken(error, () => this.valider(stock))
 				});
 			}
 		},

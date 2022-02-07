@@ -166,18 +166,16 @@ export default{
 			this.active_stock = product
 		},
 		valider(stock){
+			let index = this.$store.state.stocks.indexOf(stock)
 			if(confirm(`voulez-vous vraiment valider ce stock?`)){
 				axios.get(this.url+`/stock/${stock.id}/valider/`, this.headers)
 				.then((response) => {
 					this.$store.state.alert = {
-            type:"success", message:"le stock a été validé"
-          }
-					for(key in Object.keys(stock)){
-						stock[key] = response.data[key]
+						type:"success", message:"le stock a été validé"
 					}
-					this.active_product.quantite += stock.quantite_actuelle
+					this.$store.state.stocks[index] = response.data
 				}).catch((error) => {
-					this.displayErrorOrRefreshToken(error, this.fetchData)
+					this.displayErrorOrRefreshToken(error, () => this.valider(stock))
 				});
 			}
 		},
@@ -255,11 +253,14 @@ export default{
 				reader.readAsBinaryString(event.target.files[0]);
 				reader.onload = e => {
 					const file = e.target.result;
-					const lines = file.split(/\r\n|\n/).splice(0, 1);
+					const lines = file.split(/\r\n|\n/);
 					let array_line = []
 					let date = 0
 					let day = 0; let month = 0; let year = 0
-					lines.forEach((line) => {
+					lines.splice(0, 1)
+					this.to_upload = []
+					for(let line of lines){
+						if(line.length<3)continue;
 						array_line = line.split("\t");
 						this.to_upload.push({
 						    "nom": array_line[0],
@@ -269,8 +270,8 @@ export default{
 							"prix_vente": array_line[4],
 							"kiosk": this.getActiveKiosk().id
 						})
-					});
-					console.table(this.to_upload)
+					};
+					console.log(this.to_upload)
 				};
 				reader.onerror = (event) => {
 					alert(event.target.error.name);
@@ -281,7 +282,8 @@ export default{
 			console.table(this.to_upload)
 			axios.post(this.url+"/produit/", this.to_upload, this.headers)
 			.then((response) => {
-				this.$store.state.produits.push(...response.data)
+				this.$store.state.produits.unshift(...response.data)
+				this.to_upload = []
 			}).catch((error) => {
 				this.displaErrorOrRefreshToken(error, this.fetchData)
 			});
