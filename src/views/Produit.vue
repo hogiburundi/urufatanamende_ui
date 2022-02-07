@@ -233,22 +233,23 @@ export default{
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
-		download (data){
-			const blob = new Blob(["\ufeff", data], {type: 'text/csv'});
-			const url = window.URL.createObjectURL(blob);
-			const a = document.createElement('a');
-			a.setAttribute('hidden', '');
-			a.setAttribute('href', url);
-			a.setAttribute('download', 'model.csv');
-			document.body.appendChild(a);
-			a.click();
-			document.body.removeChild(a);
-        },
 		generateCSV(){
-			let data = this.produits;
-			let headers = `nom du produit;unité entrante(achat);unité sortante(vente);rapport entre ces unités;prix de vente;details\n`;
-			this.download(headers);
+			// let data = this.produits;
+			let data = `sep=;\nnom du produit;unité entrante(achat);unité sortante(vente);rapport entre ces unités;prix de vente;details\n`;
+			window.location = "data:text/csv;base64,77u/" + btoa(data);
+			// this.download(data);
 		},
+		download(data){
+			// const blob = new Blob([data], {type: 'text/csv;charset=windows-1252;'});
+			// const url = window.URL.createObjectURL(blob);
+			// const a = document.createElement('a');
+			// a.setAttribute('hidden', '');
+			// a.setAttribute('href', url);
+			// a.setAttribute('download', 'model.csv');
+			// document.body.appendChild(a);
+			// a.click();
+			// document.body.removeChild(a);
+        },
 		importerXls(){
 			let inp_file = this.$refs["fichier_produits"]
 			inp_file.click() 
