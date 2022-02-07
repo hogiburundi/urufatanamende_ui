@@ -76,7 +76,7 @@ export default{
 					}
 					this.$store.state.stocks[index] = response.data
 					for(let produit of this.$store.state.produits){
-						if(produit.id = stock.produit.id){
+						if(produit.id == stock.produit.id){
 							produit.quantite += response.data.quantite_actuelle
 							return
 						}
