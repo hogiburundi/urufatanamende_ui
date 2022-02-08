@@ -8,12 +8,15 @@
       <form method="post">
         <div class="field">
           <label for="quantite_actuelle">
-            Quantite ({{quantite_actuelle}} {{ !!produit?produit.unite_entrante:"" }}):
+            Quantite ({{quantite_actuelle}} {{ !!produit?produit.unite:"" }}):
           </label>
           <input type="number" id="quantite_actuelle" v-model="quantite">
+          <h6 v-if="quantite>0">
+            sera vendue à {{money(quantite_actuelle * produit.prix_vente) }}
+          </h6>
         </div>
         <div class="field">
-          <label for="prix_total">Prix total:</label>
+          <label for="prix_total">Prix d'achat total:</label>
           <input type="number" id="prix_total" v-model="prix_total">
         </div>
         <div class="field">
@@ -75,7 +78,7 @@ export default {
         axios.post(this.url+"/stock/", data, this.headers)
         .then((response) => {
           this.$store.state.stocks.unshift(response.data)
-          this.$emit("close")
+          this.close()
         }).catch((error) => {
           this.displayErrorOrRefreshToken(error, this.postStock)
         });

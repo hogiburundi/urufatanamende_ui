@@ -3,7 +3,7 @@
     <center class="nonprintable">
       <div class="sv">
         <fa icon="search"/>
-        <input type="text" placeholder="search">
+        <input type="text" placeholder="search" v-model="keyword">
       </div>   
     </center>
     <div class="contents nonprintable">
@@ -31,7 +31,8 @@ export default {
   data(){
     return{
       produits:this.$store.state.produits, confirm_vente:false,
-      details_shown:true, next:null, to_search:"", fetched:null
+      details_shown:true, next:null, to_search:"", fetched:null,
+      keyword:"",
     }
   },
   computed:{
@@ -43,9 +44,6 @@ export default {
     "$store.state.produits"(new_val){
       this.produits = new_val
     },
-    "$store.state.keywords"(new_val){
-      this.search(JSON.parse(new_val))
-    },
     "$store.state.commande":{
       deep:true,
       handler(new_val){
@@ -53,6 +51,11 @@ export default {
           this.fetched = new_val
         }
       }
+    },
+    keyword(new_val){
+      this.produits = this.$store.state.produits.filter(x => {
+        return x.nom.toLowerCase().includes(new_val.toLowerCase())
+      })
     }
   },
   methods:{
@@ -100,7 +103,7 @@ export default {
     },
   },
   mounted(){
-    if(this.$store.state.produits.length<2){
+    if(this.$store.state.produits.length<1){
       this.fetchData()
     }
     this.recalculateColumns()
