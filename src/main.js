@@ -10,7 +10,7 @@ import {
   faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
   faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
   faSearch, faTimes, faPlus, faList, faBalanceScale, faTrashAlt,
-  faFileInvoice, faDownload, faUpload, faFolderOpen
+  faFileInvoice, faDownload, faUpload, faFolderOpen, faHandHoldingUsd
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add({
@@ -18,7 +18,7 @@ library.add({
   faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
   faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
   faSearch, faTimes, faPlus, faList, faBalanceScale, faTrashAlt,
-  faFileInvoice, faDownload, faUpload, faFolderOpen
+  faFileInvoice, faDownload, faUpload, faFolderOpen, faHandHoldingUsd
 })
 
 Vue.component('fa', FontAwesomeIcon)

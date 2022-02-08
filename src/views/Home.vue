@@ -100,6 +100,7 @@ export default{
 				interets : {icon:"chart-bar", text:"Intérêts", value:"0"},
 				invest : {icon:"money-bill-alt", text:"Invest", value:"0"},
 				ventes : {icon:"shopping-cart", text:"Ventes", value:"0"},
+				dettes : {icon:"hand-holding-usd", text:"Dettes", value:"0"},
 				produits : {icon:"database", text:"Produits", value:"0"}
 			},
 			stock:{initial:2, restant:1},
@@ -136,6 +137,14 @@ export default{
 			axios.get(this.url+`/produit/totals/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.produits.value = this.money(response.data.totals);
+				this.fetchStatsDettes()
+			})
+		},
+		fetchStatsDettes(){
+			let kiosk_id = this.getActiveKiosk().id
+			axios.get(this.url+`/commande/stats_dettes/?kiosk=${kiosk_id}`, this.headers)
+			.then((response) => {
+				this.ivyegeranyo.dettes.value = this.money(response.data.totals);
 				this.fetchStockOverview()
 			})
 		},
