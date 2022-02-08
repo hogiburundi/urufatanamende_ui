@@ -104,6 +104,12 @@ export default {
       }
     },
     close(){
+      this.nom = ""
+      this.unite_entrante = ""
+      this.unite = ""
+      this.rapport = ""
+      this.indications = ""
+      this.prix_vente = ""
       this.$emit("close")
     }
   }

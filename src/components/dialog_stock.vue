@@ -93,6 +93,9 @@ export default {
       }
     },
     close(){
+      this.quantite_actuelle = ""
+      this.date_expiration = ""
+      this.prix_total = ""
       this.$emit("close")
     }
   }

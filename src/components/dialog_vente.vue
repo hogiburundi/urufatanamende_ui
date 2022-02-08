@@ -96,6 +96,11 @@ export default {
   },
   methods: {
     close(){
+      this.client = { nom:"", tel:""}
+      this.dette_p = null
+      this.logs = ""
+      this.is_client_new = false
+      this.keyword = ""
       this.$emit("close")
     },
     setTel(){

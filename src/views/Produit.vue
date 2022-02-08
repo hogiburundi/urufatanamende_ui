@@ -234,12 +234,11 @@ export default{
 			});
 		},
 		generateCSV(){
-			// let data = this.produits;
 			let data = `sep=;\nnom du produit;unité entrante(achat);unité sortante(vente);rapport entre ces unités;prix de vente;details\n`;
-			window.location = "data:text/csv;base64,77u/" + btoa(data);
-			// this.download(data);
+			this.download(data);
 		},
 		download(data){
+			window.location = "data:text/csv;base64,77u/" + btoa(data);
 			// const blob = new Blob([data], {type: 'text/csv;charset=windows-1252;'});
 			// const url = window.URL.createObjectURL(blob);
 			// const a = document.createElement('a');
@@ -267,8 +266,8 @@ export default{
 					lines.splice(0, 1)
 					this.to_upload = []
 					for(let line of lines){
-						if(line.length<3)continue;
-						array_line = line.split("\t");
+						array_line = line.split(";");
+						if(array_line.length<3)continue;
 						this.to_upload.push({
 						    "nom": array_line[0],
 							"unite_entrante": array_line[1],

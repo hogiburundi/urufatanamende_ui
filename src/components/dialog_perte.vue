@@ -1,7 +1,7 @@
 <template>
   <div :class="{popup:true, active:active}">
     <div class="popup-body">
-      <button class="close" @click="$emit('close')">&times</button>
+      <button class="close" @click="close()">&times</button>
       <center>
         <h3>Perte</h3>
       </center>
@@ -38,6 +38,12 @@ export default {
     }
   },
   methods: {
+    close(){
+      this.quantite = ""
+      this.details = ""
+      this.item = null
+      this.$emit('close')
+    },
     postPerte(){
       if(this.details.length<32){
         this.$store.state.alert = {
