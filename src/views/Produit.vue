@@ -152,7 +152,7 @@ export default{
 		},
 		search(keyword){
 			this.produits = this.$store.state.produits.filter(x =>{
-				return x.nom.toLowerCase().includes(keyword.toLowerCase())
+				return JSON.stringify(x).toLowerCase().includes(keyword.toLowerCase())
 			})
 		},
 		addProduct(){

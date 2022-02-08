@@ -1,5 +1,9 @@
 <template>
 	<StatsLayout @search="search">
+	<button @click="generateCSV" style="margin-top: 10px">
+		<fa icon="download"/>
+		Exporter
+	</button>
 	<div class="table">
 		<table>
 			<tr>
@@ -68,7 +72,7 @@ export default{
 		},
 		search(keyword){
 			this.stocks = this.$store.state.stocks.filter(x =>{
-				return x.produit.nom.toLowerCase().includes(keyword.toLowerCase())
+				return JSON.stringify(x).toLowerCase().includes(keyword.toLowerCase())
 			})
 		},
 		valider(stock){
@@ -101,6 +105,24 @@ export default{
 					this.displayErrorOrRefreshToken(error, () => supprimer(stock))
 				});
 			}
+		},
+		generateCSV(){
+			let data = "sep=;\n";
+			for(let key of Object.keys(this.stocks[0])){
+				data += `${key};`
+			}
+			data += "\n"
+			for(let stock of this.stocks){
+				for(let key of Object.keys(this.stocks[0])){
+					if(key == "produit"){
+						data += `${stock[key].nom};`
+					} else {
+						data += `${stock[key]};`
+					}
+				}
+				data += "\n"
+			}
+			window.location = "data:text/csv;base64,77u/" + btoa(data);
 		},
 		fetchData(){
 			let link = ""
