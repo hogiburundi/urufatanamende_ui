@@ -100,6 +100,9 @@ export default{
 				for (let key of Object.keys(response.data)) {
 					kiosk[key] = response.data[key]
 				}
+				this.$store.state.alert = {
+					type:"success", message:`le kiosk ${this.nom} a été mise à jour`
+				}
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.updateKiosk)
 			})

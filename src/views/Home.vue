@@ -79,7 +79,7 @@
 						<b>Clients</b>
 						<div>{{ client.new }}</div>
 						<div>{{ 
-							((client.new-client.old)/(client.old|1))*100
+							(client.new-client.old)/client.old*100
 						}}% d'augmentation
 						</div>
 					</div>
@@ -104,7 +104,7 @@ export default{
 				produits : {icon:"database", text:"Produits", value:"0"}
 			},
 			stock:{initial:2, restant:1},
-			client:{old:2, new:1}
+			client:{old:0, new:0}
 		}
 	},
 	watch:{
@@ -142,7 +142,7 @@ export default{
 		},
 		fetchStatsDettes(){
 			let kiosk_id = this.getActiveKiosk().id
-			axios.get(this.url+`/commande/stats_dettes/?kiosk=${kiosk_id}`, this.headers)
+			axios.get(this.url+`/commande/ovw_dettes/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.dettes.value = this.money(response.data.totals);
 				this.fetchStockOverview()
@@ -168,10 +168,9 @@ export default{
 		},
 		fetchClientOverview(){
 			let kiosk_id = this.getActiveKiosk().id
-			axios.get(this.url+`/client/overview/`, this.headers)
+			axios.get(this.url+`/commande/ovw_clients/`, this.headers)
 			.then((response) => {
-				this.client.old = response.data.old;
-				this.client.new = response.data.new;
+				this.client = response.data;
 			})
 		},
 	},
