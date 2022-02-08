@@ -108,35 +108,39 @@ export default{
 	},
 	watch:{
 		"$store.state.active_kiosk"(new_val){
-			this.fetchData()
+			this.fetchVentes()
 		}
 	},
 	methods:{
-		fetchData(){
+		fetchVentes(){
 			let kiosk_id = this.getActiveKiosk().id
 			axios.get(this.url+`/vente/?commande__kiosk=${kiosk_id}&ordering=-benefice`, this.headers)
 			.then((response) => {
 				this.ventes = response.data.results.slice(0, 20);
+				this.fetchVentesTotals()
 			}).catch((error) => {
-				this.displayErrorOrRefreshToken(error, this.fetchData)
+				this.displayErrorOrRefreshToken(error, this.fetchVentes)
 			})
-
+		},
+		fetchVentesTotals(){
+			let kiosk_id = this.getActiveKiosk().id
 			axios.get(this.url+`/vente/totals/?commande__kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.interets.value = this.money(response.data.interets);
 				this.ivyegeranyo.ventes.value = this.money(response.data.ventes);
-			}).catch((error) => {
-				this.displayErrorOrRefreshToken(error, this.fetchData)
+				this.fetchProduitTotals()
 			})
-			
+		},
+		fetchProduitTotals(){
+			let kiosk_id = this.getActiveKiosk().id
 			axios.get(this.url+`/produit/totals/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.produits.value = this.money(response.data.totals);
-				console.log(ivyegeranyo)
-			}).catch((error) => {
-				this.displayErrorOrRefreshToken(error, this.fetchData)
+				this.fetchStockOverview()
 			})
-			
+		},
+		fetchStockOverview(){
+			let kiosk_id = this.getActiveKiosk().id
 			axios.get(this.url+`/stock/overview/?produit__kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.stock = response.data;
@@ -150,21 +154,20 @@ export default{
 				}
 				pie.style.backgroundImage = value;
 				this.ivyegeranyo.invest.value = this.money(response.data.invests);
-			}).catch((error) => {
-				this.displayErrorOrRefreshToken(error, this.fetchData)
+				this.fetchClientOverview()
 			})
-			
+		},
+		fetchClientOverview(){
+			let kiosk_id = this.getActiveKiosk().id
 			axios.get(this.url+`/client/overview/`, this.headers)
 			.then((response) => {
 				this.client.old = response.data.old;
 				this.client.new = response.data.new;
-			}).catch((error) => {
-				this.displayErrorOrRefreshToken(error, this.fetchData)
 			})
 		},
 	},
 	mounted(){
-		this.fetchData()
+		this.fetchVentes()
 	},
 };
 </script>
