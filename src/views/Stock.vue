@@ -1,5 +1,5 @@
 <template>
-	<StatsLayout>
+	<StatsLayout @search="search">
 	<div class="table">
 		<table>
 			<tr>
@@ -65,6 +65,11 @@ export default{
 		perdre(product){
 			this.perte_shown = true
 			this.active_stock = product
+		},
+		search(keyword){
+			this.stocks = this.$store.state.stocks.filter(x =>{
+				return x.produit.nom.toLowerCase().includes(keyword.toLowerCase())
+			})
 		},
 		valider(stock){
 			let index = this.$store.state.stocks.indexOf(stock)

@@ -1,5 +1,5 @@
 <template>
-	<StatsLayout>
+	<StatsLayout @search="search">
 		<div class="import">
 			<button @click="generateCSV">
 				<fa icon="download"/>
@@ -149,6 +149,11 @@ export default{
 			this.perte_shown = false
 			this.active_product = null
 			this.active_stock = null
+		},
+		search(keyword){
+			this.produits = this.$store.state.produits.filter(x =>{
+				return x.nom.toLowerCase().includes(keyword.toLowerCase())
+			})
 		},
 		addProduct(){
 			this.produit_shown = true

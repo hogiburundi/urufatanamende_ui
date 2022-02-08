@@ -3,7 +3,7 @@
 	<div class="topbar">
 		<div class="sv">
 			<fa icon="search"/>
-			<input type="text" placeholder="search">
+			<input type="text" placeholder="search" v-model="keyword">
 		</div>
 		<input type="date" name="">
 		<button>Appliquer</button>
@@ -14,7 +14,12 @@
 <script>
 export default{
 	data(){
-		return{}
+		return{ keyword:"" }
+	},
+	watch:{
+		keyword(new_val){
+			this.$emit("search", new_val)
+		}
 	},
 	methods:{
 	}
