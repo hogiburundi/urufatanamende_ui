@@ -48,7 +48,7 @@
 	<router-link to="/" v-slot="{ href, navigate, isExactActive }">
 		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
 			<fa class="img" icon="tachometer-alt"/>
-			<div class="name">Accueil</div>
+			<div class="name">Dashboard</div>
 		</div>
 	</router-link>
 	<router-link to="/pos" v-slot="{ href, navigate, isExactActive }">
@@ -58,17 +58,21 @@
 		</div>
 	</router-link>
 	<div class="deepmenu">
-		<fa class="img" style="margin-top: 5px;" icon="list"/>
+		<fa class="img" style="margin-top: 5px;" icon="list" @click="hide_hist=!hide_hist"/>
 		<div>
-			<div>Historique</div>
+			<div @click="hide_hist=!hide_hist">
+				Historique
+			</div>
 			<router-link to="/ventes" v-slot="{ href, navigate, isActive }">
-				<div class="element" @click="navigate" :class="{'active':isActive}">
+				<div class="element" @click="navigate"
+				:class="{'active':isActive, 'invisible':hide_hist}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Ventes</div>
 				</div>
 			</router-link>
 			<router-link to="/paiements" v-slot="{ href, navigate, isActive }">
-				<div class="element" @click="navigate" :class="{'active':isActive}">
+				<div class="element" @click="navigate"
+				:class="{'active':isActive, 'invisible':hide_hist}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Paiements</div>
 				</div>
@@ -76,17 +80,21 @@
 		</div>
 	</div>
 	<div class="deepmenu">
-		<fa class="img" style="margin-top: 5px;" icon="chart-bar"/>
+		<fa class="img" style="margin-top: 5px;" icon="chart-bar" @click="hide_stats=!hide_stats"/>
 		<div>
-			<div>Statistiques</div>
+			<div @click="hide_stats=!hide_stats">
+				Statistiques
+			</div>
 			<router-link to="/stat_produits" v-slot="{ href, navigate, isActive }">
-				<div class="element" @click="navigate" :class="{'active':isActive}">
+				<div class="element" @click="navigate"
+				:class="{'active':isActive, 'invisible':hide_stats}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Produits</div>
 				</div>
 			</router-link>
 			<router-link to="/stat_clients" v-slot="{ href, navigate, isActive }">
-				<div class="element" @click="navigate" :class="{'active':isActive}">
+				<div class="element" @click="navigate"
+				:class="{'active':isActive, 'invisible':hide_stats}">
 					<fa class="img" icon="long-arrow-alt-right"/>
 					<div>Clientèle</div>
 				</div>
@@ -111,6 +119,12 @@
 			<div class="name">Pertes</div>
 		</div>
 	</router-link>
+	<router-link to="/pertes" v-slot="{ href, navigate, isExactActive }">
+		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
+			<fa class="img" icon="hand-holding-usd"/>
+			<div class="name">Versement</div>
+		</div>
+	</router-link>
 </div>
 </template>
 <script>
@@ -118,6 +132,11 @@ import ContextMenu from "./context_menu"
 
 export default{
 	components:{ ContextMenu },
+	data(){
+		return {
+			hide_hist:true, hide_stats:true
+		}
+	},
 	methods:{
 		loadKiosk(kiosk){
 			this.$store.state.active_kiosk = kiosk
@@ -162,6 +181,9 @@ export default{
 #menus > div{
 	padding: 5px 0;
 }
+.invisible{
+	display: none!important;
+}
 .kiosk, .user{
 	display: flex;
 	align-items: center;
@@ -194,6 +216,7 @@ export default{
 }
 .img{
 	margin: 0 10px;
+	width: 16px;
 }
 .user{
 	font-size: .7em;
