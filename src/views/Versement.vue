@@ -29,13 +29,13 @@
 			<tfoot>
 				<tr>
 					<th></th>
-					<th class="right">{{ money(
+					<th class="right">BIF {{ money(
 						versements.reduce((acc, x) => acc + x.vente, 0)
-					)}} FBu
+					)}}
 					</th>
-					<th class="right">{{ money(
+					<th class="right">BIF {{ money(
 						versements.reduce((acc, x) => acc + x.dettes, 0)
-					)}} FBu
+					)}}
 					</th>
 					<th colspan="2"></th>
 					<th class="right">
@@ -94,7 +94,14 @@ export default{
 			})
 		},
 		verser(versement){
-
+			let last_name = this.active_user.last_name
+			if(prompt(`pour accepter cette perte tapez ${last_name}:`) == last_name){
+				axios.post(this.url+`/versement/`, versement, this.headers)
+				.then((response) => {
+					this.$store.state.versements[0] = response.data
+					this.getTodayVersement()
+				})
+			}
 		}
 	},
 	mounted(){

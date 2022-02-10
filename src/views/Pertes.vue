@@ -78,7 +78,6 @@ export default{
 		},
 		valider(item){
 			let last_name = this.active_user.last_name
-			console.log(this.active_user)
 			if(prompt(`pour accepter cette perte tapez ${last_name}:`) == last_name){
 				axios.get(`${this.url}/perte/${item.id}/valider/`, this.headers)
 				.then((response) => {
