@@ -19,12 +19,9 @@
 					<td>{{ datetime(payment.date) }}</td>
 					<td class="right">{{ money(payment.montant) }} FBu</td>
 					<td>{{ payment.user }}</td>
-					<td v-if="!payment.validated_by">
-						<button @click="valider(payment)">
-							valider
-						</button>
+					<td>
 						<button @click="supprimer(payment)">
-							rejeter
+							supprimer
 						</button>
 					</td>
 				</tr>

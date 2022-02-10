@@ -77,11 +77,11 @@ export default{
 			axios.get(link, this.headers)
 			.then((response) => {
 				this.$store.state.versements.push(...response.data.results)
-				if(response.data.next.length > 0){
+				if(!!response.data.next > 0){
 					this.next = response.data.next
 					this.fetchData()
 				} else {
-					getTodayVersement()
+					this.getTodayVersement()
 					this.next = null
 				}
 			}).catch((error) => {
