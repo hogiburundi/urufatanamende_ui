@@ -12,6 +12,7 @@ export default new Vuex.Store({
     notification:{type:"", message:"Bienvenue"},
     notifs:[],
     attributions:[],
+    versements:[],
     commandes:[],
     produits:[],
     payments:[],

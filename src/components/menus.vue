@@ -119,7 +119,7 @@
 			<div class="name">Pertes</div>
 		</div>
 	</router-link>
-	<router-link to="/pertes" v-slot="{ href, navigate, isExactActive }">
+	<router-link to="/versements" v-slot="{ href, navigate, isExactActive }">
 		<div class="menu" @click="navigate" :class="{'active':isExactActive}">
 			<fa class="img" icon="hand-holding-usd"/>
 			<div class="name">Versement</div>
