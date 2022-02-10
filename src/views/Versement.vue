@@ -13,18 +13,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="versement in versements">
-					<td>{{ versement.id }}</td>
-					<td class="right">{{ versement.quantite }}</td>
-					<td class="right">{{ money(versement.prix)}} FBu</td>
-					<td>{{ versement.details }}</td>
+				<tr v-for="versement, i in versements" :class="{'active':!versement.user}">
+					<td>{{ i+1 }}</td>
+					<td class="right">{{ money(versement.vente) }}</td>
+					<td class="right">{{ money(versement.dettes)}}</td>
+					<td>{{ versement.user }}</td>
 					<td>{{ datetime(versement.date) }}</td>
-					<td v-if="!versement.validated_by">
-						<button  @click="valider(versement)">
-							accepter
-						</button>
-						<button @click="supprimer(versement)">
-							refuser
+					<td>
+						<button @click="verser(versement)">
+							verser
 						</button>
 					</td>
 				</tr>
@@ -33,11 +30,11 @@
 				<tr>
 					<th></th>
 					<th class="right">{{ money(
-						versements.reduce((acc, x) => acc + x.prix, 0)
+						versements.reduce((acc, x) => acc + x.vente, 0)
 					)}} FBu
 					</th>
 					<th class="right">{{ money(
-						versements.reduce((acc, x) => acc + x.prix, 0)
+						versements.reduce((acc, x) => acc + x.dettes, 0)
 					)}} FBu
 					</th>
 					<th colspan="2"></th>
@@ -57,7 +54,7 @@ export default{
 	components:{StatsLayout},
 	data(){
 		return{
-			versements:this.$store.state.versements
+			versements:this.$store.state.versements, next:null
 		}
 	},
 	watch:{
@@ -77,7 +74,7 @@ export default{
 			axios.get(link, this.headers)
 			.then((response) => {
 				this.$store.state.versements.push(...response.data.results)
-				if(!!response.data.next > 0){
+				if(!!response.data.next){
 					this.next = response.data.next
 					this.fetchData()
 				} else {
@@ -85,14 +82,19 @@ export default{
 					this.next = null
 				}
 			}).catch((error) => {
+				console.error(error)
 				this.displayErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
 		getTodayVersement(){
+			let kiosk_id = this.getActiveKiosk().id
 			axios.get(this.url+`/versement/today/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.$store.state.versements.unshift(response.data)
 			})
+		},
+		verser(versement){
+
 		}
 	},
 	mounted(){
@@ -103,4 +105,7 @@ export default{
 };
 </script>
 <style scoped>
+.active{
+	color: green;
+}
 </style>
