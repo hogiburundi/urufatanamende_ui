@@ -21,11 +21,11 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>nom</th>
+					<th @click="orderBy('nom')">nom</th>
 					<th>unités</th>
-					<th>quantité</th>
-					<th>etat</th>
-					<th class="right">prix de vente</th>
+					<th @click="orderBy('quantite')">quantité</th>
+					<th @click="orderBy('etat')">etat</th>
+					<th class="right" @click="orderBy('prix_vente')">prix de vente</th>
 					<th class="right">Valeur</th>
 					<th>
 						<button @click="addProduct">Ajouter un produit</button>
@@ -41,7 +41,7 @@
 						<td>{{ produit.nom }}</td>
 						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
 						<td><b>{{ `${produit.quantite || 0} ${produit.unite}` }}</b></td>
-						<td><b>{{ produit.etat*100 }}%</b></td>
+						<td><b>{{ money(produit.etat*100) }}%</b></td>
 						<td class="right">{{ money(produit.prix_vente) }}</td>
 						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
 						<td>
@@ -136,7 +136,7 @@ export default{
 	components:{ StatsLayout, DialogProduit, DialogStock, DialogPerte },
 	data(){
 		return{
-			produits:this.$store.state.produits, folded:-1, progress:false,
+			produits:this.$store.state.produits, folded:-1, progress:false, order:"",
 			produit_shown:false, active_product:null, next:null, stocks:[],
 			stock_shown:false, active_stock:null, perte_shown:false, to_upload:[],
 		}
@@ -173,6 +173,31 @@ export default{
 		perdre(product){
 			this.perte_shown = true
 			this.active_stock = product
+		},
+		compareStings(a, b, order){
+			if(a[order]>b[order]){
+				return 1
+			} else if(a[order]==b[order]){
+				return 0
+			} else {
+				return -1
+			}
+		},
+		orderBy(order){
+			console.log(this.order, order)
+			let comp = 0
+			let str_comp = 0
+			if(this.order == order){
+				this.produits.sort((a, b) => {
+					return typeof(a[order]) == "string"?this.compareStings(a, b, order):a[order]-b[order]
+				})
+				this.order = ""
+			} else {
+				this.produits.sort((a, b) => {
+					return typeof(a[order]) == "string"?this.compareStings(b, a, order):b[order]-a[order]
+				})
+				this.order = order
+			}
 		},
 		valider(stock){
 			let index = this.$store.state.stocks.indexOf(stock)
@@ -323,9 +348,9 @@ export default{
 	margin: 0;
 }
 .warning{
-	background-color: #faa;
+	background-color: #fdd;
 }
 .danger{
-	background-color: #fdd;
+	background-color: #faa;
 }
 </style>
