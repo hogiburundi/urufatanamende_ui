@@ -24,6 +24,7 @@
 					<th>nom</th>
 					<th>unités</th>
 					<th>quantité</th>
+					<th>etat</th>
 					<th class="right">prix de vente</th>
 					<th class="right">Valeur</th>
 					<th>
@@ -33,11 +34,14 @@
 			</thead>
 			<tbody>
 				<template v-for="produit, i in produits">
-					<tr @click="fold(produit)">
+					<tr @click="fold(produit)" :class="{
+						'warning':produit.etat < 0.2, 'danger':produit.etat==0
+					}">
 						<td>{{ i+1 }}</td>
 						<td>{{ produit.nom }}</td>
 						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
 						<td><b>{{ `${produit.quantite || 0} ${produit.unite}` }}</b></td>
+						<td><b>{{ produit.etat*100 }}%</b></td>
 						<td class="right">{{ money(produit.prix_vente) }}</td>
 						<td class="right">{{ money(produit.prix_vente * produit.quantite)}}</td>
 						<td>
@@ -94,7 +98,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan="5"></th>
+					<th colspan="6"></th>
 					<th class="right">
 					{{ money(
 						produits.reduce((acc, x) => {
@@ -317,5 +321,11 @@ export default{
 }
 .svg-inline--fa{
 	margin: 0;
+}
+.warning{
+	background-color: #faa;
+}
+.danger{
+	background-color: #fdd;
 }
 </style>

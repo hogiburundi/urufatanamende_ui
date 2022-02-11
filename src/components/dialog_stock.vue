@@ -12,7 +12,7 @@
           </label>
           <input type="number" id="quantite_actuelle" v-model="quantite">
           <h6 v-if="quantite>0">
-            sera vendue à {{money(quantite_actuelle * produit.prix_vente) }}
+            sera vendue à {{money(quantite_actuelle * produit.prix) }}
           </h6>
         </div>
         <div class="field">
