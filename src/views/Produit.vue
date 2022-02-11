@@ -26,7 +26,7 @@
 					<th @click="orderBy('quantite')">quantité</th>
 					<th @click="orderBy('etat')">etat</th>
 					<th class="right" @click="orderBy('prix_vente')">prix de vente</th>
-					<th class="right">Valeur</th>
+					<th class="right" @click="orderBy('prix_vente')">Valeur</th>
 					<th>
 						<button @click="addProduct">Ajouter un produit</button>
 					</th>
@@ -184,7 +184,6 @@ export default{
 			}
 		},
 		orderBy(order){
-			console.log(this.order, order)
 			let comp = 0
 			let str_comp = 0
 			if(this.order == order){

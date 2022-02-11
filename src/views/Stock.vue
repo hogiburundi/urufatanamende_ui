@@ -7,13 +7,13 @@
 	<div class="table">
 		<table>
 			<tr>
-				<th>produit</th>
-				<th>qtt. initiale</th>
-				<th>qtt. restant</th>
-				<th>prix d'achat</th>
-				<th>date d'exp.</th>
-				<th>user</th>
-				<th>validateur</th>
+				<th @click="orderBy('')">produit</th>
+				<th @click="orderBy('quantite_initiale')">qtt. initiale</th>
+				<th @click="orderBy('quantite_actuelle')">qtt. restant</th>
+				<th @click="orderBy('prix_total')">prix d'achat</th>
+				<th @click="orderBy('date_expiration')">date d'exp.</th>
+				<th @click="orderBy('user')">user</th>
+				<th @click="orderBy('validated_by')">validateur</th>
 				<th>option</th>
 			</tr>
 			<tr v-for="stock in stocks">
@@ -74,6 +74,30 @@ export default{
 			this.stocks = this.$store.state.stocks.filter(x =>{
 				return JSON.stringify(x).toLowerCase().includes(keyword.toLowerCase())
 			})
+		},
+		compareStings(a, b, order){
+			if(a[order]>b[order]){
+				return 1
+			} else if(a[order]==b[order]){
+				return 0
+			} else {
+				return -1
+			}
+		},
+		orderBy(order){
+			let comp = 0
+			let str_comp = 0
+			if(this.order == order){
+				this.stocks.sort((a, b) => {
+					return typeof(a[order]) == "string"?this.compareStings(a, b, order):a[order]-b[order]
+				})
+				this.order = ""
+			} else {
+				this.stocks.sort((a, b) => {
+					return typeof(a[order]) == "string"?this.compareStings(b, a, order):b[order]-a[order]
+				})
+				this.order = order
+			}
 		},
 		valider(stock){
 			let index = this.$store.state.stocks.indexOf(stock)
