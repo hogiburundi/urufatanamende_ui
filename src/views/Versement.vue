@@ -7,6 +7,7 @@
 					<th>id</th>
 					<th class="right">vente</th>
 					<th class="right">dettes</th>
+					<th class="right">NET</th>
 					<th>gerant</th>
 					<th>date</th>
 					<th>action</th>
@@ -17,6 +18,7 @@
 					<td>{{ i+1 }}</td>
 					<td class="right">{{ money(versement.vente) }}</td>
 					<td class="right">{{ money(versement.dettes)}}</td>
+					<td class="right">{{ money(versement.vente + versement.dettes)}}</td>
 					<td>{{ versement.user }}</td>
 					<td>{{ datetime(versement.date) }}</td>
 					<td>
@@ -37,7 +39,11 @@
 						versements.reduce((acc, x) => acc + x.dettes, 0)
 					)}}
 					</th>
-					<th colspan="2"></th>
+					<th class="right">BIF <span style="color:red">{{ money(
+						versements.reduce((acc, x) => acc + x.dettes+ x.vente, 0)
+					)}}</span>
+					</th>
+					<th></th>
 					<th class="right">
 						<!-- <button>tout accepter</button>
 						<button>tout refuser</button> -->
@@ -91,7 +97,9 @@ export default{
 			axios.get(this.url+`/versement/today/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.$store.state.versements.unshift(response.data)
-			})
+			}).catch((error) => {
+				this.displayErrorOrRefreshToken(error, this.getTodayVersement)
+			});
 		},
 		verser(versement){
 			let last_name = this.active_user.last_name
@@ -100,7 +108,9 @@ export default{
 				.then((response) => {
 					this.$store.state.versements[0] = response.data
 					this.getTodayVersement()
-				})
+				}).catch((error) => {
+					this.displayErrorOrRefreshToken(error, () => verser(versement))
+				});
 			}
 		}
 	},
