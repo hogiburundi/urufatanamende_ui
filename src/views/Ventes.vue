@@ -1,5 +1,9 @@
 <template>
 	<StatsLayout>
+		<div class="option">
+			<label for="dette">les dettes seulement</label>
+			<input type="checkbox" id="dette" v-model="only_dettes">
+		</div>
 		<div class="table nonprintable">
 		<table>
 			<thead>
@@ -76,12 +80,22 @@ export default{
 	data(){
 		return{
 			ventes_shown:false, active_command:null, next:null, 
-			commandes:this.$store.state.commandes, payment_shown:false
+			commandes:this.$store.state.commandes, payment_shown:false,
+			only_dettes:false
 		}
 	},
 	watch:{
 		"$store.state.commandes"(new_val){
 			this.commandes = new_val
+		},
+		only_dettes(new_val){
+			if(new_val){
+				this.commandes = this.$store.state.commandes.filter(x =>{
+					return x.prix > x.payee
+				})
+			} else {
+				this.commandes = this.$store.state.commandes
+			}
 		}
 	},
 	methods:{
@@ -139,4 +153,12 @@ export default{
 };
 </script>
 <style scoped>
+.option{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+#dette{
+	margin-left: 5px;
+}
 </style>
