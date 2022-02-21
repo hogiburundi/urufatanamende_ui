@@ -132,6 +132,7 @@ export default {
   flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: min-content;
   grid-row-gap: 5px;
   grid-column-gap: 5px;
   padding: 0 5px;

@@ -161,4 +161,7 @@ export default{
 #dette{
 	margin-left: 5px;
 }
+.table{
+  height: calc(100vh - 125px);
+}
 </style>

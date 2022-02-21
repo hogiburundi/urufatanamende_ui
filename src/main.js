@@ -97,13 +97,10 @@ Vue.mixin({
             this.$store.state.user.access = response.data.access
             if(typeof callback == "function") callback()
           }).catch((error) => {
-            if (!!error.response && error.response.status == 401) {
-              this.$store.state.user = null;
-            } else {
-              console.error(error)
-              this.$store.state.alert = {
-                type:"danger", message:this.cleanString(error.response.data)
-              }
+            this.$store.state.user = null;
+            console.error(error)
+            this.$store.state.alert = {
+              type:"danger", message:this.cleanString(error.response.data)
             }
           })
         } else {
