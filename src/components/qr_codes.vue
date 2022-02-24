@@ -1,48 +1,70 @@
 <template>
   <div :class="{popup:true, active:active}">
-    <div class="popup-body">
-      <button class="close nonprintable" @click="$emit('close')">
-        &times
-      </button>
-      <center class="nonprintable">
-        <h3 style="margin-bottom: 10px;">PRODUITS VENDUES</h3>
-      </center>
-      <center class="nonprintable">
-        <button @click="imprimer">
-          imprimer
-        </button>
-      </center>
-    </div>
+	<div class="popup-body">
+		<button class="close nonprintable" @click="$emit('close')">&times</button>
+		<center class="nonprintable">
+			<h3 style="margin-bottom: 10px;">PRODUITS VENDUES</h3>
+		</center>
+		<div class="params nonprintable">
+			<label for="nombre">nombre</label>
+			<input type="number" v-model="nombre">
+			<button @click="imprimer">imprimer</button>
+		</div>
+		<div class="page">
+			<div class="qr_item" v-for="i in parseInt(nombre)">
+				<center v-if="produit">
+					<div class="barcode">*{{produit.id}}*</div>
+					<b>{{produit.prix_vente}}FBu</b>
+				</center>
+			</div>
+		</div>
+	</div>
   </div>
 </div>
 </template>
 <script>
 export default {
 	props:["produit", "active"],
-    data(){
-        return {
-            ventes:[]
-        }
-    },
-    methods:{
-        imprimer(){
-            window.print()
-        }
-    }
+	data(){
+		return {
+			nombre:7
+		}
+	},
+	methods:{
+		imprimer(){
+			window.print()
+		},
+	}
 };
 </script>
 <style scoped>
-*{
-	margin: 0;
+.params>*{
+	margin-right: 5px;
 }
-.header *{
-	margin: 10px 0;
+.qr_item{
+	width: 100px;
+	display: inline-block;
+	border-bottom: 1px dotted gray;
+	border-right: 1px dotted gray;
+	margin: 5px 0;
 }
-@media print{
-    .invoice{
-        background-color: white;
-        position: fixed;
-        width: 100%;
-    }
+.barcode{
+	font-family: ccode39;
+	font-size: 1.2em;
+}
+.page{
+	border: 1px solid black;
+	width: 210mm;
+	padding: 10px;
+	margin-top: 10px;
+	overflow: hidden;
+}
+@media print {
+	.page{
+		border-width: 0;
+	}
+	.popup-body{
+		overflow: hidden;
+	}
 }
 </style>

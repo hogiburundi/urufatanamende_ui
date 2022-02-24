@@ -129,6 +129,7 @@
 			@close="close"/>
 		<QRCodes
 			:active="qr_gen_shown"
+			:produit="active_product"
 			:item="active_product"
 			@close="close"/>
 	</StatsLayout>

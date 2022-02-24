@@ -4,6 +4,10 @@
     --primary: #293150;
     --primary-light: #79b;
 }
+@font-face {
+  font-family: "ccode39";
+  src: url("/static/ConnectCode39.ttf");
+}
 *{
     box-sizing: border-box;
     text-decoration: none;
