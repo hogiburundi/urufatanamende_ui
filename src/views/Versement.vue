@@ -43,11 +43,7 @@
 						versements.reduce((acc, x) => acc + x.dettes+ x.vente, 0)
 					)}}</span>
 					</th>
-					<th></th>
-					<th class="right">
-						<!-- <button>tout accepter</button>
-						<button>tout refuser</button> -->
-					</th>
+					<th colspan="3"></th>
 				</tr>
 			</tfoot>
 		</table>

@@ -52,6 +52,9 @@
 								<fa icon="plus"/>
 								Stock
 							</button>
+							<button @click.stop="generateQr(produit)">
+								<fa icon="qrcode"/>
+							</button>
 						</td>
 					</tr>
 					<tr v-if="folded == produit.id">
@@ -124,6 +127,10 @@
 			:active="perte_shown"
 			:item="active_stock"
 			@close="close"/>
+		<QRCodes
+			:active="qr_gen_shown"
+			:item="active_product"
+			@close="close"/>
 	</StatsLayout>
 </template>
 <script>
@@ -131,14 +138,16 @@ import StatsLayout from "./stats_layout"
 import DialogProduit from "../components/dialog_produit"
 import DialogStock from "../components/dialog_stock"
 import DialogPerte from "../components/dialog_perte"
+import QRCodes from "../components/qr_codes"
 
 export default{
-	components:{ StatsLayout, DialogProduit, DialogStock, DialogPerte },
+	components:{ StatsLayout, DialogProduit, DialogStock, DialogPerte, QRCodes },
 	data(){
 		return{
-			produits:this.$store.state.produits, folded:-1, progress:false, order:"",
-			produit_shown:false, active_product:null, next:null, stocks:[],
-			stock_shown:false, active_stock:null, perte_shown:false, to_upload:[],
+			produits:this.$store.state.produits, folded:-1, progress:false,
+			order:"", produit_shown:false, active_product:null, next:null,
+			stocks:[], qr_gen_shown:false, stock_shown:false, active_stock:null,
+			perte_shown:false, to_upload:[],
 		}
 	},
 	watch:{
@@ -151,6 +160,7 @@ export default{
 			this.produit_shown = false
 			this.stock_shown = false
 			this.perte_shown = false
+			this.qr_gen_shown = false
 			this.active_product = null
 			this.active_stock = null
 		},
@@ -327,6 +337,10 @@ export default{
 				this.displaErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
+		generateQr(produit){
+			this.qr_gen_shown = true
+			this.active_product = produit
+		}
 	},
 	mounted(){
 		if(this.$store.state.produits.length<1){

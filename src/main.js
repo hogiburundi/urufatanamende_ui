@@ -7,7 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faShoppingCart, faBox, faBoxOpen, faChartBar, faUser, faBars,
-  faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
+  faSortDown, faExclamationTriangle, faTachometerAlt, faBell, faQrcode,
   faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
   faSearch, faTimes, faPlus, faList, faBalanceScale, faTrashAlt,
   faFileInvoice, faDownload, faUpload, faFolderOpen, faHandHoldingUsd
@@ -15,7 +15,7 @@ import {
 
 library.add({
   faShoppingCart, faBox, faBoxOpen,  faChartBar, faUser, faBars,
-  faSortDown, faExclamationTriangle, faTachometerAlt, faBell,
+  faSortDown, faExclamationTriangle, faTachometerAlt, faBell, faQrcode,
   faLongArrowAltRight, faMoneyBillAlt, faDatabase, faSmileWink,
   faSearch, faTimes, faPlus, faList, faBalanceScale, faTrashAlt,
   faFileInvoice, faDownload, faUpload, faFolderOpen, faHandHoldingUsd
