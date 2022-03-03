@@ -20,6 +20,9 @@
 		<table>
 			<thead>
 				<tr>
+					<th>
+						<input type="checkbox" v-model="select_all">	
+					</th>
 					<th>#</th>
 					<th @click="orderBy('nom')">nom</th>
 					<th>unités</th>
@@ -29,6 +32,9 @@
 					<th class="right" @click="orderBy('prix_vente')">Valeur</th>
 					<th>
 						<button @click="addProduct">Ajouter un produit</button>
+						<button @click.stop="generateQrs()">
+							<fa icon="qrcode"/>
+						</button>
 					</th>
 				</tr>
 			</thead>
@@ -37,6 +43,10 @@
 					<tr @click="fold(produit)" :class="{
 						'warning':produit.etat < 0.2, 'danger':produit.etat==0
 					}">
+						<td>
+							<input type="checkbox" :checked="isChecked(produit)" 
+								@click.stop @change="updateActiveWith(produit)">
+						</td>
 						<td>{{ i+1 }}</td>
 						<td>{{ produit.nom }}</td>
 						<td>{{ `${produit.unite_entrante}(${produit.rapport} ${produit.unite})` }}</td>
@@ -109,7 +119,7 @@
 						}, 0)
 					)}}
 					</th>
-					<th></th>
+					<th colspan="2"></th>
 				</tr>
 			</tfoot>
 		</table>
@@ -129,8 +139,7 @@
 			@close="close"/>
 		<QRCodes
 			:active="qr_gen_shown"
-			:produit="active_product"
-			:item="active_product"
+			:items="active_products"
 			@close="close"/>
 	</StatsLayout>
 </template>
@@ -148,12 +157,22 @@ export default{
 			produits:this.$store.state.produits, folded:-1, progress:false,
 			order:"", produit_shown:false, active_product:null, next:null,
 			stocks:[], qr_gen_shown:false, stock_shown:false, active_stock:null,
-			perte_shown:false, to_upload:[],
+			perte_shown:false, to_upload:[], active_products:new Set(),
+			select_all:false
 		}
 	},
 	watch:{
 		"$store.state.produits"(new_val){
 			this.produits = new_val
+		},
+		select_all(new_val){
+			this.active_products = new Set()
+			if(new_val){
+				for(let produit of this.produits){
+					this.active_products.add(produit)
+				}
+			}
+			console.log(this.active_products)
 		}
 	},
 	methods:{
@@ -338,9 +357,24 @@ export default{
 				this.displaErrorOrRefreshToken(error, this.fetchData)
 			});
 		},
-		generateQr(produit){
+		isChecked(produit){
+			return this.active_products.has(produit)
+		},
+		updateActiveWith(produit){
+			if(this.active_products.has(produit)){
+				this.active_products.delete(produit)
+			} else {
+				this.active_products.add(produit)
+			}
+			console.log(this.active_products)
+		},
+		generateQrs(produit){
 			this.qr_gen_shown = true
-			this.active_product = produit
+		},
+		generateQr(produit){
+			this.active_products = new Set()
+			this.active_products.add(produit)
+			this.qr_gen_shown = true
 		}
 	},
 	mounted(){

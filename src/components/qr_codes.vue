@@ -11,12 +11,15 @@
 			<button @click="imprimer">imprimer</button>
 		</div>
 		<div class="page">
-			<div class="qr_item" v-for="i in parseInt(nombre)">
-				<center v-if="produit">
-					<div class="barcode">*{{produit.id}}*</div>
-					<b>{{produit.prix_vente}}FBu</b>
-				</center>
-			</div>
+			<span v-for="produit in items">
+				<div class="qr_item" v-for="i in parseInt(nombre)">
+					<center v-if="produit">
+						<div class="barcode">*{{produit.id}}*</div>
+						<div>{{produit.nom}}</div>
+						<b>{{produit.prix_vente}}FBu</b>
+					</center>
+				</div>
+			</span>
 		</div>
 	</div>
   </div>
@@ -24,7 +27,7 @@
 </template>
 <script>
 export default {
-	props:["produit", "active"],
+	props:["items", "active"],
 	data(){
 		return {
 			nombre:7
