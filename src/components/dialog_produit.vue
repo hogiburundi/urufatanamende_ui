@@ -61,6 +61,9 @@ export default {
         this.indications = new_val.indications
         this.prix_vente = new_val.prix_vente
       }
+    },
+    unite_entrante(new_val){
+      this.unite = new_val
     }
   },
   methods: {

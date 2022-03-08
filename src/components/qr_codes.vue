@@ -66,8 +66,16 @@ export default {
 	.page{
 		border-width: 0;
 	}
-	.popup-body{
-		overflow: hidden;
+	.popup-body {
+		position: relative;
+		max-height: auto !important;
+		overflow: visible;
 	}
+	.popup{
+		position: absolute;
+		height: auto;
+		overflow-y: visible;
+	}
+
 }
 </style>

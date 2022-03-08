@@ -89,7 +89,7 @@ export default {
 	max-height: 100px;
 }
 .name{
-	font-size: .9em;
+	font-size: .8em;
 	font-weight: 700;
 	width: 100%;
 }
