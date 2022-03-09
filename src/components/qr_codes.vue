@@ -15,7 +15,7 @@
 				<div class="qr_item" v-for="i in parseInt(nombre)">
 					<center v-if="produit">
 						<div class="barcode">*{{produit.id}}*</div>
-						<div>{{produit.nom}}</div>
+						<div class="nom">{{produit.nom}}</div>
 						<b>{{produit.prix_vente}}FBu</b>
 					</center>
 				</div>
@@ -45,11 +45,14 @@ export default {
 	margin-right: 5px;
 }
 .qr_item{
-	width: 100px;
+	width: 120px;
 	display: inline-block;
 	border-bottom: 1px dotted gray;
 	border-right: 1px dotted gray;
 	margin: 5px 0;
+}
+.nom{
+	font-size: .8em;
 }
 .barcode{
 	font-family: ccode39;
