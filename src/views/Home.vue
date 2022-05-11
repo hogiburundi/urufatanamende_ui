@@ -129,6 +129,7 @@ export default{
 			.then((response) => {
 				this.ivyegeranyo.interets.value = this.money(response.data.interets);
 				this.ivyegeranyo.ventes.value = this.money(response.data.ventes);
+			}).finally(() => {
 				this.fetchProduitTotals()
 			})
 		},
@@ -137,6 +138,7 @@ export default{
 			axios.get(this.url+`/produit/totals/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.produits.value = this.money(response.data.totals);
+			}).finally(() => {
 				this.fetchStatsDettes()
 			})
 		},
@@ -145,6 +147,7 @@ export default{
 			axios.get(this.url+`/commande/ovw_dettes/?kiosk=${kiosk_id}`, this.headers)
 			.then((response) => {
 				this.ivyegeranyo.dettes.value = this.money(response.data.totals);
+			}).finally(() => {
 				this.fetchStockOverview()
 			})
 		},
@@ -163,6 +166,7 @@ export default{
 				}
 				pie.style.backgroundImage = value;
 				this.ivyegeranyo.invest.value = this.money(response.data.invests);
+			}).finally(() => {
 				this.fetchClientOverview()
 			})
 		},
