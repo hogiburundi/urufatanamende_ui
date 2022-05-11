@@ -134,14 +134,18 @@ export default{
 		},
 		generateCSV(){
 			let data = "sep=;\n";
-			for(let key of Object.keys(this.stocks[0])){
+			let keys = Object.keys(this.stocks[0])
+			keys.push("p_v_u")
+			for(let key of keys){
 				data += `${key};`
 			}
 			data += "\n"
 			for(let stock of this.stocks){
-				for(let key of Object.keys(this.stocks[0])){
+				for(let key of keys){
 					if(key == "produit"){
 						data += `${stock[key].nom};`
+					} else if(key == "p_v_u"){
+						data += `${stock['produit'].prix_vente};`
 					} else {
 						data += `${stock[key]};`
 					}
