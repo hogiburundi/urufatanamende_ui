@@ -28,12 +28,6 @@ export default {
 		}
 	},
 	methods: {
-		getIcon(item){
-			if (item.image == null) {
-				return "/img/item.png";
-			}
-			return item.image;
-		},
 		increaseQtt : function(){
 			this.cart.add(this.item);
 		},

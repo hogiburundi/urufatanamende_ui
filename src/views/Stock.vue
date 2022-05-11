@@ -8,6 +8,7 @@
 		<table>
 			<tr>
 				<th @click="orderBy('')">produit</th>
+				<th @click="orderBy('')">P.V.U.</th>
 				<th @click="orderBy('quantite_initiale')">qtt. initiale</th>
 				<th @click="orderBy('quantite_actuelle')">qtt. restant</th>
 				<th @click="orderBy('prix_total')">prix d'achat</th>
@@ -18,6 +19,7 @@
 			</tr>
 			<tr v-for="stock in stocks">
 				<td>{{ stock.produit.nom }}</td>
+				<td>{{ money(stock.produit.prix_vente) }}</td>
 				<td>{{ `${stock.quantite_initiale} ${stock.produit.unite}` }}</td>
 				<td><b>{{ `${stock.quantite_actuelle} ${stock.produit.unite}` }}</b></td>
 				<td>{{ money(stock.prix_total) }}</td>

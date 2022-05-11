@@ -14,9 +14,13 @@
 			<span v-for="produit in items">
 				<div class="qr_item" v-for="i in parseInt(nombre)">
 					<center v-if="produit">
-						<div class="barcode">*{{produit.id}}*</div>
+						<div class="barcode">*{{
+							produit.id.toLocaleString('fr-FR', {
+								minimumIntegerDigits: 2, useGrouping:false
+							})
+						}}*
+						</div>
 						<div class="nom">{{produit.nom}}</div>
-						<b>{{produit.prix_vente}}FBu</b>
 					</center>
 				</div>
 			</span>
@@ -45,11 +49,12 @@ export default {
 	margin-right: 5px;
 }
 .qr_item{
-	width: 120px;
+	max-width: 150px;
 	display: inline-block;
 	border-bottom: 1px dotted gray;
 	border-right: 1px dotted gray;
 	margin: 5px 0;
+	padding: 0 5px;
 }
 .nom{
 	font-size: .8em;

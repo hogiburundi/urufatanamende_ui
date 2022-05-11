@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user : null,
-    // base_url: "http://127.0.0.1:8000",
-    base_url: "",
+    base_url: "http://127.0.0.1:8000",
+    // base_url: "",
     api: "/api",
     notification:{type:"", message:"Bienvenue"},
     notifs:[],
@@ -26,7 +26,18 @@ export default new Vuex.Store({
     active_kiosk:null,
     cart:new Object({
       content: [],
+      restoreCart(){
+        if (this.content.length == 0) {
+          let ibibitse = JSON.parse(localStorage.getItem("cart"))
+          if(ibibitse.length > 0){
+            for(let ikintu of ibibitse){
+              this.add(ikintu.product, ikintu.quantite)
+            }
+          }
+        }
+      },
       getTotal(){
+        this.restoreCart()
         let tot = 0;
         for (let i = 0; i < this.content.length; i++) {
           tot += this.content[i].getTotal();
@@ -54,7 +65,8 @@ export default new Vuex.Store({
       },
       remove(product_id){
         let position = this.find(product_id);
-        return this.content.splice(position, 1)
+        this.content.splice(position, 1)
+        localStorage.setItem("cart", JSON.stringify(this.content))
       },
       increase(product_id){
         let position = this.find(product_id);
@@ -63,6 +75,7 @@ export default new Vuex.Store({
           if(item.quantite<item.product.quantite)
             item.quantite++;
         }
+        localStorage.setItem("cart", JSON.stringify(this.content))
       },
       decrease(product_id){
         let position = this.find(product_id);
@@ -74,6 +87,7 @@ export default new Vuex.Store({
             this.content.splice(position,1)
           }
         }
+        localStorage.setItem("cart", JSON.stringify(this.content))
       },
       add(produit, qtt){
         if(produit.quantite==0) return;
@@ -94,6 +108,7 @@ export default new Vuex.Store({
             }
           });
           this.content.push(ikintu);
+          localStorage.setItem("cart", JSON.stringify(this.content))
         }
       },
     }),
