@@ -81,13 +81,12 @@ input[type=submit]:active, button:active{
   width: 70px;
 }
 table{
-  width: calc(100% - 15px);
+  width: 100%;
   text-align: left;
   border-collapse: collapse;
   margin: 10px 0;
 }
 .table{
-  height: calc(100vh - 110px);
   max-width: 100%;
   overflow: auto;
   margin-top: 10px;
