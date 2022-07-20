@@ -24,7 +24,7 @@
 		<input id="phone" type="text" name="" v-model="tel">
 
 		<div class="doubled">
-			<h3>PROFILE BASIC</h3>
+			<h3>PROFILE BASIC OBR</h3>
 			<hr>
 		</div>
 
@@ -209,6 +209,22 @@ export default{
 			this.nom = kiosk.nom
 			this.email = kiosk.email
 			this.website = kiosk.website
+			this.tp_type = kiosk.tp_type
+			this.tp_name = kiosk.tp_name
+			this.tp_TIN = kiosk.tp_TIN
+			this.tp_trade_number = kiosk.tp_trade_number
+			this.tp_postal_number = kiosk.tp_postal_number
+			this.tp_phone_number = kiosk.tp_phone_number
+			this.tp_address_province = kiosk.tp_address_province
+			this.tp_address_commune = kiosk.tp_address_commune
+			this.tp_address_quartier = kiosk.tp_address_quartier
+			this.tp_address_avenue = kiosk.tp_address_avenue
+			this.tp_address_number = kiosk.tp_address_number
+			this.tp_fiscal_center = kiosk.tp_fiscal_center
+			this.tp_activity_sector = kiosk.tp_activity_sector
+			this.tp_legal_form = kiosk.tp_legal_form
+			this.username = kiosk.username
+			this.password = kiosk.password
 		},
 		performAction(){
 			if(this.edition){
@@ -225,6 +241,24 @@ export default{
 			if(!!this.email) data.append("email", this.email)
 			if(!!this.logo) data.append("logo", this.logo)
 			if(!!this.website) data.append("website", this.website)
+
+			if(!!tp_type) data.append("tp_type", this.tp_type)
+			if(!!tp_name) data.append("tp_name", this.tp_name)
+			if(!!tp_TIN) data.append("tp_TIN", this.tp_TIN)
+			if(!!tp_trade_number) data.append("tp_trade_number", this.tp_trade_number)
+			if(!!tp_postal_number) data.append("tp_postal_number", this.tp_postal_number)
+			if(!!tp_phone_number) data.append("tp_phone_number", this.tp_phone_number)
+			if(!!tp_address_province) data.append("tp_address_province", this.tp_address_province)
+			if(!!tp_address_commune) data.append("tp_address_commune", this.tp_address_commune)
+			if(!!tp_address_quartier) data.append("tp_address_quartier", this.tp_address_quartier)
+			if(!!tp_address_avenue) data.append("tp_address_avenue", this.tp_address_avenue)
+			if(!!tp_address_number) data.append("tp_address_number", this.tp_address_number)
+			if(!!tp_fiscal_center) data.append("tp_fiscal_center", this.tp_fiscal_center)
+			if(!!tp_activity_sector) data.append("tp_activity_sector", this.tp_activity_sector)
+			if(!!tp_legal_form) data.append("tp_legal_form", this.tp_legal_form)
+			if(!!username) data.append("username", this.username)
+			if(!!password) data.append("password", this.password)
+
 			return data
 		},
 		updateKiosk(){
@@ -252,6 +286,23 @@ export default{
 				this.nom = null
 				this.email = null
 				this.website = null
+
+				this.tp_type = null
+				this.tp_name = null
+				this.tp_TIN = null
+				this.tp_trade_number = null
+				this.tp_postal_number = null
+				this.tp_phone_number = null
+				this.tp_address_province = null
+				this.tp_address_commune = null
+				this.tp_address_quartier = null
+				this.tp_address_avenue = null
+				this.tp_address_number = null
+				this.tp_fiscal_center = null
+				this.tp_activity_sector = null
+				this.tp_legal_form = null
+				this.username = null
+				this.password = null
 			}).catch((error) => {
 				this.displayErrorOrRefreshToken(error, this.updateKiosk)
 			})
