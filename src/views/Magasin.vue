@@ -2,36 +2,143 @@
 <div class="magasin">
 	<h2>{{ edition?"Modifier":"Ajouter" }} Magasin</h2>
 	<form @submit.prevent>
-		<div class="line">
-			<label for="nom">Nom Commercial</label>
-			<input id="nom" type="text" name="" v-model="nom">
-		</div>
-		<div class="line">
-			<label for="photo">Photo</label>
-			<div>
-				<div class="photo">
-					<img :src="logo_url" width="100" id="preview">
-				</div>
-				<input id="photo" type="file" accept=".jpeg,.jpg,.png" @change="e => loadImage(e)">
-				<div>{{ logs }}</div>
+		<label for="nom">Nom Commercial</label>
+		<input id="nom" type="text" name="" v-model="nom">
+
+		<label for="photo">Photo</label>
+		<div class="img">
+			<div class="photo" @click="chooseImg">
+				<img :src="logo_url" width="100" id="preview">
 			</div>
+			<input id="photo" type="file"
+				style="display: none;" 
+				accept=".jpeg,.jpg,.png"
+				@change="e => loadImage(e)">
+			<div>{{ logs }}</div>
 		</div>
-		<div class="line">
-			<label for="E">E-mail</label>
-			<input id="E-mail" type="text" name="" v-model="email">
+
+		<label for="E">E-mail</label>
+		<input id="E-mail" type="text" name="" v-model="email">
+
+		<label for="phone">Télephone</label>
+		<input id="phone" type="text" name="" v-model="tel">
+
+		<div class="doubled">
+			<h3>PROFILE BASIC</h3>
+			<hr>
 		</div>
-		<div class="line">
-			<label for="phone">Télephone</label>
-			<input id="phone" type="text" name="" v-model="tel">
+
+		<label position="floating">Type de contribuable</label>
+		<select v-model="tp_type">
+			<option value="1">Personne Physique</option>
+			<option value="2">Personne Morale</option>
+		</select>
+
+		<label position="floating">Nom et prénom</label>
+		<input type="text"
+			placeholder="Nom et prénom"
+			v-model="tp_name"
+			clearInput/>
+			
+		<label position="floating">NIF du contribuable</label>
+		<input type="text"
+			placeholder="NIF du contribuable"
+			v-model="tp_TIN"
+			clearInput/>
+
+		<label position="floating">Le numéro du registre de commerce</label>
+		<input type="text"
+			placeholder="Le numéro du registre de commerce"
+			v-model="tp_trade_number"
+			clearInput/>
+
+		<label position="floating">Boite postale</label>
+		<input type="text"
+			placeholder="Boite postale"
+			v-model="tp_postal_number"
+			clearInput/>
+
+		<label position="floating">Numéro de téléphone</label>
+		<input type="text"
+			placeholder="Numéro de téléphone"
+			v-model="tp_phone_number"
+			clearInput/>
+
+		<label position="floating">Province</label>
+		<input type="text"
+			placeholder="Province"
+			v-model="tp_address_province"
+			clearInput/>
+
+		<label position="floating">Commune</label>
+		<input type="text"
+			placeholder="Commune"
+			v-model="tp_address_commune"
+			clearInput/>
+
+		<label position="floating">Quartier</label>
+		<input type="text"
+			placeholder="Quartier"
+			v-model="tp_address_quartier"
+			clearInput/>
+
+		<label position="floating">Avenue</label>
+		<input type="text"
+			placeholder="Avenue"
+			v-model="tp_address_avenue"
+			clearInput/>
+
+		<label position="floating">Numero</label>
+		<input type="text"
+			placeholder="Numero"
+			v-model="tp_address_number"
+			clearInput/>
+
+		<label position="floating">Centre fiscal du contribuable</label>
+		<select v-model="tp_fiscal_center">
+			<option value="DGC">
+				Direction des Grands contribuables
+			</option>
+			<option value="DMC">
+				Direction des Moyens Contribuables
+			</option>
+			<option value="DPMC">
+				Direction des Petits et Micro Contribuables
+			</option>
+		</select>
+
+		<label position="floating">Secteur d'activité</label>
+		<input type="text"
+			placeholder="Secteur d'activité"
+			v-model="tp_activity_sector"
+			clearInput/>
+
+		<label position="floating">Forme Juridique</label>
+		<input type="text"
+			placeholder="Forme Juridique"
+			v-model="tp_legal_form"
+			clearInput/>
+		<div class="doubled">
+			<h3>INFORMATIONS DE CONNEXION OBR</h3>
+			<hr>
 		</div>
-		<div class="line">
-			<label for="website">Site Internet</label>
-			<div>
-				<input id="website" type="text" name="" v-model="website">
-				<button @click="performAction">
-					{{ edition?"Modifier":"Creer" }}
-				</button>
-			</div>
+		<label position="floating">OBR Username</label>
+		<input type="text"
+			placeholder="nom d'utilisateur OBR"
+			v-model="username"
+			clearInput/>
+
+		<label position="floating">Password</label>
+		<input type="password"
+			placeholder="Password"
+			v-model="password"/>
+		<label for="website">Site Internet</label>
+
+		<div>
+			<input id="website" type="text" name="" v-model="website">
+			<button @click="performAction">
+				{{ edition?"Modifier":"Creer" }}
+			</button>
 		</div>
 	</form>
 </div>
@@ -40,8 +147,31 @@
 export default{
 	data(){
 		return {
-			edition:false, logo:null, nom:"", tel:"", logo_url:"", email:"",
-			website:"", logs:""
+			edition:false,
+			logo:null,
+			nom:"",
+			tel:"",
+			logo_url:"",
+			email:"",
+			website:"",
+			logs:"",
+
+			tp_type: "",
+			tp_name: "",
+			tp_TIN: "",
+			tp_trade_number: "",
+			tp_postal_number: "",
+			tp_phone_number: "",
+			tp_address_province: "",
+			tp_address_commune: "",
+			tp_address_quartier: "",
+			tp_address_avenue: "",
+			tp_address_number: "",
+			tp_fiscal_center: "",
+			tp_activity_sector: "",
+			tp_legal_form: "",
+			username: "",
+			password: ""
 		}
 	},
 	watch:{
@@ -68,6 +198,9 @@ export default{
 				}
 				fr.readAsDataURL(file);
 			}
+		},
+		chooseImg(){
+			photo.click()
 		},
 		prepareEdition(){
 			let kiosk = this.getActiveKiosk()
@@ -139,25 +272,30 @@ export default{
 	overflow-y: auto;
 }
 form{
-	display: table;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-row-gap: 10px;
+	max-width: 500px;
+	align-items: flex-start;
 }
-.line{
-	display: table-row;
+.doubled{
+	grid-column: 1/-1;
 }
-.line *{
-	display: table-cell;
-	margin: 10px 0;
+form input, form select, form input, form button, .img{
+	max-width: 200px;
 }
 label{
 	padding-right: 10px;
 }
 button, input{
-	display: block!important;
 	width: 100%;
 }
+button{
+	margin-top: 10px;
+}
 .photo{
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	margin: auto;
 	border: 2px solid black;
 }
