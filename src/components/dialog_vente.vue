@@ -45,6 +45,116 @@
             <input type="number" v-model="client.tel" id="id_tel"
                list="tels" @change="setNom">
           </div>
+          <div class="field">
+            <label position="floating">Invoice Type</label>
+            <select @v-model="invoice_type">
+              <option value="FN">
+                Facture normale
+              </option>
+              <option value="RC">
+                Remboursement caution
+              </option>
+              <option value="RHF">
+                Réduction Hors Facture
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label position="floating">VAT Taxpayer</label>
+            <select @v-model="vat_taxpayer">
+              <option value="0">
+                Non assujetti à la TVA
+              </option>
+              <option value="1">
+                Assujetti à la TVA
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label position="floating">CT Taxpayer</label>
+            <select @v-model="ct_taxpayer">
+              <option value="0">
+                Non Assujetti à la taxe de consommation
+              </option>
+              <option value="1">
+                Assujetti à la taxe de consommation
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label position="floating">TL Taxpayer</label>
+            <select @v-model="tl_taxpayer">
+              <option value="0">
+                Non Assujetti au prélèvement forfaitaire libératoire
+              </option>
+              <option value="1">
+                Assujetti au prélèvement forfaitaire libératoire
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label position="floating">Payment Type</label>
+            <select @v-model="payment_type">
+              <option value="1">
+                en espèce
+              </option>
+              <option value="2">
+                banque
+              </option>
+              <option value="3">
+                à crédit
+              </option>
+              <option value="4">
+                autres
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label position="floating">Invoice Currency</label>
+            <select @v-model="invoice_currency">
+              <option value="BIF">
+                Franc Burundais
+              </option>
+              <option value="USD">
+                United State Dollar
+              </option>
+              <option value="EUR">
+                EURO
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label position="floating">Customer Name</label>
+            <input type="text" 
+              placeholder="Customer Name"
+              @v-model="customer_name"
+              clearInput/>
+          </div>
+          <div class="field">
+            <label position="floating">Customer TIN</label>
+            <input type="text" 
+              placeholder="Customer TIN"
+              @v-model="customer_TIN"
+              clearInput/>
+          </div>
+          <div class="field">
+            <label position="floating">Customer Address</label>
+            <input type="text" 
+              placeholder="Customer Address"
+              @v-model="customer_address"
+              clearInput/>
+          </div>
+          <div class="field">
+            <label position="floating">VAT Customer Payer</label>
+            <select @v-model="vat_customer_payer">
+              <option value="0">
+                Non assujetti à la TVA
+              </option>
+              <option value="1">
+                assujetti à la TVA
+              </option>
+            </select>
+          </div>
         </div>
         <div class="buttons">
           <button type="submit" value="Vendre"
@@ -62,8 +172,26 @@ export default {
   },
   data(){
     return {
-      client:{ nom:"", tel:""}, cart: this.$store.state.cart,
-      dette_p:null, logs:"", is_client_new:false, keyword:""
+      client:{ nom:"", tel:""},
+      cart: this.$store.state.cart,
+      dette_p:null,
+      logs:"",
+      is_client_new:false,
+      keyword:"",
+      
+      invoice_type: "",
+      vat_taxpayer: "",
+      ct_taxpayer: "",
+      tl_taxpayer: "",
+      vat_taxpayer: "",
+      ct_taxpayer: "",
+      tl_taxpayer: "",
+      payment_type: "",
+      invoice_currency: "",
+      customer_name: "",
+      customer_TIN: "",
+      customer_address: "",
+      vat_customer_payer: ""
     }
   },
   watch:{
