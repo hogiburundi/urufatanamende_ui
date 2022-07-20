@@ -292,7 +292,20 @@ export default {
       data = {
         "ventes":items, "payee":payee,
         "kiosk":this.getActiveKiosk().id,
-        "client": client
+        "client": client,
+        "invoice_type": this.invoice_type,
+        "vat_taxpayer": this.vat_taxpayer,
+        "ct_taxpayer": this.ct_taxpayer,
+        "tl_taxpayer": this.tl_taxpayer,
+        "vat_taxpayer": this.vat_taxpayer,
+        "ct_taxpayer": this.ct_taxpayer,
+        "tl_taxpayer": this.tl_taxpayer,
+        "payment_type": this.payment_type,
+        "invoice_currency": this.invoice_currency,
+        "customer_name": this.customer_name,
+        "customer_TIN": this.customer_TIN,
+        "customer_address": this.customer_address,
+        "vat_customer_payer": this.vat_customer_payer
       };
       if(data.ventes.length==0){
         this.$store.state.alert = {
