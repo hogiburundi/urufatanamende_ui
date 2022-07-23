@@ -280,32 +280,93 @@ export default {
       }
       let data = {};
       let items = [];
+      let tva = 0
+
       let client;
       if(!!this.client.nom){
-        client = {"nom":this.client.nom, "tel":this.client.tel}
+        client = {
+          "nom":this.client.nom,
+          "tel":this.client.tel,
+          "invoice_type": this.invoice_type,
+          "vat_taxpayer": this.vat_taxpayer,
+          "ct_taxpayer": this.ct_taxpayer,
+          "tl_taxpayer": this.tl_taxpayer,
+          "vat_taxpayer": this.vat_taxpayer,
+          "ct_taxpayer": this.ct_taxpayer,
+          "tl_taxpayer": this.tl_taxpayer,
+          "payment_type": this.payment_type,
+          "invoice_currency": this.invoice_currency,
+          "customer_name": this.customer_name,
+          "customer_TIN": this.customer_TIN,
+          "customer_address": this.customer_address,
+          "vat_customer_payer": this.vat_customer_payer
+        }
       }
 
       for(let item of this.cart.content){
-        items.unshift({"produit":item.product.id, "quantite":item.quantite})
+        tva = item.product.prix * item.product.tva /100
+        items.unshift({
+          "produit":item.product.id,
+          "quantite":item.quantite
+
+          "item_designation": item.product.nom,
+          "item_quantity": item.quantite,
+          "item_price": item.product.prix,
+          "item_ct": item.product.item_ct,
+          "item_tl": item.product.item_tl,
+          "item_price_nvat": item.product.prix - tva,
+          "vat": tva,
+          "item_price_wvat": item.product.prix + tva,
+          "item_total_amount": item.product.prix * item.quantite
+        })
       }
       let payee = this.payee<=this.cart.getTotal()?this.payee:this.cart.getTotal()
-      data = {
-        "ventes":items, "payee":payee,
-        "kiosk":this.getActiveKiosk().id,
-        "client": client,
-        "invoice_type": this.invoice_type,
-        "vat_taxpayer": this.vat_taxpayer,
-        "ct_taxpayer": this.ct_taxpayer,
-        "tl_taxpayer": this.tl_taxpayer,
-        "vat_taxpayer": this.vat_taxpayer,
-        "ct_taxpayer": this.ct_taxpayer,
-        "tl_taxpayer": this.tl_taxpayer,
-        "payment_type": this.payment_type,
-        "invoice_currency": this.invoice_currency,
-        "customer_name": this.customer_name,
-        "customer_TIN": this.customer_TIN,
-        "customer_address": this.customer_address,
-        "vat_customer_payer": this.vat_customer_payer
+
+      let date = new Date().toISOString().replace("T", " ").split(".")[0]
+      let str_date = date.replaceAll(":","").replaceAll("-","").replaceAll(" ","")
+      let year = new Date().getFullYear()
+      let invoice_number = `${id}/${year}`
+      let username = this.active_user.username
+
+      obr_data = {
+        "invoice_type": client.invoice_type,
+        "invoice_date": date,
+        "invoice_type": client.invoice_type,
+
+        "tp_type": this.active_kiosk.tp_type,
+        "tp_name": this.active_kiosk.tp_name,
+        "tp_TIN": this.active_kiosk.tp_TIN,
+        "tp_trade_number": this.active_kiosk.tp_trade_number,
+        "tp_postal_number": this.active_kiosk.tp_postal_number,
+        "tp_phone_number": this.active_kiosk.tp_phone_number,
+        "tp_address_province": this.active_kiosk.tp_address_province,
+        "tp_address_commune": this.active_kiosk.tp_address_commune,
+        "tp_address_quartier": this.active_kiosk.tp_address_quartier,
+        "tp_address_avenue": this.active_kiosk.tp_address_avenue,
+        "tp_address_number": this.active_kiosk.tp_address_number,
+        "tp_fiscal_center": this.active_kiosk.tp_fiscal_center,
+        "tp_activity_sector": this.active_kiosk.tp_activity_sector,
+        "tp_legal_form": this.active_kiosk.tp_legal_form,
+
+        "vat_taxpayer": client.vat_taxpayer,
+        "ct_taxpayer": client.ct_taxpayer,
+        "tl_taxpayer": client.tl_taxpayer,
+        "vat_taxpayer": client.vat_taxpayer,
+        "ct_taxpayer": client.ct_taxpayer,
+        "tl_taxpayer": client.tl_taxpayer,
+        "payment_type": client.payment_type,
+        "invoice_currency": client.invoice_currency,
+        "customer_name": client.customer_name,
+        "customer_TIN": client.customer_TIN,
+        "customer_address": client.customer_address,
+        "vat_customer_payer": client.vat_customer_payer
+
+        "cancelled_invoice_ref": this.cancelled_invoice_ref,
+        "invoice_ref": id,
+        "invoice_signature": `${this.NIF}/${username}/${str_date}/${invoice_number}`,
+        "invoice_signature_date": date,
+
+        "invoice_items": items
       };
       if(data.ventes.length==0){
         this.$store.state.alert = {
@@ -313,6 +374,12 @@ export default {
         }
         return;
       }
+
+
+        // "ventes":items, "payee":payee,
+        // "kiosk":this.getActiveKiosk().id,
+        // "client": client,
+        
       axios.post(this.url+"/commande/", data, this.headers)
       .then((response) => {
         this.$store.state.commande = response.data;
