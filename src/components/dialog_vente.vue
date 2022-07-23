@@ -158,7 +158,7 @@
         </div>
         <div class="buttons">
           <button type="submit" value="Vendre"
-            @click.prevent="postCommande">Soumettre</button>
+            @click.prevent="postVente">Soumettre</button>
         </div>
       </form>
     </div>
@@ -269,7 +269,7 @@ export default {
         this.logs = this.cleanString(error.response.data)
       });
     },
-    postCommande(){
+    postVente(){
       if(this.payee < this.cart.getTotal()){
         if(this.client.tel.length<7){
           this.$store.state.alert = {
@@ -374,12 +374,18 @@ export default {
         }
         return;
       }
-
-
-        // "ventes":items, "payee":payee,
-        // "kiosk":this.getActiveKiosk().id,
-        // "client": client,
-        
+      axios.post(this.url+"/addInvoice/", JSON.stringify(obr_data), this.headers)
+      .then((response) => {
+        this.postCommande(obr_data)
+      }).catch((error) => {
+        this.displayErrorOrRefreshOBR(error, this.submitVente, null)
+      })
+    },
+    postCommande(obr_data){
+      obr_data["ventes"] = items
+      obr_data["payee"] = payee
+      obr_data["kiosk"] = this.getActiveKiosk().id
+      obr_data["client"] =  client
       axios.post(this.url+"/commande/", data, this.headers)
       .then((response) => {
         this.$store.state.commande = response.data;
@@ -393,7 +399,7 @@ export default {
       }).catch((error) => {
         this.displayErrorOrRefreshToken(error, this.postCommande)
       });
-    },
+    }
   }
 };
 </script>
