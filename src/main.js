@@ -132,7 +132,9 @@ Vue.mixin({
             console.error(error)
           })
         } else {
-          this.makeToast('erreur', this.cleanString(error.response.data.msg))
+          this.$store.state.alert = {
+            type:"danger", message:this.cleanString(error.response.data.msg)
+          }
           if(typeof(elseCallback) == 'function'){
             elseCallback()
           }
