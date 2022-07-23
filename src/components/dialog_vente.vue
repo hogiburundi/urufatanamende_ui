@@ -386,7 +386,7 @@ export default {
       obr_data["payee"] = payee
       obr_data["kiosk"] = this.getActiveKiosk().id
       obr_data["client"] =  client
-      axios.post(this.url+"/commande/", data, this.headers)
+      axios.post(this.obr_url+"/commande/", data, this.obr_headers)
       .then((response) => {
         this.$store.state.commande = response.data;
         this.$store.state.commandes.unshift(response.data);

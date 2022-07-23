@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user : null,
+    obr_url:"http://41.79.226.28:8345/ebms_api",
     base_url: "http://127.0.0.1:8000",
     // base_url: "",
     api: "/api",

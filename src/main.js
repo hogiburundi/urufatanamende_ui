@@ -110,6 +110,37 @@ Vue.mixin({
         }
       }
     },
+    displayErrorOrRefreshOBR(error, callback, elseCallback){
+      if(!!error.response){
+        if(error.response.status == 403){ 
+          let username = this.$store.state.user.username
+          let password = this.$store.state.user.password
+          if(!username || !password){
+            this.$store.state.user = null;
+            return
+          }
+          let data = {
+            "username": username,
+            "password": password
+          }
+          axios.post(this.url+"/login/", JSON.stringify(data))
+          .then((response) => {
+            this.$store.state.user["access"] = response.data.result.token
+            callback()
+          }).catch((error) => {
+            this.$store.state.user = null;
+            console.error(error)
+          })
+        } else {
+          this.makeToast('erreur', this.cleanString(error.response.data.msg))
+          if(typeof(elseCallback) == 'function'){
+            elseCallback()
+          }
+        }
+      } else {
+        console.error(error)
+      }
+    },
     getActiveKiosk(){
       if(!this.$store.state.active_kiosk){
         if(!!this.active_user.kiosks && this.active_user.kiosks.length == 1){
@@ -134,6 +165,17 @@ Vue.mixin({
     },
     url(){
       return this.base_url + this.$store.state.api;
+    },
+    obr_headers(){
+      return {
+        headers:{
+          "Authorization":"Bearer "+this.$store.state.user.obr_access,
+          "Content-Type":"application/json, text/plain"
+        }
+      }
+    },
+    obr_url(){
+      return this.$store.state.url
     },
     headers(){
       return {
